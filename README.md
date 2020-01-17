@@ -4,6 +4,8 @@ A database of soundtracks for movies and games.
 
 ## Get started
 
+`npx lerna bootstrap` to install all dependencies
+
 ### Frontend
 
 ```sh
@@ -16,7 +18,7 @@ Open http://localhost:8000 in your favorite browser
 
 ### API
 
-API is only Postgraphile at this point.
+API is only PostGraphile at this point.
 
 ```sh
 $ cd packages/api
