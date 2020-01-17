@@ -6,7 +6,11 @@ A database of soundtracks for movies and games.
 
 ### Frontend
 
-`sh $ cd packages/web $ npm run start # Start BuckleScript compiler $ npm run relay:watch # In another terminal, start Relay compiler $ npm run server # In another terminal, start Webpack`
+```sh
+$ cd packages/web $ npm run start # Start BuckleScript compiler
+$ npm run relay:watch # In another terminal, start Relay compiler
+$ npm run server # In another terminal, start Webpack
+```
 
 Open http://localhost:8000 in your favorite browser
 
@@ -14,7 +18,12 @@ Open http://localhost:8000 in your favorite browser
 
 API is only Postgraphile at this point.
 
-`sh $ cd packages/api $ docker-compose up -d # Start database $ npm run migrate up # Insert tables and data $ npm run start`
+```sh
+$ cd packages/api
+$ docker-compose up -d # Start database
+$ npm run migrate up # Insert tables and data
+$ npm run start
+```
 
 ## Tech
 
