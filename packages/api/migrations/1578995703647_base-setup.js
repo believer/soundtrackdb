@@ -115,7 +115,39 @@ ALTER TABLE "track_composer" ADD FOREIGN KEY ("composer_id") REFERENCES "compose
     INSERT INTO soundtrack_composer (composer_id, soundtrack_id) VALUES (3, 3);
 
     INSERT INTO track (title, duration, soundtrack_id, track_number) VALUES
-      ('Summer Overture', 157, 3, 1);
+      ('Summer Overture', 155, 3, 1),
+      ('Party', 29, 3, 2),
+      ('Coney Island Dreaming', 65, 3, 3),
+      ('Party', 36, 3, 4),
+      ('Chocolate Charms', 26, 3, 5),
+      ('Ghosts of Things to Come', 94, 3, 6),
+      ('Dreams', 44, 3, 7),
+      ('Tense', 38, 3, 8),
+      ('Dr. Pill', 42, 3, 9),
+      ('High on Life', 11, 3, 10),
+      ('Ghosts', 82, 3, 11),
+      ('Crimin'' & Dealin''', 105, 3, 12),
+      ('Hope Overture', 151, 3, 13),
+      ('Tense', 28, 3, 14),
+      ('Bialy & Lox Conga', 45, 3, 15),
+      ('Cleaning Apartment', 86, 3, 16),
+      ('Ghosts-Falling', 71, 3, 17),
+      ('Dreams', 63, 3, 18),
+      ('Arnold', 155, 3, 19),
+      ('Marion Barfs', 142, 3, 20),
+      ('Supermarket Sweep', 134, 3, 21),
+      ('Dreams', 33, 3, 22),
+      ('Sara Goldfarb Has Left the Building', 77, 3, 23),
+      ('Bugs Got a Devilish Grin Conga', 57, 3, 24),
+      ('Winter Overture', 19, 3, 25),
+      ('Southern Hospitality', 83, 3, 26),
+      ('Fear', 147, 3, 27),
+      ('Full Tense', 64, 3, 28),
+      ('The Beginning of the End', 269, 3, 29),
+      ('Ghosts of a Future Lost', 115, 3, 30),
+      ('Meltdown', 236, 3, 31),
+      ('Lux Aeterna', 234, 3, 32),
+      ('Coney Island Low', 134, 3, 33);
   `);
 };
 
