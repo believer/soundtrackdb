@@ -105,9 +105,30 @@ ALTER TABLE "track_composer" ADD FOREIGN KEY ("composer_id") REFERENCES "compose
       (9, 3);
 
     -- 1917
-    INSERT INTO soundtrack (title, imdb_id, soundtrack_type, release_year) VALUES ('1917', 'tt8579674', 'movie', '2019-12-20');
+    INSERT INTO soundtrack (title, imdb_id, soundtrack_type, release_year) VALUES 
+      ('1917', 'tt8579674', 'movie', '2019-12-20');
+
     INSERT INTO soundtrack_composer (composer_id, soundtrack_id) VALUES (1,2);
-    INSERT INTO track (title, duration, soundtrack_id, track_number) VALUES ('1917', 77, 2, 1);
+    INSERT INTO track (title, duration, soundtrack_id, track_number) VALUES
+      ('1917', 77, 2, 1),
+      ('Up the Down Trench', 379, 2, 2),
+      ('Gehenna', 215, 2, 3),
+      ('A Scrap of Ribbon', 390, 2, 4),
+      ('The Night Window', 221, 2, 5),
+      ('The Boche', 202, 2, 6),
+      ('Tripwire', 101, 2, 7),
+      ('A Bit of Tin', 123, 2, 8),
+      ('Lockhouse', 244, 2, 9),
+      ('Blake and Schofield', 260, 2, 10),
+      ('Milk', 610, 2, 11),
+      ('Écoust-Saint-Mein', 157, 2, 12),
+      ('Les Arbres', 217, 2, 13),
+      ('Engländer', 269, 2, 14),
+      ('The Rapids', 90, 2, 15),
+      ('Croisilles Wood', 127, 2, 16),
+      ('Sixteen Hundred Men', 392, 2, 17),
+      ('Mentions in Dispatches', 224, 2, 18),
+      ('Come Back to Us', 340, 2, 19);
 
     -- Requiem for a Dream
     INSERT INTO soundtrack (title, imdb_id, soundtrack_type, release_year) VALUES ('Requiem for a Dream', 'tt0180093', 'movie', '2000-05-14');
