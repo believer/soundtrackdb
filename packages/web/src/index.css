@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply text-gray-800;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-template-960 {
+  grid-template-columns: 20px 1fr 960px 1fr 20px;
+}
+
+@media (max-width: 960px) {
+  .grid-template-960 {
+    grid-template-columns: 20px auto 1fr auto 20px;
+  }
+}
+
+.grid-column-center {
+  grid-column: 3/4;
+}

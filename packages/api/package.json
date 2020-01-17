@@ -1,0 +1,22 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate": "DATABASE_URL=postgres://postgres:example@localhost:5432/soundtrackdb node-pg-migrate",
+    "start": "postgraphile -c postgres://postgres:example@localhost:5432/soundtrackdb --classic-ids --watch --cors --enhance-graphiql"
+  },
+  "keywords": [],
+  "author": "believer <rickard.laurin@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "node-pg-migrate": "4.2.1"
+  },
+  "dependencies": {
+    "pg": "7.17.1",
+    "postgraphile": "^4.5.5"
+  }
+}
+
