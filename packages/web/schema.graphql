@@ -1130,7 +1130,7 @@ type Soundtrack implements Node {
   id: ID!
   rowId: Int!
   title: String!
-  imdbId: String!
+  imdbId: String
   soundtrackType: SoundtrackType!
   releaseYear: Datetime!
   createdAt: Datetime!
@@ -1296,7 +1296,7 @@ input SoundtrackCondition {
 input SoundtrackInput {
   rowId: Int
   title: String!
-  imdbId: String!
+  imdbId: String
   soundtrackType: SoundtrackType!
   releaseYear: Datetime!
   createdAt: Datetime

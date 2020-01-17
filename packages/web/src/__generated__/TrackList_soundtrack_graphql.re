@@ -27,6 +27,7 @@ module Types = {
 open Types;
 
 type fragment = {
+  imdbId: option(string),
   releaseYear: ReasonRelay.any,
   soundtrackType: SchemaAssets.Enum_SoundtrackType.t,
   tracksBySoundtrackId,
@@ -37,7 +38,7 @@ module FragmentConverters: {} = {};
 module Internal = {
   type fragmentRaw;
   let fragmentConverter: Js.Dict.t(array((int, string))) = [%raw
-    {| {"soundtrackType":[[2,"enum_SoundtrackType"]],"tracksBySoundtrackId_edges_node":[[0,""]],"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node":[[0,""]],"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId":[[0,""]],"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId_fullName":[[0,""]]} |}
+    {| {"imdbId":[[0,""]],"soundtrackType":[[2,"enum_SoundtrackType"]],"tracksBySoundtrackId_edges_node":[[0,""]],"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node":[[0,""]],"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId":[[0,""]],"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId_fullName":[[0,""]]} |}
   ];
   let fragmentConverterMap = {
     "enum_SoundtrackType": SchemaAssets.Enum_SoundtrackType.unwrap,
@@ -75,6 +76,13 @@ return {
   "metadata": null,
   "argumentDefinitions": [],
   "selections": [
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "imdbId",
+      "args": null,
+      "storageKey": null
+    },
     {
       "kind": "ScalarField",
       "alias": null,

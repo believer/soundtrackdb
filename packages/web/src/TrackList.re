@@ -1,6 +1,7 @@
 module Fragment = [%relay.fragment
   {|
   fragment TrackList_soundtrack on Soundtrack {
+    imdbId
     releaseYear
     soundtrackType
     tracksBySoundtrackId(orderBy: TRACK_NUMBER_ASC) {
@@ -60,6 +61,14 @@ let make = (~query as queryRef) => {
            })
          ->Duration.make
          ->React.string}
+        {switch (trackList.imdbId) {
+         | Some(id) =>
+           <Link.External
+             className="ml-2" href={"https://www.imdb.com/title/" ++ id}>
+             {React.string("IMDb")}
+           </Link.External>
+         | None => React.null
+         }}
       </div>
       <div>
         {switch (trackList.soundtrackType) {

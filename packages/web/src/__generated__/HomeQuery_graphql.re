@@ -148,6 +148,13 @@ return {
                   {
                     "kind": "ScalarField",
                     "alias": null,
+                    "name": "imdbId",
+                    "args": null,
+                    "storageKey": null
+                  },
+                  {
+                    "kind": "ScalarField",
+                    "alias": null,
                     "name": "releaseYear",
                     "args": null,
                     "storageKey": null
@@ -292,7 +299,7 @@ return {
     "operationKind": "query",
     "name": "HomeQuery",
     "id": null,
-    "text": "query HomeQuery {\n  ...Soundtracks_query\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposersBySoundtrackId {\n    edges {\n      node {\n        composerByComposerId {\n          fullName\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment Soundtracks_query on Query {\n  allSoundtracks(orderBy: TITLE_ASC) {\n    edges {\n      node {\n        id\n        title\n        ...TrackList_soundtrack\n        ...Composer_soundtrack\n      }\n    }\n  }\n}\n\nfragment TrackList_soundtrack on Soundtrack {\n  releaseYear\n  soundtrackType\n  tracksBySoundtrackId(orderBy: TRACK_NUMBER_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        title\n        duration\n        trackNumber\n        trackComposersByTrackId {\n          totalCount\n          edges {\n            node {\n              composerByComposerId {\n                fullName\n                id\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+    "text": "query HomeQuery {\n  ...Soundtracks_query\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposersBySoundtrackId {\n    edges {\n      node {\n        composerByComposerId {\n          fullName\n          id\n        }\n      }\n    }\n  }\n}\n\nfragment Soundtracks_query on Query {\n  allSoundtracks(orderBy: TITLE_ASC) {\n    edges {\n      node {\n        id\n        title\n        ...TrackList_soundtrack\n        ...Composer_soundtrack\n      }\n    }\n  }\n}\n\nfragment TrackList_soundtrack on Soundtrack {\n  imdbId\n  releaseYear\n  soundtrackType\n  tracksBySoundtrackId(orderBy: TRACK_NUMBER_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        title\n        duration\n        trackNumber\n        trackComposersByTrackId {\n          totalCount\n          edges {\n            node {\n              composerByComposerId {\n                fullName\n                id\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
