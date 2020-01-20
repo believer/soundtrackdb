@@ -22,7 +22,8 @@
     "reason-relay",
     "bs-fetch",
     "bs-css",
-    "re-classnames"
+    "re-classnames",
+    "re-formality"
   ],
   "warnings": {
     "number": "+A-4-9-40-42-48-102",

@@ -6,6 +6,7 @@ let make = () => {
   switch (route) {
   | Some(Index) => <Home />
   | Some(Composer(id)) => <ComposerById id />
+  | Some(AddSoundtrack) => <AddSoundtrack />
   | None => <div> {React.string("404")} </div>
   };
 };
