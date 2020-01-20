@@ -1,5 +1,5 @@
 {
-  "name": "reason-react-examples",
+  "name": "soundtrackdb",
   "reason": {
     "react-jsx": 3
   },
@@ -23,5 +23,9 @@
     "bs-fetch",
     "bs-css",
     "re-classnames"
-  ]
+  ],
+  "warnings": {
+    "number": "+A-4-9-40-42-48-102",
+    "error": "+A-3-40-42-44-102"
+  }
 }
