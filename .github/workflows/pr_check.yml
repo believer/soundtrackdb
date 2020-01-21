@@ -26,7 +26,7 @@ jobs:
     - name: Run tests and linting
       run: |
         npm i -g lerna
-        lerna boostrap
+        lerna bootstrap
         npm test
       env:
         CI: true
