@@ -30,7 +30,7 @@ open Types;
 
 type fragment = {
   imdbId: option(string),
-  releaseYear: ReasonRelay.any,
+  releaseYear: string,
   soundtrackType: enum_SoundtrackType,
   tracksBySoundtrackId,
 };

@@ -11,8 +11,8 @@ module Types = {
     duration: int,
     soundtrackId: int,
     trackNumber: int,
-    createdAt: option(ReasonRelay.any),
-    updatedAt: option(ReasonRelay.any),
+    createdAt: option(string),
+    updatedAt: option(string),
   };
   type createTrackInput = {
     clientMutationId: option(string),

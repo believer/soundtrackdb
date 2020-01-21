@@ -15,9 +15,9 @@ module Types = {
     title: string,
     imdbId: option(string),
     soundtrackType: enum_SoundtrackType,
-    releaseYear: ReasonRelay.any,
-    createdAt: option(ReasonRelay.any),
-    updatedAt: option(ReasonRelay.any),
+    releaseYear: string,
+    createdAt: option(string),
+    updatedAt: option(string),
   };
   type createSoundtrackInput = {
     clientMutationId: option(string),
