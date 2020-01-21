@@ -7,6 +7,11 @@ body {
   @apply text-gray-800;
 }
 
+:root {
+  --t4: 1rem;
+  --t8: 2rem;
+}
+
 .grid {
   display: grid;
 }
@@ -23,4 +28,12 @@ body {
 
 .grid-column-center {
   grid-column: 3/4;
+}
+
+.grid-template-2-column {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-gap-4 {
+  grid-column-gap: var(--t4);
 }
