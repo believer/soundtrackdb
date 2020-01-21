@@ -1,6 +1,9 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "test": "lerna run test"
+  },
   "devDependencies": {
     "@semantic-release/changelog": "3.0.6",
     "@semantic-release/commit-analyzer": "7.0.0",
