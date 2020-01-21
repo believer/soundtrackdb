@@ -3,7 +3,7 @@ module Text = {
   let make =
       (
         ~error: option(Belt.Result.t(Formality.ok, string)),
-        ~label,
+        ~label as _,
         ~name,
         ~onChange,
         ~placeholder=?,
@@ -11,8 +11,7 @@ module Text = {
         ~value,
         ~readOnly=false,
       ) => {
-    <label>
-      label->React.string
+    <div>
       <input
         className="w-full py-3 text-base bg-transparent border-0 border-b
         border-silver focus:border-eminence transition-border transition"
@@ -29,6 +28,6 @@ module Text = {
        | Some(Ok(NoValue))
        | None => React.null
        }}
-    </label>;
+    </div>;
   };
 };

@@ -3,37 +3,34 @@
 module Unions = {};
 
 module Types = {
-  type soundtrack = {
-    id: string,
-    rowId: int,
-  };
-  type createSoundtrack = {soundtrack: option(soundtrack)};
-  type soundtrackInput = {
+  type track = {id: string};
+  type createTrack = {track: option(track)};
+  type trackInput = {
     rowId: option(int),
     title: string,
-    imdbId: option(string),
-    soundtrackType: SchemaAssets.Enum_SoundtrackType.t,
-    releaseYear: ReasonRelay.any,
+    duration: int,
+    soundtrackId: int,
+    trackNumber: int,
     createdAt: option(ReasonRelay.any),
     updatedAt: option(ReasonRelay.any),
   };
-  type createSoundtrackInput = {
+  type createTrackInput = {
     clientMutationId: option(string),
-    soundtrack: soundtrackInput,
+    track: trackInput,
   };
 };
 
 open Types;
 
-type response = {createSoundtrack: option(createSoundtrack)};
-type variables = {input: createSoundtrackInput};
+type response = {createTrack: option(createTrack)};
+type variables = {input: createTrackInput};
 
 module FragmentConverters: {} = {};
 
 module Internal = {
   type wrapResponseRaw;
   let wrapResponseConverter: Js.Dict.t(array((int, string))) = [%raw
-    {| {"createSoundtrack":[[0,""]],"createSoundtrack_soundtrack":[[0,""]]} |}
+    {| {"createTrack":[[0,""]],"createTrack_track":[[0,""]]} |}
   ];
   let wrapResponseConverterMap = ();
   let convertWrapResponse = v =>
@@ -46,7 +43,7 @@ module Internal = {
 
   type responseRaw;
   let responseConverter: Js.Dict.t(array((int, string))) = [%raw
-    {| {"createSoundtrack":[[0,""]],"createSoundtrack_soundtrack":[[0,""]]} |}
+    {| {"createTrack":[[0,""]],"createTrack_track":[[0,""]]} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -76,7 +73,7 @@ var v0 = [
   {
     "kind": "LocalArgument",
     "name": "input",
-    "type": "CreateSoundtrackInput!",
+    "type": "CreateTrackInput!",
     "defaultValue": null
   }
 ],
@@ -84,7 +81,7 @@ v1 = [
   {
     "kind": "LinkedField",
     "alias": null,
-    "name": "createSoundtrack",
+    "name": "createTrack",
     "storageKey": null,
     "args": [
       {
@@ -93,29 +90,22 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "CreateSoundtrackPayload",
+    "concreteType": "CreateTrackPayload",
     "plural": false,
     "selections": [
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "soundtrack",
+        "name": "track",
         "storageKey": null,
         "args": null,
-        "concreteType": "Soundtrack",
+        "concreteType": "Track",
         "plural": false,
         "selections": [
           {
             "kind": "ScalarField",
             "alias": null,
             "name": "id",
-            "args": null,
-            "storageKey": null
-          },
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "rowId",
             "args": null,
             "storageKey": null
           }
@@ -128,7 +118,7 @@ return {
   "kind": "Request",
   "fragment": {
     "kind": "Fragment",
-    "name": "AddSoundtrackMutation",
+    "name": "AddSoundtrackAddTrackMutation",
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
@@ -136,15 +126,15 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "AddSoundtrackMutation",
+    "name": "AddSoundtrackAddTrackMutation",
     "argumentDefinitions": (v0/*: any*/),
     "selections": (v1/*: any*/)
   },
   "params": {
     "operationKind": "mutation",
-    "name": "AddSoundtrackMutation",
+    "name": "AddSoundtrackAddTrackMutation",
     "id": null,
-    "text": "mutation AddSoundtrackMutation(\n  $input: CreateSoundtrackInput!\n) {\n  createSoundtrack(input: $input) {\n    soundtrack {\n      id\n      rowId\n    }\n  }\n}\n",
+    "text": "mutation AddSoundtrackAddTrackMutation(\n  $input: CreateTrackInput!\n) {\n  createTrack(input: $input) {\n    track {\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
