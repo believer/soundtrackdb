@@ -22,12 +22,10 @@ open Types;
 type response = {createSoundtrackComposer: option(createSoundtrackComposer)};
 type variables = {input: createSoundtrackComposerInput};
 
-module FragmentConverters: {} = {};
-
 module Internal = {
   type wrapResponseRaw;
-  let wrapResponseConverter: Js.Dict.t(array((int, string))) = [%raw
-    {| {"createSoundtrackComposer":[[0,""]],"createSoundtrackComposer_soundtrackComposer":[[0,""]]} |}
+  let wrapResponseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
+    {| {"createSoundtrackComposer":{"n":""},"createSoundtrackComposer_soundtrackComposer":{"n":""}} |}
   ];
   let wrapResponseConverterMap = ();
   let convertWrapResponse = v =>
@@ -39,8 +37,8 @@ module Internal = {
       );
 
   type responseRaw;
-  let responseConverter: Js.Dict.t(array((int, string))) = [%raw
-    {| {"createSoundtrackComposer":[[0,""]],"createSoundtrackComposer_soundtrackComposer":[[0,""]]} |}
+  let responseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
+    {| {"createSoundtrackComposer":{"n":""},"createSoundtrackComposer_soundtrackComposer":{"n":""}} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -51,7 +49,7 @@ module Internal = {
         Js.undefined,
       );
 
-  let variablesConverter: Js.Dict.t(array((int, string))) = [%raw {| {} |}];
+  let variablesConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw {| {} |}];
   let variablesConverterMap = ();
   let convertVariables = v =>
     v
@@ -61,6 +59,8 @@ module Internal = {
         Js.undefined,
       );
 };
+
+module Utils = {};
 
 type operationType = ReasonRelay.mutationNode;
 

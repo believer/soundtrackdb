@@ -16,12 +16,10 @@ open Types;
 
 type fragment = {soundtrackComposersBySoundtrackId};
 
-module FragmentConverters: {} = {};
-
 module Internal = {
   type fragmentRaw;
-  let fragmentConverter: Js.Dict.t(array((int, string))) = [%raw
-    {| {"soundtrackComposersBySoundtrackId_edges_node":[[0,""]],"soundtrackComposersBySoundtrackId_edges_node_composerByComposerId":[[0,""]],"soundtrackComposersBySoundtrackId_edges_node_composerByComposerId_fullName":[[0,""]]} |}
+  let fragmentConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
+    {| {"soundtrackComposersBySoundtrackId_edges_node":{"n":""},"soundtrackComposersBySoundtrackId_edges_node_composerByComposerId":{"n":""},"soundtrackComposersBySoundtrackId_edges_node_composerByComposerId_fullName":{"n":""}} |}
   ];
   let fragmentConverterMap = ();
   let convertFragment = v =>
@@ -38,6 +36,8 @@ type fragmentRef;
 type fragmentRefSelector('a) =
   {.. "__$fragment_ref__Composer_soundtrack": t} as 'a;
 external getFragmentRef: fragmentRefSelector('a) => fragmentRef = "%identity";
+
+module Utils = {};
 
 type operationType = ReasonRelay.fragmentNode;
 

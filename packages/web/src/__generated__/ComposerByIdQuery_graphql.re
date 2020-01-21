@@ -23,12 +23,10 @@ type refetchVariables = {id: option(string)};
 let makeRefetchVariables = (~id=?, ()): refetchVariables => {id: id};
 type variables = {id: string};
 
-module FragmentConverters: {} = {};
-
 module Internal = {
   type responseRaw;
-  let responseConverter: Js.Dict.t(array((int, string))) = [%raw
-    {| {"composer":[[0,""]],"composer_fullName":[[0,""]],"composer_soundtrackComposersByComposerId_edges_node":[[0,""]],"composer_soundtrackComposersByComposerId_edges_node_soundtrackBySoundtrackId":[[0,""]]} |}
+  let responseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
+    {| {"composer":{"n":""},"composer_fullName":{"n":""},"composer_soundtrackComposersByComposerId_edges_node":{"n":""},"composer_soundtrackComposersByComposerId_edges_node_soundtrackBySoundtrackId":{"n":""}} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -39,7 +37,7 @@ module Internal = {
         Js.undefined,
       );
 
-  let variablesConverter: Js.Dict.t(array((int, string))) = [%raw {| {} |}];
+  let variablesConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw {| {} |}];
   let variablesConverterMap = ();
   let convertVariables = v =>
     v
@@ -49,6 +47,8 @@ module Internal = {
         Js.undefined,
       );
 };
+
+module Utils = {};
 
 type operationType = ReasonRelay.queryNode;
 

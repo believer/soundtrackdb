@@ -11,6 +11,6 @@ let make = () => {
   let query = Query.use(~variables=(), ());
 
   <div className="grid grid-template-960 mt-12">
-    <Soundtracks query={query->Query.unwrapFragment_response} />
+    <Soundtracks query={query.getFragmentRefs()} />
   </div>;
 };
