@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/believer/soundtrackdb/compare/v1.1.0...v1.2.0) (2020-01-22)
+
+
+### Features
+
+* add soundtrack ([#1](https://github.com/believer/soundtrackdb/issues/1)) ([5780030](https://github.com/believer/soundtrackdb/commit/5780030b6a7e5c26026f36f5694baca0ca0af82e))
+
 # [1.1.0](https://github.com/believer/soundtrackdb/compare/v1.0.0...v1.1.0) (2020-01-17)
 
 
