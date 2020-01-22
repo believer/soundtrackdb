@@ -1,9 +1,9 @@
-external datetimeToString: ReasonRelay.any => string = "%identity";
+external fromDateTime: ReasonRelay.any => string = "%identity";
+external toDateTime: string => ReasonRelay.any = "%identity";
 
 [@react.component]
 let make = (~date) => {
-  let year =
-    date |> datetimeToString |> Js.Date.fromString |> Js.Date.getFullYear;
+  let year = date |> fromDateTime |> Js.Date.fromString |> Js.Date.getFullYear;
 
   year->Belt.Float.toString->React.string;
 };

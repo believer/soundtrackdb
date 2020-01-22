@@ -56,6 +56,33 @@ exports.up = pgm => {
       ('Howl', 205, 5, 23),
       ('Panic Attack', 214, 5, 24),
       ('The Story Of A Girl', 192, 5, 25);
+
+    -- White Oleander
+    INSERT INTO public.soundtrack (title, imdb_id, soundtrack_type, release_year)
+    VALUES ('White Oleander', 'tt0283139', 'movie', '2002-09-06');
+
+    INSERT INTO soundtrack_composer (composer_id, soundtrack_id) VALUES (1, 6);
+
+    INSERT INTO public.track (title, duration, soundtrack_id, track_number) VALUES
+      ( 'Oleander Time', 262, 6, 1),
+      ( 'Not My Type', 150, 6, 2),
+      ( 'Starr', 64, 6, 3),
+      ( 'Durer Rabitt', 84, 6, 4),
+      ( 'Meteor Shower', 98, 6, 5),
+      ( 'Plain Denim Dress', 146, 6, 6),
+      ( 'Broken People', 114, 6, 7),
+      ( 'Fire Season', 85, 6, 8),
+      ( 'Claire', 75, 6, 9),
+      ( 'Rollercoaster', 137, 6, 10),
+      ( 'Rena', 63, 6, 11),
+      ( 'Milk Flowers', 83, 6, 12),
+      ( 'La Puta Del Diablo', 86, 6, 13),
+      ( 'Bullet', 49, 6, 14),
+      ( 'DMSO', 141, 6, 15),
+      ( 'Uncle Ray', 50, 6, 16),
+      ( 'Every Insult', 71, 6, 17),
+      ( 'Shadow Puppet', 120, 6, 18),
+      ( 'White Oleander', 200, 6, 19);
   `);
 };
 

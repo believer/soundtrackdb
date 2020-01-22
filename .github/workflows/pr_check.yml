@@ -23,8 +23,21 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Run tests and linting
+    - name: Install dependencies
       run: |
-        npm ci
+        npm i -g lerna
+        lerna bootstrap
+      env:
+        CI: true
+
+    - name: Build apps
+      run: |
+        lerna run build
+      env:
+        CI: true
+
+    - name: Run tests
+      run: |
+        npm test
       env:
         CI: true

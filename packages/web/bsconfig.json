@@ -3,10 +3,16 @@
   "reason": {
     "react-jsx": 3
   },
-  "sources": {
-    "dir": "src",
-    "subdirs": true
-  },
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    },
+    {
+      "dir": "__tests__",
+      "type": "dev"
+    }
+  ],
   "bsc-flags": ["-bs-super-errors", "-bs-no-version-header"],
   "package-specs": [
     {
@@ -16,14 +22,17 @@
   "suffix": ".bs.js",
   "namespace": true,
   "refmt": 3,
-  "ppx-flags": ["reason-relay/ppx"],
+  "ppx-flags": ["reason-relay/ppx", "decco/ppx"],
   "bs-dependencies": [
     "reason-react",
     "reason-relay",
     "bs-fetch",
     "bs-css",
-    "re-classnames"
+    "re-classnames",
+    "re-formality",
+    "decco"
   ],
+  "bs-dev-dependencies": ["@glennsl/bs-jest"],
   "warnings": {
     "number": "+A-4-9-40-42-48-102",
     "error": "+A-3-40-42-44-102"
