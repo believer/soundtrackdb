@@ -1,5 +1,7 @@
 /* @generated */
 
+type enum_SoundtrackType = [ | `GAME | `MOVIE | `FUTURE_ADDED_VALUE__];
+
 module Unions = {};
 
 module Types = {
@@ -12,10 +14,10 @@ module Types = {
     rowId: option(int),
     title: string,
     imdbId: option(string),
-    soundtrackType: SchemaAssets.Enum_SoundtrackType.t,
-    releaseYear: ReasonRelay.any,
-    createdAt: option(ReasonRelay.any),
-    updatedAt: option(ReasonRelay.any),
+    soundtrackType: enum_SoundtrackType,
+    releaseYear: string,
+    createdAt: option(string),
+    updatedAt: option(string),
   };
   type createSoundtrackInput = {
     clientMutationId: option(string),
@@ -28,12 +30,10 @@ open Types;
 type response = {createSoundtrack: option(createSoundtrack)};
 type variables = {input: createSoundtrackInput};
 
-module FragmentConverters: {} = {};
-
 module Internal = {
   type wrapResponseRaw;
-  let wrapResponseConverter: Js.Dict.t(array((int, string))) = [%raw
-    {| {"createSoundtrack":[[0,""]],"createSoundtrack_soundtrack":[[0,""]]} |}
+  let wrapResponseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
+    {| {"createSoundtrack":{"n":""},"createSoundtrack_soundtrack":{"n":""}} |}
   ];
   let wrapResponseConverterMap = ();
   let convertWrapResponse = v =>
@@ -45,8 +45,8 @@ module Internal = {
       );
 
   type responseRaw;
-  let responseConverter: Js.Dict.t(array((int, string))) = [%raw
-    {| {"createSoundtrack":[[0,""]],"createSoundtrack_soundtrack":[[0,""]]} |}
+  let responseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
+    {| {"createSoundtrack":{"n":""},"createSoundtrack_soundtrack":{"n":""}} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -57,7 +57,7 @@ module Internal = {
         Js.undefined,
       );
 
-  let variablesConverter: Js.Dict.t(array((int, string))) = [%raw {| {} |}];
+  let variablesConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw {| {} |}];
   let variablesConverterMap = ();
   let convertVariables = v =>
     v
@@ -67,6 +67,8 @@ module Internal = {
         Js.undefined,
       );
 };
+
+module Utils = {};
 
 type operationType = ReasonRelay.mutationNode;
 

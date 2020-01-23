@@ -6,8 +6,13 @@ module Types = {
   type node = {
     id: string,
     title: string,
-    __wrappedFragment__TrackList_soundtrack: ReasonRelay.wrappedFragmentRef,
-    __wrappedFragment__Composer_soundtrack: ReasonRelay.wrappedFragmentRef,
+    getFragmentRefs:
+      unit =>
+      {
+        .
+        "__$fragment_ref__TrackList_soundtrack": TrackList_soundtrack_graphql.t,
+        "__$fragment_ref__Composer_soundtrack": Composer_soundtrack_graphql.t,
+      },
   };
   type edges = {node: option(node)};
   type allSoundtracks = {edges: array(edges)};
@@ -17,29 +22,10 @@ open Types;
 
 type fragment = {allSoundtracks: option(allSoundtracks)};
 
-module FragmentConverters: {
-  let unwrapFragment_node:
-    node =>
-    {
-      .
-      "__$fragment_ref__TrackList_soundtrack": TrackList_soundtrack_graphql.t,
-      "__$fragment_ref__Composer_soundtrack": Composer_soundtrack_graphql.t,
-    };
-} = {
-  external unwrapFragment_node:
-    node =>
-    {
-      .
-      "__$fragment_ref__TrackList_soundtrack": TrackList_soundtrack_graphql.t,
-      "__$fragment_ref__Composer_soundtrack": Composer_soundtrack_graphql.t,
-    } =
-    "%identity";
-};
-
 module Internal = {
   type fragmentRaw;
-  let fragmentConverter: Js.Dict.t(array((int, string))) = [%raw
-    {| {"allSoundtracks":[[0,""]],"allSoundtracks_edges_node":[[0,""]]} |}
+  let fragmentConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
+    {| {"allSoundtracks":{"n":""},"allSoundtracks_edges_node":{"n":"","f":""}} |}
   ];
   let fragmentConverterMap = ();
   let convertFragment = v =>
@@ -56,6 +42,8 @@ type fragmentRef;
 type fragmentRefSelector('a) =
   {.. "__$fragment_ref__Soundtracks_query": t} as 'a;
 external getFragmentRef: fragmentRefSelector('a) => fragmentRef = "%identity";
+
+module Utils = {};
 
 type operationType = ReasonRelay.fragmentNode;
 

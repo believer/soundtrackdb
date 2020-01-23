@@ -17,12 +17,10 @@ open Types;
 type response = {allComposers: option(allComposers)};
 type variables = unit;
 
-module FragmentConverters: {} = {};
-
 module Internal = {
   type responseRaw;
-  let responseConverter: Js.Dict.t(array((int, string))) = [%raw
-    {| {"allComposers":[[0,""]],"allComposers_edges_node":[[0,""]],"allComposers_edges_node_fullName":[[0,""]]} |}
+  let responseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
+    {| {"allComposers":{"n":""},"allComposers_edges_node":{"n":""},"allComposers_edges_node_fullName":{"n":""}} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -33,7 +31,7 @@ module Internal = {
         Js.undefined,
       );
 
-  let variablesConverter: Js.Dict.t(array((int, string))) = [%raw {| {} |}];
+  let variablesConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw {| {} |}];
   let variablesConverterMap = ();
   let convertVariables = v =>
     v
@@ -43,6 +41,8 @@ module Internal = {
         Js.undefined,
       );
 };
+
+module Utils = {};
 
 type operationType = ReasonRelay.queryNode;
 

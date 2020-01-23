@@ -28,10 +28,8 @@ let make = (~query as queryRef) => {
            | Some({title, id} as node) =>
              <div className="mb-10" key=id>
                <h2 className="text-xl font-black"> {React.string(title)} </h2>
-               <Composer query={node->TrackListFragment.unwrapFragment_node} />
-               <TrackList
-                 query={node->TrackListFragment.unwrapFragment_node}
-               />
+               <Composer query={node.getFragmentRefs()} />
+               <TrackList query={node.getFragmentRefs()} />
              </div>
            | None => React.null
            }

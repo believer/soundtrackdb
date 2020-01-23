@@ -11,8 +11,8 @@ module Types = {
     duration: int,
     soundtrackId: int,
     trackNumber: int,
-    createdAt: option(ReasonRelay.any),
-    updatedAt: option(ReasonRelay.any),
+    createdAt: option(string),
+    updatedAt: option(string),
   };
   type createTrackInput = {
     clientMutationId: option(string),
@@ -25,12 +25,10 @@ open Types;
 type response = {createTrack: option(createTrack)};
 type variables = {input: createTrackInput};
 
-module FragmentConverters: {} = {};
-
 module Internal = {
   type wrapResponseRaw;
-  let wrapResponseConverter: Js.Dict.t(array((int, string))) = [%raw
-    {| {"createTrack":[[0,""]],"createTrack_track":[[0,""]]} |}
+  let wrapResponseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
+    {| {"createTrack":{"n":""},"createTrack_track":{"n":""}} |}
   ];
   let wrapResponseConverterMap = ();
   let convertWrapResponse = v =>
@@ -42,8 +40,8 @@ module Internal = {
       );
 
   type responseRaw;
-  let responseConverter: Js.Dict.t(array((int, string))) = [%raw
-    {| {"createTrack":[[0,""]],"createTrack_track":[[0,""]]} |}
+  let responseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
+    {| {"createTrack":{"n":""},"createTrack_track":{"n":""}} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -54,7 +52,7 @@ module Internal = {
         Js.undefined,
       );
 
-  let variablesConverter: Js.Dict.t(array((int, string))) = [%raw {| {} |}];
+  let variablesConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw {| {} |}];
   let variablesConverterMap = ();
   let convertVariables = v =>
     v
@@ -64,6 +62,8 @@ module Internal = {
         Js.undefined,
       );
 };
+
+module Utils = {};
 
 type operationType = ReasonRelay.mutationNode;
 

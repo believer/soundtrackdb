@@ -211,7 +211,7 @@ let make = () => {
                 title: state.title,
                 imdbId: Some(state.imdbId),
                 soundtrackType: SoundtrackEnum.make(state.soundtrackType),
-                releaseYear: state.releaseDate->DateTime.toDateTime,
+                releaseYear: state.releaseDate,
                 createdAt: None,
                 rowId: None,
                 updatedAt: None,
