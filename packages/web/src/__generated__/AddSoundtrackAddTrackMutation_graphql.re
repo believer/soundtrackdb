@@ -3,8 +3,6 @@
 module Unions = {};
 
 module Types = {
-  type track = {id: string};
-  type createTrack = {track: option(track)};
   type trackInput = {
     rowId: option(int),
     title: string,
@@ -18,6 +16,8 @@ module Types = {
     clientMutationId: option(string),
     track: trackInput,
   };
+  type track = {id: string};
+  type createTrack = {track: option(track)};
 };
 
 open Types;
@@ -27,8 +27,8 @@ type variables = {input: createTrackInput};
 
 module Internal = {
   type wrapResponseRaw;
-  let wrapResponseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
-    {| {"createTrack":{"n":""},"createTrack_track":{"n":""}} |}
+  let wrapResponseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {"__root":{"createTrack":{"n":""},"createTrack_track":{"n":""}}} |}
   ];
   let wrapResponseConverterMap = ();
   let convertWrapResponse = v =>
@@ -40,8 +40,8 @@ module Internal = {
       );
 
   type responseRaw;
-  let responseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
-    {| {"createTrack":{"n":""},"createTrack_track":{"n":""}} |}
+  let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {"__root":{"createTrack":{"n":""},"createTrack_track":{"n":""}}} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -52,7 +52,9 @@ module Internal = {
         Js.undefined,
       );
 
-  let variablesConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw {| {} |}];
+  let variablesConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {"__root":{"input":{"r":"CreateTrackInput"}},"TrackInput":{"rowId":{"n":""},"createdAt":{"n":""},"updatedAt":{"n":""}},"CreateTrackInput":{"clientMutationId":{"n":""},"track":{"r":"TrackInput"}}} |}
+  ];
   let variablesConverterMap = ();
   let convertVariables = v =>
     v

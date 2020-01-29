@@ -1,16 +1,3 @@
-// Hack to make GraphQL interpret "MOVIE" as `MOVIE
-// when sending mutation
-module SoundtrackEnum: {
-  let make:
-    SchemaAssets.Enum_SoundtrackType.t => SchemaAssets.Enum_SoundtrackType.t;
-} = {
-  open SchemaAssets.Enum_SoundtrackType;
-
-  external __wrap: wrapped => t = "%identity";
-
-  let make = t => wrap(t) |> __wrap;
-};
-
 module AllComposers = [%relay.query
   {|
    query AddSoundtrackQuery {
@@ -210,7 +197,7 @@ let make = () => {
               soundtrack: {
                 title: state.title,
                 imdbId: Some(state.imdbId),
-                soundtrackType: SoundtrackEnum.make(state.soundtrackType),
+                soundtrackType: state.soundtrackType,
                 releaseYear: state.releaseDate,
                 createdAt: None,
                 rowId: None,

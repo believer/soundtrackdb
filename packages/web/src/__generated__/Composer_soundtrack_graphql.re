@@ -18,8 +18,8 @@ type fragment = {soundtrackComposersBySoundtrackId};
 
 module Internal = {
   type fragmentRaw;
-  let fragmentConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
-    {| {"soundtrackComposersBySoundtrackId_edges_node":{"n":""},"soundtrackComposersBySoundtrackId_edges_node_composerByComposerId":{"n":""},"soundtrackComposersBySoundtrackId_edges_node_composerByComposerId_fullName":{"n":""}} |}
+  let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {"__root":{"soundtrackComposersBySoundtrackId_edges_node":{"n":""},"soundtrackComposersBySoundtrackId_edges_node_composerByComposerId":{"n":""},"soundtrackComposersBySoundtrackId_edges_node_composerByComposerId_fullName":{"n":""}}} |}
   ];
   let fragmentConverterMap = ();
   let convertFragment = v =>

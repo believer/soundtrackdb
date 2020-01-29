@@ -3,10 +3,6 @@
 module Unions = {};
 
 module Types = {
-  type soundtrackComposer = {composerId: int};
-  type createSoundtrackComposer = {
-    soundtrackComposer: option(soundtrackComposer),
-  };
   type soundtrackComposerInput = {
     composerId: int,
     soundtrackId: int,
@@ -14,6 +10,10 @@ module Types = {
   type createSoundtrackComposerInput = {
     clientMutationId: option(string),
     soundtrackComposer: soundtrackComposerInput,
+  };
+  type soundtrackComposer = {composerId: int};
+  type createSoundtrackComposer = {
+    soundtrackComposer: option(soundtrackComposer),
   };
 };
 
@@ -24,8 +24,8 @@ type variables = {input: createSoundtrackComposerInput};
 
 module Internal = {
   type wrapResponseRaw;
-  let wrapResponseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
-    {| {"createSoundtrackComposer":{"n":""},"createSoundtrackComposer_soundtrackComposer":{"n":""}} |}
+  let wrapResponseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {"__root":{"createSoundtrackComposer":{"n":""},"createSoundtrackComposer_soundtrackComposer":{"n":""}}} |}
   ];
   let wrapResponseConverterMap = ();
   let convertWrapResponse = v =>
@@ -37,8 +37,8 @@ module Internal = {
       );
 
   type responseRaw;
-  let responseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
-    {| {"createSoundtrackComposer":{"n":""},"createSoundtrackComposer_soundtrackComposer":{"n":""}} |}
+  let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {"__root":{"createSoundtrackComposer":{"n":""},"createSoundtrackComposer_soundtrackComposer":{"n":""}}} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -49,7 +49,9 @@ module Internal = {
         Js.undefined,
       );
 
-  let variablesConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw {| {} |}];
+  let variablesConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {"__root":{"input":{"r":"CreateSoundtrackComposerInput"}},"SoundtrackComposerInput":{},"CreateSoundtrackComposerInput":{"clientMutationId":{"n":""},"soundtrackComposer":{"r":"SoundtrackComposerInput"}}} |}
+  ];
   let variablesConverterMap = ();
   let convertVariables = v =>
     v

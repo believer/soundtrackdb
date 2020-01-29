@@ -25,8 +25,8 @@ type variables = {id: string};
 
 module Internal = {
   type responseRaw;
-  let responseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
-    {| {"composer":{"n":""},"composer_fullName":{"n":""},"composer_soundtrackComposersByComposerId_edges_node":{"n":""},"composer_soundtrackComposersByComposerId_edges_node_soundtrackBySoundtrackId":{"n":""}} |}
+  let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {"__root":{"composer":{"n":""},"composer_fullName":{"n":""},"composer_soundtrackComposersByComposerId_edges_node":{"n":""},"composer_soundtrackComposersByComposerId_edges_node_soundtrackBySoundtrackId":{"n":""}}} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -37,7 +37,9 @@ module Internal = {
         Js.undefined,
       );
 
-  let variablesConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw {| {} |}];
+  let variablesConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {} |}
+  ];
   let variablesConverterMap = ();
   let convertVariables = v =>
     v
