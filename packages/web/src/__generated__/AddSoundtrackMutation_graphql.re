@@ -5,11 +5,6 @@ type enum_SoundtrackType = [ | `GAME | `MOVIE | `FUTURE_ADDED_VALUE__];
 module Unions = {};
 
 module Types = {
-  type soundtrack = {
-    id: string,
-    rowId: int,
-  };
-  type createSoundtrack = {soundtrack: option(soundtrack)};
   type soundtrackInput = {
     rowId: option(int),
     title: string,
@@ -23,6 +18,11 @@ module Types = {
     clientMutationId: option(string),
     soundtrack: soundtrackInput,
   };
+  type soundtrack = {
+    id: string,
+    rowId: int,
+  };
+  type createSoundtrack = {soundtrack: option(soundtrack)};
 };
 
 open Types;
@@ -32,8 +32,8 @@ type variables = {input: createSoundtrackInput};
 
 module Internal = {
   type wrapResponseRaw;
-  let wrapResponseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
-    {| {"createSoundtrack":{"n":""},"createSoundtrack_soundtrack":{"n":""}} |}
+  let wrapResponseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {"__root":{"createSoundtrack":{"n":""},"createSoundtrack_soundtrack":{"n":""}}} |}
   ];
   let wrapResponseConverterMap = ();
   let convertWrapResponse = v =>
@@ -45,8 +45,8 @@ module Internal = {
       );
 
   type responseRaw;
-  let responseConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
-    {| {"createSoundtrack":{"n":""},"createSoundtrack_soundtrack":{"n":""}} |}
+  let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {"__root":{"createSoundtrack":{"n":""},"createSoundtrack_soundtrack":{"n":""}}} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -57,8 +57,12 @@ module Internal = {
         Js.undefined,
       );
 
-  let variablesConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw {| {} |}];
-  let variablesConverterMap = ();
+  let variablesConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {"__root":{"input":{"r":"CreateSoundtrackInput"}},"SoundtrackInput":{"rowId":{"n":""},"imdbId":{"n":""},"soundtrackType":{"e":"enum_SoundtrackType"},"createdAt":{"n":""},"updatedAt":{"n":""}},"CreateSoundtrackInput":{"clientMutationId":{"n":""},"soundtrack":{"r":"SoundtrackInput"}}} |}
+  ];
+  let variablesConverterMap = {
+    "enum_SoundtrackType": SchemaAssets.Enum_SoundtrackType.wrap,
+  };
   let convertVariables = v =>
     v
     ->ReasonRelay._convertObj(

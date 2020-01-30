@@ -37,8 +37,8 @@ type fragment = {
 
 module Internal = {
   type fragmentRaw;
-  let fragmentConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
-    {| {"imdbId":{"n":""},"soundtrackType":{"e":"enum_SoundtrackType"},"tracksBySoundtrackId_edges_node":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId_fullName":{"n":""}} |}
+  let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {"__root":{"imdbId":{"n":""},"soundtrackType":{"e":"enum_SoundtrackType"},"tracksBySoundtrackId_edges_node":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId_fullName":{"n":""}}} |}
   ];
   let fragmentConverterMap = {
     "enum_SoundtrackType": SchemaAssets.Enum_SoundtrackType.unwrap,

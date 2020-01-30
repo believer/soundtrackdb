@@ -24,8 +24,8 @@ type fragment = {allSoundtracks: option(allSoundtracks)};
 
 module Internal = {
   type fragmentRaw;
-  let fragmentConverter: Js.Dict.t(Js.Dict.t(string)) = [%raw
-    {| {"allSoundtracks":{"n":""},"allSoundtracks_edges_node":{"n":"","f":""}} |}
+  let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
+    {| {"__root":{"allSoundtracks":{"n":""},"allSoundtracks_edges_node":{"n":"","f":""}}} |}
   ];
   let fragmentConverterMap = ();
   let convertFragment = v =>
