@@ -73,7 +73,7 @@ let make = (~query as queryRef) => {
                         })
                       ->Js.Array2.joinWith(", ");
 
-                    <span className="text-gray-600 ml-4 text-sm">
+                    <span className="text-gray-500 ml-4 text-sm">
                       {React.string(allComposers)}
                     </span>;
                   }}
