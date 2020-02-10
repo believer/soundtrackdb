@@ -68,6 +68,7 @@ module AddSountrackForm = {
     | SoundtrackType
     | Title
     | AddTrack
+    | RemoveTrack
     | Composer
     | UpdateTrackTitle
     | UpdateTrackDuration;
@@ -78,7 +79,7 @@ module AddSountrackForm = {
     releaseDate: string,
     soundtrackType: SchemaAssets.Enum_SoundtrackType.t,
     title: string,
-    tracks: list((int, Track.t)),
+    tracks: list((CUID.t, Track.t)),
     composerId: int,
   };
 
@@ -143,11 +144,24 @@ module AddSountrackForm = {
         state.tracks->Belt.List.get(Belt.List.length(state.tracks) - 1);
 
       switch (lastId) {
-      | Some((id, _)) => {
+      | Some(_) => {
           ...state,
-          tracks: state.tracks->Belt.List.concat([(id + 1, Track.make())]),
+          tracks:
+            state.tracks->Belt.List.concat([(CUID.make(), Track.make())]),
         }
       | None => state
+      };
+    };
+  };
+
+  module RemoveTrack = {
+    let update = (state, id) => {
+      switch (Belt.List.length(state.tracks)) {
+      | 1 => state
+      | _ => {
+          ...state,
+          tracks: state.tracks->Belt.List.removeAssoc(id, (===)),
+        }
       };
     };
   };
@@ -191,7 +205,7 @@ let make = () => {
           spotifyId: "",
           releaseDate: "",
           soundtrackType: `MOVIE,
-          tracks: [(1, Track.make())],
+          tracks: [(CUID.make(), Track.make())],
         },
       ~onSubmit=(state, form) => {
         Js.log2("Submit", state);
@@ -236,13 +250,13 @@ let make = () => {
              |> ignore;
 
              state.tracks
-             ->Belt.List.forEach(((trackNumber, track)) => {
+             ->Belt.List.forEachWithIndex((i, (_, track)) => {
                  AddTrackMutation.commitMutation(
                    ~environment=RelayEnv.environment,
                    ~variables={
                      input: {
                        track: {
-                         trackNumber,
+                         trackNumber: i + 1,
                          title: track.title,
                          duration: Duration.fromString(track.duration),
                          createdAt: None,
@@ -257,6 +271,8 @@ let make = () => {
                  )
                })
              |> ignore;
+
+             form.reset();
 
              Js.Promise.resolve();
            })
@@ -374,12 +390,10 @@ let make = () => {
         <div className="mt-4">
           <h2> {React.string("Tracklist")} </h2>
           {form.state.tracks
-           ->Belt.List.map(((trackNumber, track)) => {
-               <div
-                 className="flex items-center"
-                 key={Belt.Int.toString(trackNumber)}>
+           ->Belt.List.mapWithIndex((i, (id, track)) => {
+               <div className="flex items-center" key={CUID.toString(id)}>
                  <div className="mr-4">
-                   {trackNumber->Belt.Int.toString->React.string}
+                   {(i + 1)->Belt.Int.toString->React.string}
                  </div>
                  <div className="flex-1 mr-4">
                    <FormFields.Text
@@ -393,7 +407,7 @@ let make = () => {
                          UpdateTrackTitle,
                          AddSountrackForm.UpdateTrackTitleField.update(
                            form.state,
-                           (trackNumber, value),
+                           (id, value),
                          ),
                        );
                      }}
@@ -401,7 +415,7 @@ let make = () => {
                      value={track.title}
                    />
                  </div>
-                 <div>
+                 <div className="mr-4">
                    <FormFields.Text
                      error={UpdateTrackDuration->(form.result)}
                      label="Duration"
@@ -413,7 +427,7 @@ let make = () => {
                          UpdateTrackTitle,
                          AddSountrackForm.UpdateTrackDurationField.update(
                            form.state,
-                           (trackNumber, value),
+                           (id, value),
                          ),
                        );
                      }}
@@ -421,6 +435,17 @@ let make = () => {
                      value={track.duration}
                    />
                  </div>
+                 <button
+                   className="bg-gray-100 p-2"
+                   type_="button"
+                   onClick={_ =>
+                     form.change(
+                       RemoveTrack,
+                       AddSountrackForm.RemoveTrack.update(form.state, id),
+                     )
+                   }>
+                   {React.string("Remove track")}
+                 </button>
                </div>
              })
            ->Belt.List.toArray

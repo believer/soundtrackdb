@@ -32,7 +32,7 @@ let make = (~query as queryRef) => {
                  grid items-center py-4
                  justify-between"
                  key=id>
-                 <div className="font-black text-gray-800">
+                 <div className="font-bold text-gray-900">
                    {React.string(title)}
                  </div>
                  <div> <Composer query={node.getFragmentRefs()} /> </div>
