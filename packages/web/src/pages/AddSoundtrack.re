@@ -217,13 +217,13 @@ let make = () => {
             input: {
               soundtrack: {
                 title: state.title,
-                imdbId: Some(state.imdbId),
+                imdbId: ImdbId.make(state.imdbId),
                 soundtrackType: state.soundtrackType,
                 releaseYear: state.releaseDate,
                 createdAt: None,
                 rowId: None,
                 updatedAt: None,
-                spotifyId: Some(state.spotifyId),
+                spotifyId: SpotifyId.make(state.spotifyId),
               },
               clientMutationId: None,
             },
