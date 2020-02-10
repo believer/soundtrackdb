@@ -4,7 +4,6 @@ module Unions = {};
 
 module Types = {
   type soundtrack = {
-    releaseYear: string,
     title: string,
     getFragmentRefs:
       unit =>
@@ -74,25 +73,18 @@ v1 = [
 v2 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "releaseYear",
+  "name": "title",
   "args": null,
   "storageKey": null
 },
 v3 = {
   "kind": "ScalarField",
   "alias": null,
-  "name": "title",
-  "args": null,
-  "storageKey": null
-},
-v4 = {
-  "kind": "ScalarField",
-  "alias": null,
   "name": "id",
   "args": null,
   "storageKey": null
 },
-v5 = [
+v4 = [
   {
     "kind": "LinkedField",
     "alias": null,
@@ -109,12 +101,12 @@ v5 = [
         "args": null,
         "storageKey": null
       },
-      (v4/*: any*/)
+      (v3/*: any*/)
     ]
   },
-  (v4/*: any*/)
+  (v3/*: any*/)
 ],
-v6 = {
+v5 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "totalCount",
@@ -140,7 +132,6 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
           {
             "kind": "FragmentSpread",
             "name": "Composer_soundtrack",
@@ -170,7 +161,6 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v3/*: any*/),
           {
             "kind": "LinkedField",
             "alias": null,
@@ -197,7 +187,7 @@ return {
                     "args": null,
                     "concreteType": "SoundtrackComposer",
                     "plural": false,
-                    "selections": (v5/*: any*/)
+                    "selections": (v4/*: any*/)
                   }
                 ]
               }
@@ -218,6 +208,13 @@ return {
             "storageKey": null
           },
           {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "releaseYear",
+            "args": null,
+            "storageKey": null
+          },
+          {
             "kind": "LinkedField",
             "alias": null,
             "name": "tracksBySoundtrackId",
@@ -232,7 +229,7 @@ return {
             "concreteType": "TracksConnection",
             "plural": false,
             "selections": [
-              (v6/*: any*/),
+              (v5/*: any*/),
               {
                 "kind": "LinkedField",
                 "alias": null,
@@ -251,8 +248,8 @@ return {
                     "concreteType": "Track",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/),
                       (v3/*: any*/),
+                      (v2/*: any*/),
                       {
                         "kind": "ScalarField",
                         "alias": null,
@@ -276,7 +273,7 @@ return {
                         "concreteType": "TrackComposersConnection",
                         "plural": false,
                         "selections": [
-                          (v6/*: any*/),
+                          (v5/*: any*/),
                           {
                             "kind": "LinkedField",
                             "alias": null,
@@ -294,7 +291,7 @@ return {
                                 "args": null,
                                 "concreteType": "TrackComposer",
                                 "plural": false,
-                                "selections": (v5/*: any*/)
+                                "selections": (v4/*: any*/)
                               }
                             ]
                           }
@@ -306,7 +303,7 @@ return {
               }
             ]
           },
-          (v4/*: any*/)
+          (v3/*: any*/)
         ]
       }
     ]
@@ -315,7 +312,7 @@ return {
     "operationKind": "query",
     "name": "SoundtrackByIdQuery",
     "id": null,
-    "text": "query SoundtrackByIdQuery(\n  $id: ID!\n) {\n  soundtrack(id: $id) {\n    releaseYear\n    title\n    ...Composer_soundtrack\n    ...TrackList_soundtrack\n    id\n  }\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposersBySoundtrackId {\n    edges {\n      node {\n        composerByComposerId {\n          fullName\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment TrackList_soundtrack on Soundtrack {\n  imdbId\n  spotifyId\n  releaseYear\n  tracksBySoundtrackId(orderBy: TRACK_NUMBER_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        title\n        duration\n        trackNumber\n        trackComposersByTrackId {\n          totalCount\n          edges {\n            node {\n              composerByComposerId {\n                fullName\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+    "text": "query SoundtrackByIdQuery(\n  $id: ID!\n) {\n  soundtrack(id: $id) {\n    title\n    ...Composer_soundtrack\n    ...TrackList_soundtrack\n    id\n  }\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposersBySoundtrackId {\n    edges {\n      node {\n        composerByComposerId {\n          fullName\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment TrackList_soundtrack on Soundtrack {\n  imdbId\n  spotifyId\n  releaseYear\n  tracksBySoundtrackId(orderBy: TRACK_NUMBER_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        title\n        duration\n        trackNumber\n        trackComposersByTrackId {\n          totalCount\n          edges {\n            node {\n              composerByComposerId {\n                fullName\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

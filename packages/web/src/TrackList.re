@@ -89,6 +89,15 @@ let make = (~query as queryRef) => {
     </ul>
     <div>
       <h2 className="font-bold text-gray-800 mb-1">
+        {React.string("Release date")}
+      </h2>
+      <div className="text-gray-600 mb-4">
+        <DateTime
+          date={trackList.releaseYear}
+          format=DateTime.Format.FullDate
+        />
+      </div>
+      <h2 className="font-bold text-gray-800 mb-1">
         {React.string("Number of tracks")}
       </h2>
       <div className="text-gray-600 mb-4">
