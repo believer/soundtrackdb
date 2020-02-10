@@ -7,6 +7,7 @@ module Internal = {
       className
       href="#"
       onClick={e => {
+        ReactEvent.Mouse.stopPropagation(e);
         ReactEvent.Mouse.preventDefault(e);
         Route.go(path);
       }}>
