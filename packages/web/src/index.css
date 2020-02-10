@@ -2,14 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://rsms.me/inter/inter.css');
+
 html,
 body {
   @apply text-gray-800;
 }
 
+html {
+  font-family: 'Inter', sans-serif;
+}
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: 'Inter var', sans-serif;
+  }
+}
+
 :root {
   --t4: 1rem;
   --t8: 2rem;
+  --t12: 3rem;
+  --t20: 5rem;
 }
 
 .grid {
@@ -20,9 +33,21 @@ body {
   grid-template-columns: 20px 1fr 960px 1fr 20px;
 }
 
+.grid-template-track-list {
+  grid-template-columns: 50% 1fr auto;
+}
+
+.grid-template-soundtrack {
+  grid-template-columns: 1fr 25%;
+}
+
 @media (max-width: 960px) {
   .grid-template-960 {
     grid-template-columns: 20px auto 1fr auto 20px;
+  }
+
+  .grid-template-soundtrack {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -36,4 +61,16 @@ body {
 
 .grid-gap-4 {
   grid-column-gap: var(--t4);
+}
+
+.grid-gap-8 {
+  grid-column-gap: var(--t8);
+}
+
+.grid-gap-12 {
+  grid-column-gap: var(--t12);
+}
+
+.grid-gap-20 {
+  grid-gap: var(--t20);
 }

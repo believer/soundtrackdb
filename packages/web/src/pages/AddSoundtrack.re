@@ -64,6 +64,7 @@ module AddSountrackForm = {
   type field =
     | ReleaseDate
     | ImdbId
+    | SpotifyId
     | SoundtrackType
     | Title
     | AddTrack
@@ -73,6 +74,7 @@ module AddSountrackForm = {
 
   type state = {
     imdbId: string,
+    spotifyId: string,
     releaseDate: string,
     soundtrackType: SchemaAssets.Enum_SoundtrackType.t,
     title: string,
@@ -89,6 +91,10 @@ module AddSountrackForm = {
 
   module ImdbIdField = {
     let update = (state, imdbId) => {...state, imdbId};
+  };
+
+  module SpotifyIdField = {
+    let update = (state, spotifyId) => {...state, spotifyId};
   };
 
   module SoundtrackTypeField = {
@@ -182,6 +188,7 @@ let make = () => {
           composerId: 0,
           title: "",
           imdbId: "",
+          spotifyId: "",
           releaseDate: "",
           soundtrackType: `MOVIE,
           tracks: [(1, Track.make())],
@@ -202,6 +209,7 @@ let make = () => {
                 createdAt: None,
                 rowId: None,
                 updatedAt: None,
+                spotifyId: Some(state.spotifyId),
               },
               clientMutationId: None,
             },
@@ -288,17 +296,30 @@ let make = () => {
             value={form.state.imdbId}
           />
         </div>
-        <FormFields.Text
-          error={ReleaseDate->(form.result)}
-          label="Release date"
-          name="soundtrack-release-date"
-          onChange={handleChange(
-            ReleaseDate,
-            AddSountrackForm.ReleaseDateField.update,
-          )}
-          placeholder="Release date"
-          value={form.state.releaseDate}
-        />
+        <div className="grid grid-template-2-column grid-gap-4">
+          <FormFields.Text
+            error={ReleaseDate->(form.result)}
+            label="Release date"
+            name="soundtrack-release-date"
+            onChange={handleChange(
+              ReleaseDate,
+              AddSountrackForm.ReleaseDateField.update,
+            )}
+            placeholder="Release date"
+            value={form.state.releaseDate}
+          />
+          <FormFields.Text
+            error={SpotifyId->(form.result)}
+            label="Spotify ID"
+            name="soundtrack-spotifyid"
+            onChange={handleChange(
+              SpotifyId,
+              AddSountrackForm.SpotifyIdField.update,
+            )}
+            placeholder="Spotify ID"
+            value={form.state.spotifyId}
+          />
+        </div>
         <div className="grid grid-template-2-column grid-gap-4 mt-4">
           {switch (composers.allComposers) {
            | Some({edges}) =>

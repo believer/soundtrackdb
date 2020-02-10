@@ -25,7 +25,11 @@ let make = (~query as queryRef) => {
       | Some({composerByComposerId}) =>
         switch (composerByComposerId) {
         | Some({id, fullName}) =>
-          <Link.Internal key=id path={Route.Composer(id)} className="mr-2">
+          <Link.Internal
+            key=id
+            path={Route.Composer(id)}
+            className="mr-1
+          text-gray-600 text-sm">
             {React.string(fullName->Belt.Option.getWithDefault(""))}
           </Link.Internal>
         | None => React.null

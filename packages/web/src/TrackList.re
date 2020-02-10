@@ -2,8 +2,8 @@ module Fragment = [%relay.fragment
   {|
   fragment TrackList_soundtrack on Soundtrack {
     imdbId
+    spotifyId
     releaseYear
-    soundtrackType
     tracksBySoundtrackId(orderBy: TRACK_NUMBER_ASC) {
       totalCount
       edges {
@@ -34,7 +34,7 @@ module Style = {
 
   let trackListRow =
     merge([
-      "grid odd:bg-gray-100 px-2 py-1 items-center",
+      "grid py-3 items-center border-b border-gray-200",
       style([gridTemplateColumns([`px(40), `fr(1.0), `px(100)])]),
     ]);
 };
@@ -43,51 +43,17 @@ module Style = {
 let make = (~query as queryRef) => {
   let trackList = Fragment.use(queryRef);
 
-  <>
-    <div className="text-sm text-gray-600 flex justify-between">
-      <div>
-        <DateTime date={trackList.releaseYear} />
-        {switch (trackList.tracksBySoundtrackId.totalCount) {
-         | 0 => React.null
-         | 1 => " ~ 1 track ~ "->React.string
-         | l => " ~ " ++ l->Belt.Int.toString ++ " tracks ~ " |> React.string
-         }}
-        {trackList.tracksBySoundtrackId.edges
-         ->Belt.Array.reduce(0, (acc, track) => {
-             switch (track.node) {
-             | Some({duration}) => acc + duration
-             | None => acc
-             }
-           })
-         ->Duration.make
-         ->React.string}
-        {switch (trackList.imdbId) {
-         | Some(id) =>
-           <Link.External
-             className="ml-2" href={"https://www.imdb.com/title/" ++ id}>
-             {React.string("IMDb")}
-           </Link.External>
-         | None => React.null
-         }}
-      </div>
-      <div>
-        {switch (trackList.soundtrackType) {
-         | `MOVIE => <div className="rounded-full bg-blue-200 h-4 w-4" />
-         | `GAME => <div className="rounded-full bg-green-200 h-4 w-4" />
-         | `FUTURE_ADDED_VALUE__ => <div> {React.string("Unknown")} </div>
-         }}
-      </div>
-    </div>
-    <ul className="mt-6">
+  <div className="grid grid-template-soundtrack grid-gap-20 mt-8">
+    <ul>
       {trackList.tracksBySoundtrackId.edges
        ->Belt.Array.map(track => {
            switch (track.node) {
            | Some({title, id, duration, trackNumber, trackComposersByTrackId}) =>
              <li className=Style.trackListRow key=id>
-               <div className="text-gray-700">
+               <div className="text-gray-500">
                  {React.string(trackNumber->string_of_int)}
                </div>
-               <div id="test">
+               <div className="text-gray-800">
                  {React.string(title)}
                  {switch (trackComposersByTrackId.totalCount) {
                   | 0 => React.null
@@ -112,7 +78,7 @@ let make = (~query as queryRef) => {
                     </span>;
                   }}
                </div>
-               <div className="text-right text-sm text-gray-600">
+               <div className="text-right text-sm text-gray-500">
                  {React.string(Duration.make(duration))}
                </div>
              </li>
@@ -121,5 +87,45 @@ let make = (~query as queryRef) => {
          })
        ->React.array}
     </ul>
-  </>;
+    <div>
+      <h2 className="font-bold text-gray-800 mb-1">
+        {React.string("Number of tracks")}
+      </h2>
+      <div className="text-gray-600 mb-4">
+        {trackList.tracksBySoundtrackId.totalCount
+         ->Belt.Int.toString
+         ->React.string}
+      </div>
+      <h2 className="font-bold text-gray-800 mb-1">
+        {React.string("Playtime")}
+      </h2>
+      <div className="text-gray-600 mb-12">
+        {trackList.tracksBySoundtrackId.edges
+         ->Belt.Array.reduce(0, (acc, track) => {
+             switch (track.node) {
+             | Some({duration}) => acc + duration
+             | None => acc
+             }
+           })
+         ->Duration.make
+         ->React.string}
+      </div>
+      {switch (trackList.imdbId) {
+       | Some(id) =>
+         <Link.External
+           className="mr-2" href={"https://www.imdb.com/title/" ++ id}>
+           {React.string("IMDb")}
+         </Link.External>
+       | None => React.null
+       }}
+      {switch (trackList.spotifyId) {
+       | Some(id) =>
+         <Link.External
+           className="mr-2" href={"https://open.spotify.com/album/" ++ id}>
+           {React.string("Spotify")}
+         </Link.External>
+       | None => React.null
+       }}
+    </div>
+  </div>;
 };

@@ -1,7 +1,5 @@
 /* @generated */
 
-type enum_SoundtrackType = [ | `GAME | `MOVIE | `FUTURE_ADDED_VALUE__];
-
 module Unions = {};
 
 module Types = {
@@ -30,19 +28,17 @@ open Types;
 
 type fragment = {
   imdbId: option(string),
+  spotifyId: option(string),
   releaseYear: string,
-  soundtrackType: enum_SoundtrackType,
   tracksBySoundtrackId,
 };
 
 module Internal = {
   type fragmentRaw;
   let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"imdbId":{"n":""},"soundtrackType":{"e":"enum_SoundtrackType"},"tracksBySoundtrackId_edges_node":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId_fullName":{"n":""}}} |}
+    {| {"__root":{"imdbId":{"n":""},"spotifyId":{"n":""},"tracksBySoundtrackId_edges_node":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId_fullName":{"n":""}}} |}
   ];
-  let fragmentConverterMap = {
-    "enum_SoundtrackType": SchemaAssets.Enum_SoundtrackType.unwrap,
-  };
+  let fragmentConverterMap = ();
   let convertFragment = v =>
     v
     ->ReasonRelay._convertObj(
@@ -88,14 +84,14 @@ return {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "releaseYear",
+      "name": "spotifyId",
       "args": null,
       "storageKey": null
     },
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "soundtrackType",
+      "name": "releaseYear",
       "args": null,
       "storageKey": null
     },

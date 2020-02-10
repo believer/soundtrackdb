@@ -6,7 +6,7 @@ module TrackListFragment = [%relay.fragment
         node {
           id
           title
-          ...TrackList_soundtrack
+          releaseYear
           ...Composer_soundtrack
         }
       }
@@ -25,12 +25,22 @@ let make = (~query as queryRef) => {
       {edges
        ->Belt.Array.map(soundtrack => {
            switch (soundtrack.node) {
-           | Some({title, id} as node) =>
-             <div className="mb-10" key=id>
-               <h2 className="text-xl font-black"> {React.string(title)} </h2>
-               <Composer query={node.getFragmentRefs()} />
-               <TrackList query={node.getFragmentRefs()} />
-             </div>
+           | Some({title, id, releaseYear} as node) =>
+             <Link.Internal path={Route.Soundtrack(id)}>
+               <div
+                 className="border-b border-gray-200 grid-template-track-list
+                 grid items-center py-4
+                 justify-between"
+                 key=id>
+                 <div className="font-black text-gray-800">
+                   {React.string(title)}
+                 </div>
+                 <div> <Composer query={node.getFragmentRefs()} /> </div>
+                 <div className="text-sm text-gray-600">
+                   <DateTime date=releaseYear />
+                 </div>
+               </div>
+             </Link.Internal>
            | None => React.null
            }
          })

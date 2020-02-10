@@ -30,7 +30,7 @@ type Composer implements Node {
     after: Cursor
 
     """The method to use when ordering `SoundtrackComposer`."""
-    orderBy: [SoundtrackComposersOrderBy!] = [NATURAL]
+    orderBy: [SoundtrackComposersOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
     A condition to be used in determining which values should be returned by the collection.
@@ -59,7 +59,7 @@ type Composer implements Node {
     after: Cursor
 
     """The method to use when ordering `TrackComposer`."""
-    orderBy: [TrackComposersOrderBy!] = [NATURAL]
+    orderBy: [TrackComposersOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
     A condition to be used in determining which values should be returned by the collection.
@@ -264,7 +264,7 @@ type CreateSoundtrackComposerPayload {
   """An edge for our `SoundtrackComposer`. May be used by Relay 1."""
   soundtrackComposerEdge(
     """The method to use when ordering `SoundtrackComposer`."""
-    orderBy: [SoundtrackComposersOrderBy!] = [NATURAL]
+    orderBy: [SoundtrackComposersOrderBy!] = [PRIMARY_KEY_ASC]
   ): SoundtrackComposersEdge
 }
 
@@ -340,7 +340,7 @@ type CreateTrackComposerPayload {
   """An edge for our `TrackComposer`. May be used by Relay 1."""
   trackComposerEdge(
     """The method to use when ordering `TrackComposer`."""
-    orderBy: [TrackComposersOrderBy!] = [NATURAL]
+    orderBy: [TrackComposersOrderBy!] = [PRIMARY_KEY_ASC]
   ): TrackComposersEdge
 }
 
@@ -497,6 +497,77 @@ input DeleteSoundtrackByRowIdInput {
   rowId: Int!
 }
 
+"""All input for the `deleteSoundtrackBySpotifyId` mutation."""
+input DeleteSoundtrackBySpotifyIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  spotifyId: String!
+}
+
+"""
+All input for the `deleteSoundtrackComposerByComposerIdAndSoundtrackId` mutation.
+"""
+input DeleteSoundtrackComposerByComposerIdAndSoundtrackIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  composerId: Int!
+  soundtrackId: Int!
+}
+
+"""All input for the `deleteSoundtrackComposer` mutation."""
+input DeleteSoundtrackComposerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `SoundtrackComposer` to be deleted.
+  """
+  id: ID!
+}
+
+"""The output of our delete `SoundtrackComposer` mutation."""
+type DeleteSoundtrackComposerPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `SoundtrackComposer` that was deleted by this mutation."""
+  soundtrackComposer: SoundtrackComposer
+  deletedSoundtrackComposerId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `Composer` that is related to this `SoundtrackComposer`.
+  """
+  composerByComposerId: Composer
+
+  """
+  Reads a single `Soundtrack` that is related to this `SoundtrackComposer`.
+  """
+  soundtrackBySoundtrackId: Soundtrack
+
+  """An edge for our `SoundtrackComposer`. May be used by Relay 1."""
+  soundtrackComposerEdge(
+    """The method to use when ordering `SoundtrackComposer`."""
+    orderBy: [SoundtrackComposersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SoundtrackComposersEdge
+}
+
 """All input for the `deleteSoundtrack` mutation."""
 input DeleteSoundtrackInput {
   """
@@ -543,6 +614,63 @@ input DeleteTrackByRowIdInput {
   """
   clientMutationId: String
   rowId: Int!
+}
+
+"""
+All input for the `deleteTrackComposerByTrackIdAndComposerId` mutation.
+"""
+input DeleteTrackComposerByTrackIdAndComposerIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  trackId: Int!
+  composerId: Int!
+}
+
+"""All input for the `deleteTrackComposer` mutation."""
+input DeleteTrackComposerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `TrackComposer` to be deleted.
+  """
+  id: ID!
+}
+
+"""The output of our delete `TrackComposer` mutation."""
+type DeleteTrackComposerPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `TrackComposer` that was deleted by this mutation."""
+  trackComposer: TrackComposer
+  deletedTrackComposerId: ID
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Track` that is related to this `TrackComposer`."""
+  trackByTrackId: Track
+
+  """Reads a single `Composer` that is related to this `TrackComposer`."""
+  composerByComposerId: Composer
+
+  """An edge for our `TrackComposer`. May be used by Relay 1."""
+  trackComposerEdge(
+    """The method to use when ordering `TrackComposer`."""
+    orderBy: [TrackComposersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TrackComposersEdge
 }
 
 """All input for the `deleteTrack` mutation."""
@@ -690,6 +818,32 @@ type Mutation {
     input: UpdateSoundtrackByRowIdInput!
   ): UpdateSoundtrackPayload
 
+  """Updates a single `Soundtrack` using a unique key and a patch."""
+  updateSoundtrackBySpotifyId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSoundtrackBySpotifyIdInput!
+  ): UpdateSoundtrackPayload
+
+  """
+  Updates a single `SoundtrackComposer` using its globally unique id and a patch.
+  """
+  updateSoundtrackComposer(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSoundtrackComposerInput!
+  ): UpdateSoundtrackComposerPayload
+
+  """Updates a single `SoundtrackComposer` using a unique key and a patch."""
+  updateSoundtrackComposerByComposerIdAndSoundtrackId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSoundtrackComposerByComposerIdAndSoundtrackIdInput!
+  ): UpdateSoundtrackComposerPayload
+
   """Updates a single `Track` using its globally unique id and a patch."""
   updateTrack(
     """
@@ -705,6 +859,24 @@ type Mutation {
     """
     input: UpdateTrackByRowIdInput!
   ): UpdateTrackPayload
+
+  """
+  Updates a single `TrackComposer` using its globally unique id and a patch.
+  """
+  updateTrackComposer(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTrackComposerInput!
+  ): UpdateTrackComposerPayload
+
+  """Updates a single `TrackComposer` using a unique key and a patch."""
+  updateTrackComposerByTrackIdAndComposerId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTrackComposerByTrackIdAndComposerIdInput!
+  ): UpdateTrackComposerPayload
 
   """Deletes a single `Composer` using its globally unique id."""
   deleteComposer(
@@ -754,6 +926,30 @@ type Mutation {
     input: DeleteSoundtrackByRowIdInput!
   ): DeleteSoundtrackPayload
 
+  """Deletes a single `Soundtrack` using a unique key."""
+  deleteSoundtrackBySpotifyId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSoundtrackBySpotifyIdInput!
+  ): DeleteSoundtrackPayload
+
+  """Deletes a single `SoundtrackComposer` using its globally unique id."""
+  deleteSoundtrackComposer(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSoundtrackComposerInput!
+  ): DeleteSoundtrackComposerPayload
+
+  """Deletes a single `SoundtrackComposer` using a unique key."""
+  deleteSoundtrackComposerByComposerIdAndSoundtrackId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSoundtrackComposerByComposerIdAndSoundtrackIdInput!
+  ): DeleteSoundtrackComposerPayload
+
   """Deletes a single `Track` using its globally unique id."""
   deleteTrack(
     """
@@ -769,6 +965,22 @@ type Mutation {
     """
     input: DeleteTrackByRowIdInput!
   ): DeleteTrackPayload
+
+  """Deletes a single `TrackComposer` using its globally unique id."""
+  deleteTrackComposer(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTrackComposerInput!
+  ): DeleteTrackComposerPayload
+
+  """Deletes a single `TrackComposer` using a unique key."""
+  deleteTrackComposerByTrackIdAndComposerId(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteTrackComposerByTrackIdAndComposerIdInput!
+  ): DeleteTrackComposerPayload
 }
 
 """An object with a globally unique `ID`."""
@@ -1001,7 +1213,7 @@ type Query implements Node {
     after: Cursor
 
     """The method to use when ordering `SoundtrackComposer`."""
-    orderBy: [SoundtrackComposersOrderBy!] = [NATURAL]
+    orderBy: [SoundtrackComposersOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
     A condition to be used in determining which values should be returned by the collection.
@@ -1059,7 +1271,7 @@ type Query implements Node {
     after: Cursor
 
     """The method to use when ordering `TrackComposer`."""
-    orderBy: [TrackComposersOrderBy!] = [NATURAL]
+    orderBy: [TrackComposersOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
     A condition to be used in determining which values should be returned by the collection.
@@ -1069,7 +1281,10 @@ type Query implements Node {
   composerByRowId(rowId: Int!): Composer
   pgmigrationByRowId(rowId: Int!): Pgmigration
   soundtrackByRowId(rowId: Int!): Soundtrack
+  soundtrackBySpotifyId(spotifyId: String!): Soundtrack
+  soundtrackComposerByComposerIdAndSoundtrackId(composerId: Int!, soundtrackId: Int!): SoundtrackComposer
   trackByRowId(rowId: Int!): Track
+  trackComposerByTrackIdAndComposerId(trackId: Int!, composerId: Int!): TrackComposer
 
   """Reads and enables pagination through a set of `Soundtrack`."""
   search(
@@ -1116,11 +1331,27 @@ type Query implements Node {
     id: ID!
   ): Soundtrack
 
+  """Reads a single `SoundtrackComposer` using its globally unique `ID`."""
+  soundtrackComposer(
+    """
+    The globally unique `ID` to be used in selecting a single `SoundtrackComposer`.
+    """
+    id: ID!
+  ): SoundtrackComposer
+
   """Reads a single `Track` using its globally unique `ID`."""
   track(
     """The globally unique `ID` to be used in selecting a single `Track`."""
     id: ID!
   ): Track
+
+  """Reads a single `TrackComposer` using its globally unique `ID`."""
+  trackComposer(
+    """
+    The globally unique `ID` to be used in selecting a single `TrackComposer`.
+    """
+    id: ID!
+  ): TrackComposer
 }
 
 type Soundtrack implements Node {
@@ -1135,6 +1366,7 @@ type Soundtrack implements Node {
   releaseYear: Datetime!
   createdAt: Datetime!
   updatedAt: Datetime!
+  spotifyId: String
 
   """Reads and enables pagination through a set of `SoundtrackComposer`."""
   soundtrackComposersBySoundtrackId(
@@ -1157,7 +1389,7 @@ type Soundtrack implements Node {
     after: Cursor
 
     """The method to use when ordering `SoundtrackComposer`."""
-    orderBy: [SoundtrackComposersOrderBy!] = [NATURAL]
+    orderBy: [SoundtrackComposersOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
     A condition to be used in determining which values should be returned by the collection.
@@ -1195,7 +1427,11 @@ type Soundtrack implements Node {
   ): TracksConnection!
 }
 
-type SoundtrackComposer {
+type SoundtrackComposer implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
   composerId: Int!
   soundtrackId: Int!
 
@@ -1226,6 +1462,14 @@ input SoundtrackComposerCondition {
 input SoundtrackComposerInput {
   composerId: Int!
   soundtrackId: Int!
+}
+
+"""
+Represents an update to a `SoundtrackComposer`. Fields that are set will be updated.
+"""
+input SoundtrackComposerPatch {
+  composerId: Int
+  soundtrackId: Int
 }
 
 """A connection to a list of `SoundtrackComposer` values."""
@@ -1263,6 +1507,8 @@ enum SoundtrackComposersOrderBy {
   COMPOSER_ID_DESC
   SOUNDTRACK_ID_ASC
   SOUNDTRACK_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 """
@@ -1290,6 +1536,9 @@ input SoundtrackCondition {
 
   """Checks for equality with the object’s `updatedAt` field."""
   updatedAt: Datetime
+
+  """Checks for equality with the object’s `spotifyId` field."""
+  spotifyId: String
 }
 
 """An input for mutations affecting `Soundtrack`"""
@@ -1301,6 +1550,7 @@ input SoundtrackInput {
   releaseYear: Datetime!
   createdAt: Datetime
   updatedAt: Datetime
+  spotifyId: String
 }
 
 """
@@ -1314,6 +1564,7 @@ input SoundtrackPatch {
   releaseYear: Datetime
   createdAt: Datetime
   updatedAt: Datetime
+  spotifyId: String
 }
 
 """A connection to a list of `Soundtrack` values."""
@@ -1359,6 +1610,8 @@ enum SoundtracksOrderBy {
   CREATED_AT_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
+  SPOTIFY_ID_ASC
+  SPOTIFY_ID_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
 }
@@ -1405,7 +1658,7 @@ type Track implements Node {
     after: Cursor
 
     """The method to use when ordering `TrackComposer`."""
-    orderBy: [TrackComposersOrderBy!] = [NATURAL]
+    orderBy: [TrackComposersOrderBy!] = [PRIMARY_KEY_ASC]
 
     """
     A condition to be used in determining which values should be returned by the collection.
@@ -1414,7 +1667,11 @@ type Track implements Node {
   ): TrackComposersConnection!
 }
 
-type TrackComposer {
+type TrackComposer implements Node {
+  """
+  A globally unique identifier. Can be used in various places throughout the system to identify this single value.
+  """
+  id: ID!
   trackId: Int!
   composerId: Int!
 
@@ -1441,6 +1698,14 @@ input TrackComposerCondition {
 input TrackComposerInput {
   trackId: Int!
   composerId: Int!
+}
+
+"""
+Represents an update to a `TrackComposer`. Fields that are set will be updated.
+"""
+input TrackComposerPatch {
+  trackId: Int
+  composerId: Int
 }
 
 """A connection to a list of `TrackComposer` values."""
@@ -1476,6 +1741,8 @@ enum TrackComposersOrderBy {
   TRACK_ID_DESC
   COMPOSER_ID_ASC
   COMPOSER_ID_DESC
+  PRIMARY_KEY_ASC
+  PRIMARY_KEY_DESC
 }
 
 """
@@ -1704,6 +1971,91 @@ input UpdateSoundtrackByRowIdInput {
   rowId: Int!
 }
 
+"""All input for the `updateSoundtrackBySpotifyId` mutation."""
+input UpdateSoundtrackBySpotifyIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Soundtrack` being updated.
+  """
+  soundtrackPatch: SoundtrackPatch!
+  spotifyId: String!
+}
+
+"""
+All input for the `updateSoundtrackComposerByComposerIdAndSoundtrackId` mutation.
+"""
+input UpdateSoundtrackComposerByComposerIdAndSoundtrackIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `SoundtrackComposer` being updated.
+  """
+  soundtrackComposerPatch: SoundtrackComposerPatch!
+  composerId: Int!
+  soundtrackId: Int!
+}
+
+"""All input for the `updateSoundtrackComposer` mutation."""
+input UpdateSoundtrackComposerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `SoundtrackComposer` to be updated.
+  """
+  id: ID!
+
+  """
+  An object where the defined keys will be set on the `SoundtrackComposer` being updated.
+  """
+  soundtrackComposerPatch: SoundtrackComposerPatch!
+}
+
+"""The output of our update `SoundtrackComposer` mutation."""
+type UpdateSoundtrackComposerPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `SoundtrackComposer` that was updated by this mutation."""
+  soundtrackComposer: SoundtrackComposer
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """
+  Reads a single `Composer` that is related to this `SoundtrackComposer`.
+  """
+  composerByComposerId: Composer
+
+  """
+  Reads a single `Soundtrack` that is related to this `SoundtrackComposer`.
+  """
+  soundtrackBySoundtrackId: Soundtrack
+
+  """An edge for our `SoundtrackComposer`. May be used by Relay 1."""
+  soundtrackComposerEdge(
+    """The method to use when ordering `SoundtrackComposer`."""
+    orderBy: [SoundtrackComposersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): SoundtrackComposersEdge
+}
+
 """All input for the `updateSoundtrack` mutation."""
 input UpdateSoundtrackInput {
   """
@@ -1759,6 +2111,72 @@ input UpdateTrackByRowIdInput {
   """
   trackPatch: TrackPatch!
   rowId: Int!
+}
+
+"""
+All input for the `updateTrackComposerByTrackIdAndComposerId` mutation.
+"""
+input UpdateTrackComposerByTrackIdAndComposerIdInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `TrackComposer` being updated.
+  """
+  trackComposerPatch: TrackComposerPatch!
+  trackId: Int!
+  composerId: Int!
+}
+
+"""All input for the `updateTrackComposer` mutation."""
+input UpdateTrackComposerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `TrackComposer` to be updated.
+  """
+  id: ID!
+
+  """
+  An object where the defined keys will be set on the `TrackComposer` being updated.
+  """
+  trackComposerPatch: TrackComposerPatch!
+}
+
+"""The output of our update `TrackComposer` mutation."""
+type UpdateTrackComposerPayload {
+  """
+  The exact same `clientMutationId` that was provided in the mutation input,
+  unchanged and unused. May be used by a client to track mutations.
+  """
+  clientMutationId: String
+
+  """The `TrackComposer` that was updated by this mutation."""
+  trackComposer: TrackComposer
+
+  """
+  Our root query field type. Allows us to run any query from our mutation payload.
+  """
+  query: Query
+
+  """Reads a single `Track` that is related to this `TrackComposer`."""
+  trackByTrackId: Track
+
+  """Reads a single `Composer` that is related to this `TrackComposer`."""
+  composerByComposerId: Composer
+
+  """An edge for our `TrackComposer`. May be used by Relay 1."""
+  trackComposerEdge(
+    """The method to use when ordering `TrackComposer`."""
+    orderBy: [TrackComposersOrderBy!] = [PRIMARY_KEY_ASC]
+  ): TrackComposersEdge
 }
 
 """All input for the `updateTrack` mutation."""

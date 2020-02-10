@@ -1,8 +1,7 @@
 module Internal = {
   [@react.component]
   let make = (~children, ~className=?, ~path) => {
-    let className =
-      Css.(merge(["underline text-sm text-gray-700", className->Cn.unpack]));
+    let className = className->Cn.unpack;
 
     <a
       className

@@ -97,6 +97,8 @@ module Enum_SoundtrackComposersOrderBy: {
     | `COMPOSER_ID_DESC
     | `SOUNDTRACK_ID_ASC
     | `SOUNDTRACK_ID_DESC
+    | `PRIMARY_KEY_ASC
+    | `PRIMARY_KEY_DESC
     | `FUTURE_ADDED_VALUE__
   ];
   type wrapped;
@@ -111,6 +113,8 @@ module Enum_SoundtrackComposersOrderBy: {
     | `COMPOSER_ID_DESC
     | `SOUNDTRACK_ID_ASC
     | `SOUNDTRACK_ID_DESC
+    | `PRIMARY_KEY_ASC
+    | `PRIMARY_KEY_DESC
     | `FUTURE_ADDED_VALUE__
   ];
   type wrapped;
@@ -125,6 +129,8 @@ module Enum_SoundtrackComposersOrderBy: {
     | "COMPOSER_ID_DESC" => `COMPOSER_ID_DESC
     | "SOUNDTRACK_ID_ASC" => `SOUNDTRACK_ID_ASC
     | "SOUNDTRACK_ID_DESC" => `SOUNDTRACK_ID_DESC
+    | "PRIMARY_KEY_ASC" => `PRIMARY_KEY_ASC
+    | "PRIMARY_KEY_DESC" => `PRIMARY_KEY_DESC
     | _ => `FUTURE_ADDED_VALUE__
     };
 
@@ -136,6 +142,8 @@ module Enum_SoundtrackComposersOrderBy: {
       | `COMPOSER_ID_DESC => "COMPOSER_ID_DESC"
       | `SOUNDTRACK_ID_ASC => "SOUNDTRACK_ID_ASC"
       | `SOUNDTRACK_ID_DESC => "SOUNDTRACK_ID_DESC"
+      | `PRIMARY_KEY_ASC => "PRIMARY_KEY_ASC"
+      | `PRIMARY_KEY_DESC => "PRIMARY_KEY_DESC"
       | `FUTURE_ADDED_VALUE__ => ""
       }
     )
@@ -290,6 +298,8 @@ module Enum_TrackComposersOrderBy: {
     | `TRACK_ID_DESC
     | `COMPOSER_ID_ASC
     | `COMPOSER_ID_DESC
+    | `PRIMARY_KEY_ASC
+    | `PRIMARY_KEY_DESC
     | `FUTURE_ADDED_VALUE__
   ];
   type wrapped;
@@ -304,6 +314,8 @@ module Enum_TrackComposersOrderBy: {
     | `TRACK_ID_DESC
     | `COMPOSER_ID_ASC
     | `COMPOSER_ID_DESC
+    | `PRIMARY_KEY_ASC
+    | `PRIMARY_KEY_DESC
     | `FUTURE_ADDED_VALUE__
   ];
   type wrapped;
@@ -318,6 +330,8 @@ module Enum_TrackComposersOrderBy: {
     | "TRACK_ID_DESC" => `TRACK_ID_DESC
     | "COMPOSER_ID_ASC" => `COMPOSER_ID_ASC
     | "COMPOSER_ID_DESC" => `COMPOSER_ID_DESC
+    | "PRIMARY_KEY_ASC" => `PRIMARY_KEY_ASC
+    | "PRIMARY_KEY_DESC" => `PRIMARY_KEY_DESC
     | _ => `FUTURE_ADDED_VALUE__
     };
 
@@ -329,6 +343,8 @@ module Enum_TrackComposersOrderBy: {
       | `TRACK_ID_DESC => "TRACK_ID_DESC"
       | `COMPOSER_ID_ASC => "COMPOSER_ID_ASC"
       | `COMPOSER_ID_DESC => "COMPOSER_ID_DESC"
+      | `PRIMARY_KEY_ASC => "PRIMARY_KEY_ASC"
+      | `PRIMARY_KEY_DESC => "PRIMARY_KEY_DESC"
       | `FUTURE_ADDED_VALUE__ => ""
       }
     )
@@ -426,6 +442,8 @@ module Enum_SoundtracksOrderBy: {
     | `CREATED_AT_DESC
     | `UPDATED_AT_ASC
     | `UPDATED_AT_DESC
+    | `SPOTIFY_ID_ASC
+    | `SPOTIFY_ID_DESC
     | `PRIMARY_KEY_ASC
     | `PRIMARY_KEY_DESC
     | `FUTURE_ADDED_VALUE__
@@ -452,6 +470,8 @@ module Enum_SoundtracksOrderBy: {
     | `CREATED_AT_DESC
     | `UPDATED_AT_ASC
     | `UPDATED_AT_DESC
+    | `SPOTIFY_ID_ASC
+    | `SPOTIFY_ID_DESC
     | `PRIMARY_KEY_ASC
     | `PRIMARY_KEY_DESC
     | `FUTURE_ADDED_VALUE__
@@ -478,6 +498,8 @@ module Enum_SoundtracksOrderBy: {
     | "CREATED_AT_DESC" => `CREATED_AT_DESC
     | "UPDATED_AT_ASC" => `UPDATED_AT_ASC
     | "UPDATED_AT_DESC" => `UPDATED_AT_DESC
+    | "SPOTIFY_ID_ASC" => `SPOTIFY_ID_ASC
+    | "SPOTIFY_ID_DESC" => `SPOTIFY_ID_DESC
     | "PRIMARY_KEY_ASC" => `PRIMARY_KEY_ASC
     | "PRIMARY_KEY_DESC" => `PRIMARY_KEY_DESC
     | _ => `FUTURE_ADDED_VALUE__
@@ -501,6 +523,8 @@ module Enum_SoundtracksOrderBy: {
       | `CREATED_AT_DESC => "CREATED_AT_DESC"
       | `UPDATED_AT_ASC => "UPDATED_AT_ASC"
       | `UPDATED_AT_DESC => "UPDATED_AT_DESC"
+      | `SPOTIFY_ID_ASC => "SPOTIFY_ID_ASC"
+      | `SPOTIFY_ID_DESC => "SPOTIFY_ID_DESC"
       | `PRIMARY_KEY_ASC => "PRIMARY_KEY_ASC"
       | `PRIMARY_KEY_DESC => "PRIMARY_KEY_DESC"
       | `FUTURE_ADDED_VALUE__ => ""

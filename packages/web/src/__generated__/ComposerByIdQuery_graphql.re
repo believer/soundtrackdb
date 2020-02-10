@@ -88,52 +88,19 @@ v3 = {
 v4 = {
   "kind": "LinkedField",
   "alias": null,
-  "name": "soundtrackComposersByComposerId",
+  "name": "soundtrackBySoundtrackId",
   "storageKey": null,
   "args": null,
-  "concreteType": "SoundtrackComposersConnection",
+  "concreteType": "Soundtrack",
   "plural": false,
   "selections": [
+    (v3/*: any*/),
     {
-      "kind": "LinkedField",
+      "kind": "ScalarField",
       "alias": null,
-      "name": "edges",
-      "storageKey": null,
+      "name": "title",
       "args": null,
-      "concreteType": "SoundtrackComposersEdge",
-      "plural": true,
-      "selections": [
-        {
-          "kind": "LinkedField",
-          "alias": null,
-          "name": "node",
-          "storageKey": null,
-          "args": null,
-          "concreteType": "SoundtrackComposer",
-          "plural": false,
-          "selections": [
-            {
-              "kind": "LinkedField",
-              "alias": null,
-              "name": "soundtrackBySoundtrackId",
-              "storageKey": null,
-              "args": null,
-              "concreteType": "Soundtrack",
-              "plural": false,
-              "selections": [
-                (v3/*: any*/),
-                {
-                  "kind": "ScalarField",
-                  "alias": null,
-                  "name": "title",
-                  "args": null,
-                  "storageKey": null
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      "storageKey": null
     }
   ]
 };
@@ -156,7 +123,40 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v4/*: any*/)
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "soundtrackComposersByComposerId",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "SoundtrackComposersConnection",
+            "plural": false,
+            "selections": [
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "edges",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "SoundtrackComposersEdge",
+                "plural": true,
+                "selections": [
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "node",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "SoundtrackComposer",
+                    "plural": false,
+                    "selections": [
+                      (v4/*: any*/)
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
         ]
       }
     ]
@@ -176,7 +176,41 @@ return {
         "plural": false,
         "selections": [
           (v2/*: any*/),
-          (v4/*: any*/),
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "soundtrackComposersByComposerId",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "SoundtrackComposersConnection",
+            "plural": false,
+            "selections": [
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "edges",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "SoundtrackComposersEdge",
+                "plural": true,
+                "selections": [
+                  {
+                    "kind": "LinkedField",
+                    "alias": null,
+                    "name": "node",
+                    "storageKey": null,
+                    "args": null,
+                    "concreteType": "SoundtrackComposer",
+                    "plural": false,
+                    "selections": [
+                      (v4/*: any*/),
+                      (v3/*: any*/)
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
           (v3/*: any*/)
         ]
       }
@@ -186,7 +220,7 @@ return {
     "operationKind": "query",
     "name": "ComposerByIdQuery",
     "id": null,
-    "text": "query ComposerByIdQuery(\n  $id: ID!\n) {\n  composer(id: $id) {\n    fullName\n    soundtrackComposersByComposerId {\n      edges {\n        node {\n          soundtrackBySoundtrackId {\n            id\n            title\n          }\n        }\n      }\n    }\n    id\n  }\n}\n",
+    "text": "query ComposerByIdQuery(\n  $id: ID!\n) {\n  composer(id: $id) {\n    fullName\n    soundtrackComposersByComposerId {\n      edges {\n        node {\n          soundtrackBySoundtrackId {\n            id\n            title\n          }\n          id\n        }\n      }\n    }\n    id\n  }\n}\n",
     "metadata": {}
   }
 };

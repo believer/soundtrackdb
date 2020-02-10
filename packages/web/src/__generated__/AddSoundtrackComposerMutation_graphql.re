@@ -78,41 +78,18 @@ var v0 = [
 ],
 v1 = [
   {
-    "kind": "LinkedField",
-    "alias": null,
-    "name": "createSoundtrackComposer",
-    "storageKey": null,
-    "args": [
-      {
-        "kind": "Variable",
-        "name": "input",
-        "variableName": "input"
-      }
-    ],
-    "concreteType": "CreateSoundtrackComposerPayload",
-    "plural": false,
-    "selections": [
-      {
-        "kind": "LinkedField",
-        "alias": null,
-        "name": "soundtrackComposer",
-        "storageKey": null,
-        "args": null,
-        "concreteType": "SoundtrackComposer",
-        "plural": false,
-        "selections": [
-          {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "composerId",
-            "args": null,
-            "storageKey": null
-          }
-        ]
-      }
-    ]
+    "kind": "Variable",
+    "name": "input",
+    "variableName": "input"
   }
-];
+],
+v2 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "composerId",
+  "args": null,
+  "storageKey": null
+};
 return {
   "kind": "Request",
   "fragment": {
@@ -121,19 +98,74 @@ return {
     "type": "Mutation",
     "metadata": null,
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "createSoundtrackComposer",
+        "storageKey": null,
+        "args": (v1/*: any*/),
+        "concreteType": "CreateSoundtrackComposerPayload",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "soundtrackComposer",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "SoundtrackComposer",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/)
+            ]
+          }
+        ]
+      }
+    ]
   },
   "operation": {
     "kind": "Operation",
     "name": "AddSoundtrackComposerMutation",
     "argumentDefinitions": (v0/*: any*/),
-    "selections": (v1/*: any*/)
+    "selections": [
+      {
+        "kind": "LinkedField",
+        "alias": null,
+        "name": "createSoundtrackComposer",
+        "storageKey": null,
+        "args": (v1/*: any*/),
+        "concreteType": "CreateSoundtrackComposerPayload",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "soundtrackComposer",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "SoundtrackComposer",
+            "plural": false,
+            "selections": [
+              (v2/*: any*/),
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "id",
+                "args": null,
+                "storageKey": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   "params": {
     "operationKind": "mutation",
     "name": "AddSoundtrackComposerMutation",
     "id": null,
-    "text": "mutation AddSoundtrackComposerMutation(\n  $input: CreateSoundtrackComposerInput!\n) {\n  createSoundtrackComposer(input: $input) {\n    soundtrackComposer {\n      composerId\n    }\n  }\n}\n",
+    "text": "mutation AddSoundtrackComposerMutation(\n  $input: CreateSoundtrackComposerInput!\n) {\n  createSoundtrackComposer(input: $input) {\n    soundtrackComposer {\n      composerId\n      id\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

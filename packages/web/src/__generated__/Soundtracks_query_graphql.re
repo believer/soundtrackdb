@@ -6,11 +6,11 @@ module Types = {
   type node = {
     id: string,
     title: string,
+    releaseYear: string,
     getFragmentRefs:
       unit =>
       {
         .
-        "__$fragment_ref__TrackList_soundtrack": TrackList_soundtrack_graphql.t,
         "__$fragment_ref__Composer_soundtrack": Composer_soundtrack_graphql.t,
       },
   };
@@ -103,9 +103,11 @@ let node: operationType = [%bs.raw
                   "storageKey": null
                 },
                 {
-                  "kind": "FragmentSpread",
-                  "name": "TrackList_soundtrack",
-                  "args": null
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "name": "releaseYear",
+                  "args": null,
+                  "storageKey": null
                 },
                 {
                   "kind": "FragmentSpread",

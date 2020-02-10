@@ -27,19 +27,25 @@ let make = (~id) => {
      | Some({fullName, soundtrackComposersByComposerId}) =>
        <div className="grid-column-center">
          {React.string(fullName->Belt.Option.getWithDefault(""))}
-         {soundtrackComposersByComposerId.edges
-          ->Belt.Array.map(({node}) => {
-              switch (node) {
-              | Some({soundtrackBySoundtrackId}) =>
-                switch (soundtrackBySoundtrackId) {
-                | Some({id, title}) =>
-                  <div key=id> {React.string(title)} </div>
+         <ul>
+           {soundtrackComposersByComposerId.edges
+            ->Belt.Array.map(({node}) => {
+                switch (node) {
+                | Some({soundtrackBySoundtrackId}) =>
+                  switch (soundtrackBySoundtrackId) {
+                  | Some({id, title}) =>
+                    <li>
+                      <Link.Internal path={Route.Soundtrack(id)} key=id>
+                        {React.string(title)}
+                      </Link.Internal>
+                    </li>
+                  | None => React.null
+                  }
                 | None => React.null
                 }
-              | None => React.null
-              }
-            })
-          ->React.array}
+              })
+            ->React.array}
+         </ul>
        </div>
      | None => React.null
      }}

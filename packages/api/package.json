@@ -6,8 +6,8 @@
   "scripts": {
     "migrate": "DATABASE_URL=postgres://postgres:example@localhost:5432/soundtrackdb node-pg-migrate",
     "start": "postgraphile -c postgres://postgres:example@localhost:5432/soundtrackdb --classic-ids --watch --cors --enhance-graphiql",
-    "db:dump": "pg_dump -h localhost -Fc -U postgres --schema public --exclude-table pgmigrations soundtrackdb > seed.sql",
-    "db:restore": "pg_restore -h localhost -Fc -U postgres --create --clean --dbname soundtrackdb seed.sql"
+    "db:dump": "pg_dump --data-only -h localhost -Fc -U postgres --exclude-table pgmigrations soundtrackdb > seed.psql",
+    "db:restore": "pg_restore -h localhost --data-only -U postgres --dbname soundtrackdb seed.psql"
   },
   "keywords": [],
   "author": "believer <rickard.laurin@gmail.com>",
