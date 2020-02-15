@@ -10,6 +10,11 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.2"
 
+"@graphile-contrib/pg-order-by-related@^1.0.0-beta.6":
+  version "1.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/@graphile-contrib/pg-order-by-related/-/pg-order-by-related-1.0.0-beta.6.tgz#146f6372658a1aa0c22c5cbfd1ea7a46a3a7d8c9"
+  integrity sha512-NDEDhkjpEmLzVMYsv9LqTNyaMXlL32yiFFk7Lj7WAloe1Dgn9/1zMQILMRC+Q9WmFE/edHtXjBRHrXs9NYr3GA==
+
 "@graphile/lru@4.5.0":
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/@graphile/lru/-/lru-4.5.0.tgz#e8fe036d322dfe1715675aab171979981e28ac9e"
