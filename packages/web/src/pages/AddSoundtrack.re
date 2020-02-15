@@ -300,17 +300,25 @@ let make = () => {
             placeholder="Title"
             value={form.state.title}
           />
-          <FormFields.Text
-            error={ImdbId->(form.result)}
-            label="IMDb ID"
-            name="soundtrack-imdbid"
-            onChange={handleChange(
-              ImdbId,
-              AddSountrackForm.ImdbIdField.update,
-            )}
-            placeholder="IMDb ID"
-            value={form.state.imdbId}
-          />
+          <div>
+            <FormFields.Text
+              error={ImdbId->(form.result)}
+              label="IMDb ID"
+              name="soundtrack-imdbid"
+              onChange={handleChange(
+                ImdbId,
+                AddSountrackForm.ImdbIdField.update,
+              )}
+              placeholder="IMDb ID"
+              value={form.state.imdbId}
+            />
+            <div className="text-xs text-gray-500 mt-2 text-right">
+              {switch (ImdbId.make(form.state.imdbId)) {
+               | Some(id) => React.string(id)
+               | None => React.null
+               }}
+            </div>
+          </div>
         </div>
         <div className="grid grid-template-2-column grid-gap-4">
           <div>
