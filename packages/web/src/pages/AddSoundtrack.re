@@ -257,7 +257,7 @@ let make = () => {
                      input: {
                        track: {
                          trackNumber: i + 1,
-                         title: track.title,
+                         title: TitleCase.make(track.title),
                          duration: Duration.fromString(track.duration),
                          createdAt: None,
                          updatedAt: None,

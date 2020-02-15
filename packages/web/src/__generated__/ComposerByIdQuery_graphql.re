@@ -6,10 +6,14 @@ module Types = {
   type soundtrackBySoundtrackId = {
     id: string,
     title: string,
+    releaseYear: string,
   };
   type node = {soundtrackBySoundtrackId: option(soundtrackBySoundtrackId)};
   type edges = {node: option(node)};
-  type soundtrackComposersByComposerId = {edges: array(edges)};
+  type soundtrackComposersByComposerId = {
+    edges: array(edges),
+    totalCount: int,
+  };
   type composer = {
     fullName: option(string),
     soundtrackComposersByComposerId,
@@ -78,14 +82,21 @@ v2 = {
   "args": null,
   "storageKey": null
 },
-v3 = {
+v3 = [
+  {
+    "kind": "Literal",
+    "name": "orderBy",
+    "value": "SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC"
+  }
+],
+v4 = {
   "kind": "ScalarField",
   "alias": null,
   "name": "id",
   "args": null,
   "storageKey": null
 },
-v4 = {
+v5 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "soundtrackBySoundtrackId",
@@ -94,15 +105,29 @@ v4 = {
   "concreteType": "Soundtrack",
   "plural": false,
   "selections": [
-    (v3/*: any*/),
+    (v4/*: any*/),
     {
       "kind": "ScalarField",
       "alias": null,
       "name": "title",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "releaseYear",
+      "args": null,
+      "storageKey": null
     }
   ]
+},
+v6 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "totalCount",
+  "args": null,
+  "storageKey": null
 };
 return {
   "kind": "Request",
@@ -127,8 +152,8 @@ return {
             "kind": "LinkedField",
             "alias": null,
             "name": "soundtrackComposersByComposerId",
-            "storageKey": null,
-            "args": null,
+            "storageKey": "soundtrackComposersByComposerId(orderBy:\"SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC\")",
+            "args": (v3/*: any*/),
             "concreteType": "SoundtrackComposersConnection",
             "plural": false,
             "selections": [
@@ -150,11 +175,12 @@ return {
                     "concreteType": "SoundtrackComposer",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/)
+                      (v5/*: any*/)
                     ]
                   }
                 ]
-              }
+              },
+              (v6/*: any*/)
             ]
           }
         ]
@@ -180,8 +206,8 @@ return {
             "kind": "LinkedField",
             "alias": null,
             "name": "soundtrackComposersByComposerId",
-            "storageKey": null,
-            "args": null,
+            "storageKey": "soundtrackComposersByComposerId(orderBy:\"SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC\")",
+            "args": (v3/*: any*/),
             "concreteType": "SoundtrackComposersConnection",
             "plural": false,
             "selections": [
@@ -203,15 +229,16 @@ return {
                     "concreteType": "SoundtrackComposer",
                     "plural": false,
                     "selections": [
-                      (v4/*: any*/),
-                      (v3/*: any*/)
+                      (v5/*: any*/),
+                      (v4/*: any*/)
                     ]
                   }
                 ]
-              }
+              },
+              (v6/*: any*/)
             ]
           },
-          (v3/*: any*/)
+          (v4/*: any*/)
         ]
       }
     ]
@@ -220,7 +247,7 @@ return {
     "operationKind": "query",
     "name": "ComposerByIdQuery",
     "id": null,
-    "text": "query ComposerByIdQuery(\n  $id: ID!\n) {\n  composer(id: $id) {\n    fullName\n    soundtrackComposersByComposerId {\n      edges {\n        node {\n          soundtrackBySoundtrackId {\n            id\n            title\n          }\n          id\n        }\n      }\n    }\n    id\n  }\n}\n",
+    "text": "query ComposerByIdQuery(\n  $id: ID!\n) {\n  composer(id: $id) {\n    fullName\n    soundtrackComposersByComposerId(orderBy: SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC) {\n      edges {\n        node {\n          soundtrackBySoundtrackId {\n            id\n            title\n            releaseYear\n          }\n          id\n        }\n      }\n      totalCount\n    }\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
