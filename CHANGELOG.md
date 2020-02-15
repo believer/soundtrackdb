@@ -1,3 +1,18 @@
+# [1.4.0](https://github.com/believer/soundtrackdb/compare/v1.3.0...v1.4.0) (2020-02-15)
+
+
+### Bug Fixes
+
+* handle multiple date formats ([7a94862](https://github.com/believer/soundtrackdb/commit/7a948621f2b1f4fadbc8f94dda94a3c03cc3a57d))
+* set dropdown value ([658639a](https://github.com/believer/soundtrackdb/commit/658639a2049c32eae0f3fee429e64d9bc0f0fc79))
+
+
+### Features
+
+* add design for composer page ([677b7a8](https://github.com/believer/soundtrackdb/commit/677b7a84f1bd9f8f98fe8eb8255a0c2ed224a9e0))
+* capitalize track titles automatically ([0f13ac7](https://github.com/believer/soundtrackdb/commit/0f13ac795fc8098a2f8d998e66be35f4e565fb06))
+* display the parsed id of imdb and spotify links ([94c3ad8](https://github.com/believer/soundtrackdb/commit/94c3ad80e9007db72455abe510cf3a2e3005c1f5))
+
 # [1.3.0](https://github.com/believer/soundtrackdb/compare/v1.2.0...v1.3.0) (2020-02-10)
 
 
