@@ -219,7 +219,7 @@ let make = () => {
                 title: state.title,
                 imdbId: ImdbId.make(state.imdbId),
                 soundtrackType: state.soundtrackType,
-                releaseYear: state.releaseDate,
+                releaseYear: DateTime.Parse.make(state.releaseDate),
                 createdAt: None,
                 rowId: None,
                 updatedAt: None,
@@ -313,28 +313,45 @@ let make = () => {
           />
         </div>
         <div className="grid grid-template-2-column grid-gap-4">
-          <FormFields.Text
-            error={ReleaseDate->(form.result)}
-            label="Release date"
-            name="soundtrack-release-date"
-            onChange={handleChange(
-              ReleaseDate,
-              AddSountrackForm.ReleaseDateField.update,
-            )}
-            placeholder="Release date"
-            value={form.state.releaseDate}
-          />
-          <FormFields.Text
-            error={SpotifyId->(form.result)}
-            label="Spotify ID"
-            name="soundtrack-spotifyid"
-            onChange={handleChange(
-              SpotifyId,
-              AddSountrackForm.SpotifyIdField.update,
-            )}
-            placeholder="Spotify ID"
-            value={form.state.spotifyId}
-          />
+          <div>
+            <FormFields.Text
+              error={ReleaseDate->(form.result)}
+              label="Release date"
+              name="soundtrack-release-date"
+              onChange={handleChange(
+                ReleaseDate,
+                AddSountrackForm.ReleaseDateField.update,
+              )}
+              placeholder="Release date"
+              value={form.state.releaseDate}
+            />
+            {switch (form.state.releaseDate) {
+             | "" => React.null
+             | _ =>
+               <div className="text-xs text-gray-500 mt-2 text-right">
+                 {React.string(DateTime.Parse.make(form.state.releaseDate))}
+               </div>
+             }}
+          </div>
+          <div>
+            <FormFields.Text
+              error={SpotifyId->(form.result)}
+              label="Spotify ID"
+              name="soundtrack-spotifyid"
+              onChange={handleChange(
+                SpotifyId,
+                AddSountrackForm.SpotifyIdField.update,
+              )}
+              placeholder="Spotify ID"
+              value={form.state.spotifyId}
+            />
+            <div className="text-xs text-gray-500 mt-2 text-right">
+              {switch (SpotifyId.make(form.state.spotifyId)) {
+               | Some(id) => React.string(id)
+               | None => React.null
+               }}
+            </div>
+          </div>
         </div>
         <div className="grid grid-template-2-column grid-gap-4 mt-4">
           {switch (composers.allComposers) {
