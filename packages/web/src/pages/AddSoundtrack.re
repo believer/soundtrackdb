@@ -374,7 +374,7 @@ let make = () => {
                        Some(
                          Dropdown.Item.make(
                            ~label=fullName->Belt.Option.getWithDefault(""),
-                           ~value=rowId->string_of_int,
+                           ~value=rowId->Belt.Int.toString,
                          ),
                        )
                      | None => None
@@ -383,6 +383,7 @@ let make = () => {
                  ->Belt.Array.keepMap(t => t)
                  ->Belt.List.fromArray
                }
+               value={Belt.Int.toString(form.state.composerId)}
              />
            | None => React.null
            }}
@@ -402,6 +403,10 @@ let make = () => {
               make(~label="Game", ~value="GAME"),
               make(~label="Movie", ~value="MOVIE"),
             ]
+            value={
+              form.state.soundtrackType
+              ->SchemaAssets.Enum_SoundtrackType.toString
+            }
           />
         </div>
         <div className="mt-4">
