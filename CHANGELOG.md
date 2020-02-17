@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/believer/soundtrackdb/compare/v1.4.0...v1.5.0) (2020-02-17)
+
+
+### Features
+
+* add tv type and more content ([e53f0db](https://github.com/believer/soundtrackdb/commit/e53f0db3823b378b9cd178f2b24562954821099f))
+
 # [1.4.0](https://github.com/believer/soundtrackdb/compare/v1.3.0...v1.4.0) (2020-02-15)
 
 
