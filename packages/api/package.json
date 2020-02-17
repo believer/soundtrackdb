@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "migrate": "DATABASE_URL=postgres://postgres:example@localhost:5432/soundtrackdb node-pg-migrate",
-    "start": "postgraphile -c postgres://postgres:example@localhost:5432/soundtrackdb --classic-ids --watch --cors --enhance-graphiql --append-plugins @graphile-contrib/pg-order-by-related",
+    "start": "nodemon lib/server.js",
+    "start:old": "postgraphile -c postgres://postgres:example@localhost:5432/soundtrackdb --classic-ids --watch --cors --enhance-graphiql --append-plugins @graphile-contrib/pg-order-by-related",
     "db:dump": "pg_dump --data-only -h localhost -Fc -U postgres --exclude-table pgmigrations soundtrackdb > seed.psql",
     "db:restore": "pg_restore -h localhost --data-only -U postgres --dbname soundtrackdb seed.psql"
   },
@@ -14,10 +15,13 @@
   "license": "MIT",
   "devDependencies": {
     "node-pg-migrate": "4.2.1",
+    "nodemon": "^2.0.2",
     "prettier": "1.19.1"
   },
   "dependencies": {
     "@graphile-contrib/pg-order-by-related": "^1.0.0-beta.6",
+    "@graphile-contrib/pg-simplify-inflector": "^5.0.0-beta.1",
+    "express": "^4.17.1",
     "pg": "7.17.1",
     "postgraphile": "^4.5.5"
   }
