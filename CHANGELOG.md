@@ -1,3 +1,16 @@
+# [2.0.0](https://github.com/believer/soundtrackdb/compare/v1.5.0...v2.0.0) (2020-02-17)
+
+
+### Features
+
+* **api:** update query inflictions ([19f2b69](https://github.com/believer/soundtrackdb/commit/19f2b696a69731971c66d98ad21912cde1b3f9f7))
+* add breadcrumbs ([e3ebfa0](https://github.com/believer/soundtrackdb/commit/e3ebfa04125c2ad4b2c732946a443b0c545d1edc))
+
+
+### BREAKING CHANGES
+
+* **api:** Updates all query names
+
 # [1.5.0](https://github.com/believer/soundtrackdb/compare/v1.4.0...v1.5.0) (2020-02-17)
 
 
