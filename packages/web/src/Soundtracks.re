@@ -1,7 +1,7 @@
 module TrackListFragment = [%relay.fragment
   {|
   fragment Soundtracks_query on Query {
-    allSoundtracks(orderBy: TITLE_ASC) {
+    soundtracks(orderBy: TITLE_ASC) {
       edges {
         node {
           id
@@ -19,19 +19,18 @@ module TrackListFragment = [%relay.fragment
 let make = (~query as queryRef) => {
   let soundtracks = TrackListFragment.use(queryRef);
 
-  switch (soundtracks.allSoundtracks) {
+  switch (soundtracks.soundtracks) {
   | Some({edges}) =>
     <div className="grid-column-center">
       {edges
        ->Belt.Array.map(soundtrack => {
            switch (soundtrack.node) {
            | Some({title, id, releaseYear} as node) =>
-             <Link.Internal path={Route.Soundtrack(id)}>
+             <Link.Internal key=id path={Route.Soundtrack(id)}>
                <div
                  className="border-b border-gray-200 grid-template-track-list
                  grid items-center py-4
-                 justify-between"
-                 key=id>
+                 justify-between">
                  <div className="font-bold text-gray-900">
                    {React.string(title)}
                  </div>

@@ -1,10 +1,10 @@
 module ComposerFragment = [%relay.fragment
   {|
   fragment Composer_soundtrack on Soundtrack {
-    soundtrackComposersBySoundtrackId {
+    soundtrackComposers {
       edges {
         node {
-          composerByComposerId {
+          composer {
             fullName
             id
           }
@@ -19,11 +19,11 @@ module ComposerFragment = [%relay.fragment
 let make = (~query as queryRef) => {
   let composer = ComposerFragment.use(queryRef);
 
-  composer.soundtrackComposersBySoundtrackId.edges
+  composer.soundtrackComposers.edges
   ->Belt.Array.map(composer => {
       switch (composer.node) {
-      | Some({composerByComposerId}) =>
-        switch (composerByComposerId) {
+      | Some({composer}) =>
+        switch (composer) {
         | Some({id, fullName}) =>
           <Link.Internal
             key=id

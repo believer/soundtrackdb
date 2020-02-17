@@ -75,8 +75,8 @@ return {
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "allSoundtracks",
-        "storageKey": "allSoundtracks(orderBy:\"TITLE_ASC\")",
+        "name": "soundtracks",
+        "storageKey": "soundtracks(orderBy:\"TITLE_ASC\")",
         "args": [
           {
             "kind": "Literal",
@@ -123,7 +123,7 @@ return {
                   {
                     "kind": "LinkedField",
                     "alias": null,
-                    "name": "soundtrackComposersBySoundtrackId",
+                    "name": "soundtrackComposers",
                     "storageKey": null,
                     "args": null,
                     "concreteType": "SoundtrackComposersConnection",
@@ -150,7 +150,7 @@ return {
                               {
                                 "kind": "LinkedField",
                                 "alias": null,
-                                "name": "composerByComposerId",
+                                "name": "composer",
                                 "storageKey": null,
                                 "args": null,
                                 "concreteType": "Composer",
@@ -185,7 +185,7 @@ return {
     "operationKind": "query",
     "name": "HomeQuery",
     "id": null,
-    "text": "query HomeQuery {\n  ...Soundtracks_query\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposersBySoundtrackId {\n    edges {\n      node {\n        composerByComposerId {\n          fullName\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment Soundtracks_query on Query {\n  allSoundtracks(orderBy: TITLE_ASC) {\n    edges {\n      node {\n        id\n        title\n        releaseYear\n        ...Composer_soundtrack\n      }\n    }\n  }\n}\n",
+    "text": "query HomeQuery {\n  ...Soundtracks_query\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposers {\n    edges {\n      node {\n        composer {\n          fullName\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment Soundtracks_query on Query {\n  soundtracks(orderBy: TITLE_ASC) {\n    edges {\n      node {\n        id\n        title\n        releaseYear\n        ...Composer_soundtrack\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

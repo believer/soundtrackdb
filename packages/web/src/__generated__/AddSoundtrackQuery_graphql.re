@@ -9,18 +9,18 @@ module Types = {
     rowId: int,
   };
   type edges = {node: option(node)};
-  type allComposers = {edges: array(edges)};
+  type composers = {edges: array(edges)};
 };
 
 open Types;
 
-type response = {allComposers: option(allComposers)};
+type response = {composers: option(composers)};
 type variables = unit;
 
 module Internal = {
   type responseRaw;
   let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"allComposers":{"n":""},"allComposers_edges_node":{"n":""},"allComposers_edges_node_fullName":{"n":""}}} |}
+    {| {"__root":{"composers":{"n":""},"composers_edges_node":{"n":""},"composers_edges_node_fullName":{"n":""}}} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -54,8 +54,8 @@ var v0 = [
   {
     "kind": "LinkedField",
     "alias": null,
-    "name": "allComposers",
-    "storageKey": "allComposers(orderBy:\"FIRST_NAME_ASC\")",
+    "name": "composers",
+    "storageKey": "composers(orderBy:\"FIRST_NAME_ASC\")",
     "args": [
       {
         "kind": "Literal",
@@ -132,7 +132,7 @@ return {
     "operationKind": "query",
     "name": "AddSoundtrackQuery",
     "id": null,
-    "text": "query AddSoundtrackQuery {\n  allComposers(orderBy: FIRST_NAME_ASC) {\n    edges {\n      node {\n        id\n        fullName\n        rowId\n      }\n    }\n  }\n}\n",
+    "text": "query AddSoundtrackQuery {\n  composers(orderBy: FIRST_NAME_ASC) {\n    edges {\n      node {\n        id\n        fullName\n        rowId\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

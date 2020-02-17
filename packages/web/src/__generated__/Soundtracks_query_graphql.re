@@ -15,17 +15,17 @@ module Types = {
       },
   };
   type edges = {node: option(node)};
-  type allSoundtracks = {edges: array(edges)};
+  type soundtracks = {edges: array(edges)};
 };
 
 open Types;
 
-type fragment = {allSoundtracks: option(allSoundtracks)};
+type fragment = {soundtracks: option(soundtracks)};
 
 module Internal = {
   type fragmentRaw;
   let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"allSoundtracks":{"n":""},"allSoundtracks_edges_node":{"n":"","f":""}}} |}
+    {| {"__root":{"soundtracks":{"n":""},"soundtracks_edges_node":{"n":"","f":""}}} |}
   ];
   let fragmentConverterMap = ();
   let convertFragment = v =>
@@ -58,8 +58,8 @@ let node: operationType = [%bs.raw
     {
       "kind": "LinkedField",
       "alias": null,
-      "name": "allSoundtracks",
-      "storageKey": "allSoundtracks(orderBy:\"TITLE_ASC\")",
+      "name": "soundtracks",
+      "storageKey": "soundtracks(orderBy:\"TITLE_ASC\")",
       "args": [
         {
           "kind": "Literal",

@@ -3,7 +3,7 @@
 module Unions = {};
 
 module Types = {
-  type soundtrack = {
+  type soundtrackById = {
     title: string,
     getFragmentRefs:
       unit =>
@@ -17,7 +17,7 @@ module Types = {
 
 open Types;
 
-type response = {soundtrack: option(soundtrack)};
+type response = {soundtrackById: option(soundtrackById)};
 type refetchVariables = {id: option(string)};
 let makeRefetchVariables = (~id=?, ()): refetchVariables => {id: id};
 type variables = {id: string};
@@ -25,7 +25,7 @@ type variables = {id: string};
 module Internal = {
   type responseRaw;
   let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"soundtrack":{"n":"","f":""}}} |}
+    {| {"__root":{"soundtrackById":{"n":"","f":""}}} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -88,7 +88,7 @@ v4 = [
   {
     "kind": "LinkedField",
     "alias": null,
-    "name": "composerByComposerId",
+    "name": "composer",
     "storageKey": null,
     "args": null,
     "concreteType": "Composer",
@@ -125,7 +125,7 @@ return {
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "soundtrack",
+        "name": "soundtrackById",
         "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Soundtrack",
@@ -154,7 +154,7 @@ return {
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "soundtrack",
+        "name": "soundtrackById",
         "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Soundtrack",
@@ -164,7 +164,7 @@ return {
           {
             "kind": "LinkedField",
             "alias": null,
-            "name": "soundtrackComposersBySoundtrackId",
+            "name": "soundtrackComposers",
             "storageKey": null,
             "args": null,
             "concreteType": "SoundtrackComposersConnection",
@@ -217,8 +217,8 @@ return {
           {
             "kind": "LinkedField",
             "alias": null,
-            "name": "tracksBySoundtrackId",
-            "storageKey": "tracksBySoundtrackId(orderBy:\"TRACK_NUMBER_ASC\")",
+            "name": "tracks",
+            "storageKey": "tracks(orderBy:\"TRACK_NUMBER_ASC\")",
             "args": [
               {
                 "kind": "Literal",
@@ -267,7 +267,7 @@ return {
                       {
                         "kind": "LinkedField",
                         "alias": null,
-                        "name": "trackComposersByTrackId",
+                        "name": "trackComposers",
                         "storageKey": null,
                         "args": null,
                         "concreteType": "TrackComposersConnection",
@@ -312,7 +312,7 @@ return {
     "operationKind": "query",
     "name": "SoundtrackByIdQuery",
     "id": null,
-    "text": "query SoundtrackByIdQuery(\n  $id: ID!\n) {\n  soundtrack(id: $id) {\n    title\n    ...Composer_soundtrack\n    ...TrackList_soundtrack\n    id\n  }\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposersBySoundtrackId {\n    edges {\n      node {\n        composerByComposerId {\n          fullName\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment TrackList_soundtrack on Soundtrack {\n  imdbId\n  spotifyId\n  releaseYear\n  tracksBySoundtrackId(orderBy: TRACK_NUMBER_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        title\n        duration\n        trackNumber\n        trackComposersByTrackId {\n          totalCount\n          edges {\n            node {\n              composerByComposerId {\n                fullName\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+    "text": "query SoundtrackByIdQuery(\n  $id: ID!\n) {\n  soundtrackById(id: $id) {\n    title\n    ...Composer_soundtrack\n    ...TrackList_soundtrack\n    id\n  }\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposers {\n    edges {\n      node {\n        composer {\n          fullName\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment TrackList_soundtrack on Soundtrack {\n  imdbId\n  spotifyId\n  releaseYear\n  tracks(orderBy: TRACK_NUMBER_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        title\n        duration\n        trackNumber\n        trackComposers {\n          totalCount\n          edges {\n            node {\n              composer {\n                fullName\n                id\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

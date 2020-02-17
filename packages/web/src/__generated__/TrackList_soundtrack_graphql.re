@@ -3,10 +3,10 @@
 module Unions = {};
 
 module Types = {
-  type composerByComposerId = {fullName: option(string)};
-  type node = {composerByComposerId: option(composerByComposerId)};
+  type composer = {fullName: option(string)};
+  type node = {composer: option(composer)};
   type edges = {node: option(node)};
-  type trackComposersByTrackId = {
+  type trackComposers = {
     totalCount: int,
     edges: array(edges),
   };
@@ -15,12 +15,12 @@ module Types = {
     title: string,
     duration: int,
     trackNumber: int,
-    trackComposersByTrackId,
+    trackComposers,
   };
-  type tracksBySoundtrackId_edges = {node: option(edges_node)};
-  type tracksBySoundtrackId = {
+  type tracks_edges = {node: option(edges_node)};
+  type tracks = {
     totalCount: int,
-    edges: array(tracksBySoundtrackId_edges),
+    edges: array(tracks_edges),
   };
 };
 
@@ -30,13 +30,13 @@ type fragment = {
   imdbId: option(string),
   spotifyId: option(string),
   releaseYear: string,
-  tracksBySoundtrackId,
+  tracks,
 };
 
 module Internal = {
   type fragmentRaw;
   let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"imdbId":{"n":""},"spotifyId":{"n":""},"tracksBySoundtrackId_edges_node":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId":{"n":""},"tracksBySoundtrackId_edges_node_trackComposersByTrackId_edges_node_composerByComposerId_fullName":{"n":""}}} |}
+    {| {"__root":{"imdbId":{"n":""},"spotifyId":{"n":""},"tracks_edges_node":{"n":""},"tracks_edges_node_trackComposers_edges_node":{"n":""},"tracks_edges_node_trackComposers_edges_node_composer":{"n":""},"tracks_edges_node_trackComposers_edges_node_composer_fullName":{"n":""}}} |}
   ];
   let fragmentConverterMap = ();
   let convertFragment = v =>
@@ -98,8 +98,8 @@ return {
     {
       "kind": "LinkedField",
       "alias": null,
-      "name": "tracksBySoundtrackId",
-      "storageKey": "tracksBySoundtrackId(orderBy:\"TRACK_NUMBER_ASC\")",
+      "name": "tracks",
+      "storageKey": "tracks(orderBy:\"TRACK_NUMBER_ASC\")",
       "args": [
         {
           "kind": "Literal",
@@ -160,7 +160,7 @@ return {
                 {
                   "kind": "LinkedField",
                   "alias": null,
-                  "name": "trackComposersByTrackId",
+                  "name": "trackComposers",
                   "storageKey": null,
                   "args": null,
                   "concreteType": "TrackComposersConnection",
@@ -188,7 +188,7 @@ return {
                             {
                               "kind": "LinkedField",
                               "alias": null,
-                              "name": "composerByComposerId",
+                              "name": "composer",
                               "storageKey": null,
                               "args": null,
                               "concreteType": "Composer",

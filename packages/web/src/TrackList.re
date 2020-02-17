@@ -4,7 +4,7 @@ module Fragment = [%relay.fragment
     imdbId
     spotifyId
     releaseYear
-    tracksBySoundtrackId(orderBy: TRACK_NUMBER_ASC) {
+    tracks(orderBy: TRACK_NUMBER_ASC) {
       totalCount
       edges {
         node {
@@ -12,11 +12,11 @@ module Fragment = [%relay.fragment
           title
           duration
           trackNumber
-          trackComposersByTrackId {
+          trackComposers {
             totalCount
             edges {
               node {
-                composerByComposerId {
+                composer {
                   fullName
                 }
               }
@@ -45,25 +45,25 @@ let make = (~query as queryRef) => {
 
   <div className="grid grid-template-soundtrack grid-gap-20 mt-8">
     <ul>
-      {trackList.tracksBySoundtrackId.edges
+      {trackList.tracks.edges
        ->Belt.Array.map(track => {
            switch (track.node) {
-           | Some({title, id, duration, trackNumber, trackComposersByTrackId}) =>
+           | Some({title, id, duration, trackNumber, trackComposers}) =>
              <li className=Style.trackListRow key=id>
                <div className="text-gray-500">
                  {React.string(trackNumber->string_of_int)}
                </div>
                <div className="text-gray-800">
                  {React.string(title)}
-                 {switch (trackComposersByTrackId.totalCount) {
+                 {switch (trackComposers.totalCount) {
                   | 0 => React.null
                   | _ =>
                     let allComposers =
-                      trackComposersByTrackId.edges
+                      trackComposers.edges
                       ->Belt.Array.map(composer => {
                           switch (composer.node) {
-                          | Some({composerByComposerId}) =>
-                            switch (composerByComposerId) {
+                          | Some({composer}) =>
+                            switch (composer) {
                             | Some({fullName}) =>
                               fullName->Belt.Option.getWithDefault("")
                             | None => ""
@@ -101,15 +101,13 @@ let make = (~query as queryRef) => {
         {React.string("Number of tracks")}
       </h2>
       <div className="text-gray-600 mb-4">
-        {trackList.tracksBySoundtrackId.totalCount
-         ->Belt.Int.toString
-         ->React.string}
+        {trackList.tracks.totalCount->Belt.Int.toString->React.string}
       </div>
       <h2 className="font-bold text-gray-800 mb-1">
         {React.string("Playtime")}
       </h2>
       <div className="text-gray-600 mb-12">
-        {trackList.tracksBySoundtrackId.edges
+        {trackList.tracks.edges
          ->Belt.Array.reduce(0, (acc, track) => {
              switch (track.node) {
              | Some({duration}) => acc + duration

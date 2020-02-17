@@ -19,6 +19,7 @@ html {
 }
 
 :root {
+  --t2: 0.5rem;
   --t4: 1rem;
   --t8: 2rem;
   --t12: 3rem;
@@ -73,4 +74,11 @@ html {
 
 .grid-gap-20 {
   grid-gap: var(--t20);
+}
+
+/* Breadcrumbs */
+.breadcrumbs li:not(:last-child):after {
+  @apply font-normal px-2;
+
+  content: '/';
 }

@@ -3,26 +3,26 @@
 module Unions = {};
 
 module Types = {
-  type soundtrackBySoundtrackId = {
+  type soundtrack = {
     id: string,
     title: string,
     releaseYear: string,
   };
-  type node = {soundtrackBySoundtrackId: option(soundtrackBySoundtrackId)};
+  type node = {soundtrack: option(soundtrack)};
   type edges = {node: option(node)};
-  type soundtrackComposersByComposerId = {
+  type soundtrackComposers = {
     edges: array(edges),
     totalCount: int,
   };
-  type composer = {
+  type composerById = {
     fullName: option(string),
-    soundtrackComposersByComposerId,
+    soundtrackComposers,
   };
 };
 
 open Types;
 
-type response = {composer: option(composer)};
+type response = {composerById: option(composerById)};
 type refetchVariables = {id: option(string)};
 let makeRefetchVariables = (~id=?, ()): refetchVariables => {id: id};
 type variables = {id: string};
@@ -30,7 +30,7 @@ type variables = {id: string};
 module Internal = {
   type responseRaw;
   let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"composer":{"n":""},"composer_fullName":{"n":""},"composer_soundtrackComposersByComposerId_edges_node":{"n":""},"composer_soundtrackComposersByComposerId_edges_node_soundtrackBySoundtrackId":{"n":""}}} |}
+    {| {"__root":{"composerById":{"n":""},"composerById_fullName":{"n":""},"composerById_soundtrackComposers_edges_node":{"n":""},"composerById_soundtrackComposers_edges_node_soundtrack":{"n":""}}} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -99,7 +99,7 @@ v4 = {
 v5 = {
   "kind": "LinkedField",
   "alias": null,
-  "name": "soundtrackBySoundtrackId",
+  "name": "soundtrack",
   "storageKey": null,
   "args": null,
   "concreteType": "Soundtrack",
@@ -141,7 +141,7 @@ return {
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "composer",
+        "name": "composerById",
         "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Composer",
@@ -151,8 +151,8 @@ return {
           {
             "kind": "LinkedField",
             "alias": null,
-            "name": "soundtrackComposersByComposerId",
-            "storageKey": "soundtrackComposersByComposerId(orderBy:\"SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC\")",
+            "name": "soundtrackComposers",
+            "storageKey": "soundtrackComposers(orderBy:\"SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC\")",
             "args": (v3/*: any*/),
             "concreteType": "SoundtrackComposersConnection",
             "plural": false,
@@ -195,7 +195,7 @@ return {
       {
         "kind": "LinkedField",
         "alias": null,
-        "name": "composer",
+        "name": "composerById",
         "storageKey": null,
         "args": (v1/*: any*/),
         "concreteType": "Composer",
@@ -205,8 +205,8 @@ return {
           {
             "kind": "LinkedField",
             "alias": null,
-            "name": "soundtrackComposersByComposerId",
-            "storageKey": "soundtrackComposersByComposerId(orderBy:\"SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC\")",
+            "name": "soundtrackComposers",
+            "storageKey": "soundtrackComposers(orderBy:\"SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC\")",
             "args": (v3/*: any*/),
             "concreteType": "SoundtrackComposersConnection",
             "plural": false,
@@ -247,7 +247,7 @@ return {
     "operationKind": "query",
     "name": "ComposerByIdQuery",
     "id": null,
-    "text": "query ComposerByIdQuery(\n  $id: ID!\n) {\n  composer(id: $id) {\n    fullName\n    soundtrackComposersByComposerId(orderBy: SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC) {\n      edges {\n        node {\n          soundtrackBySoundtrackId {\n            id\n            title\n            releaseYear\n          }\n          id\n        }\n      }\n      totalCount\n    }\n    id\n  }\n}\n",
+    "text": "query ComposerByIdQuery(\n  $id: ID!\n) {\n  composerById(id: $id) {\n    fullName\n    soundtrackComposers(orderBy: SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC) {\n      edges {\n        node {\n          soundtrack {\n            id\n            title\n            releaseYear\n          }\n          id\n        }\n      }\n      totalCount\n    }\n    id\n  }\n}\n",
     "metadata": {}
   }
 };

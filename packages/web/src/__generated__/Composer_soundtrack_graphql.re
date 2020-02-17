@@ -3,23 +3,23 @@
 module Unions = {};
 
 module Types = {
-  type composerByComposerId = {
+  type composer = {
     fullName: option(string),
     id: string,
   };
-  type node = {composerByComposerId: option(composerByComposerId)};
+  type node = {composer: option(composer)};
   type edges = {node: option(node)};
-  type soundtrackComposersBySoundtrackId = {edges: array(edges)};
+  type soundtrackComposers = {edges: array(edges)};
 };
 
 open Types;
 
-type fragment = {soundtrackComposersBySoundtrackId};
+type fragment = {soundtrackComposers};
 
 module Internal = {
   type fragmentRaw;
   let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"soundtrackComposersBySoundtrackId_edges_node":{"n":""},"soundtrackComposersBySoundtrackId_edges_node_composerByComposerId":{"n":""},"soundtrackComposersBySoundtrackId_edges_node_composerByComposerId_fullName":{"n":""}}} |}
+    {| {"__root":{"soundtrackComposers_edges_node":{"n":""},"soundtrackComposers_edges_node_composer":{"n":""},"soundtrackComposers_edges_node_composer_fullName":{"n":""}}} |}
   ];
   let fragmentConverterMap = ();
   let convertFragment = v =>
@@ -52,7 +52,7 @@ let node: operationType = [%bs.raw
     {
       "kind": "LinkedField",
       "alias": null,
-      "name": "soundtrackComposersBySoundtrackId",
+      "name": "soundtrackComposers",
       "storageKey": null,
       "args": null,
       "concreteType": "SoundtrackComposersConnection",
@@ -79,7 +79,7 @@ let node: operationType = [%bs.raw
                 {
                   "kind": "LinkedField",
                   "alias": null,
-                  "name": "composerByComposerId",
+                  "name": "composer",
                   "storageKey": null,
                   "args": null,
                   "concreteType": "Composer",

@@ -10,7 +10,7 @@ type Composer implements Node {
   updatedAt: Datetime!
 
   """Reads and enables pagination through a set of `SoundtrackComposer`."""
-  soundtrackComposersByComposerId(
+  soundtrackComposers(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -39,7 +39,7 @@ type Composer implements Node {
   ): SoundtrackComposersConnection!
 
   """Reads and enables pagination through a set of `TrackComposer`."""
-  trackComposersByComposerId(
+  trackComposers(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -258,12 +258,12 @@ type CreateSoundtrackComposerPayload {
   """
   Reads a single `Composer` that is related to this `SoundtrackComposer`.
   """
-  composerByComposerId: Composer
+  composer: Composer
 
   """
   Reads a single `Soundtrack` that is related to this `SoundtrackComposer`.
   """
-  soundtrackBySoundtrackId: Soundtrack
+  soundtrack: Soundtrack
 
   """An edge for our `SoundtrackComposer`. May be used by Relay 1."""
   soundtrackComposerEdge(
@@ -336,10 +336,10 @@ type CreateTrackComposerPayload {
   query: Query
 
   """Reads a single `Track` that is related to this `TrackComposer`."""
-  trackByTrackId: Track
+  track: Track
 
   """Reads a single `Composer` that is related to this `TrackComposer`."""
-  composerByComposerId: Composer
+  composer: Composer
 
   """An edge for our `TrackComposer`. May be used by Relay 1."""
   trackComposerEdge(
@@ -377,7 +377,7 @@ type CreateTrackPayload {
   query: Query
 
   """Reads a single `Soundtrack` that is related to this `Track`."""
-  soundtrackBySoundtrackId: Soundtrack
+  soundtrack: Soundtrack
 
   """An edge for our `Track`. May be used by Relay 1."""
   trackEdge(
@@ -395,18 +395,8 @@ A point in time as described by the [ISO
 """
 scalar Datetime
 
-"""All input for the `deleteComposerByRowId` mutation."""
-input DeleteComposerByRowIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  rowId: Int!
-}
-
-"""All input for the `deleteComposer` mutation."""
-input DeleteComposerInput {
+"""All input for the `deleteComposerById` mutation."""
+input DeleteComposerByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -417,6 +407,16 @@ input DeleteComposerInput {
   The globally unique `ID` which will identify a single `Composer` to be deleted.
   """
   id: ID!
+}
+
+"""All input for the `deleteComposer` mutation."""
+input DeleteComposerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: Int!
 }
 
 """The output of our delete `Composer` mutation."""
@@ -443,18 +443,8 @@ type DeleteComposerPayload {
   ): ComposersEdge
 }
 
-"""All input for the `deletePgmigrationByRowId` mutation."""
-input DeletePgmigrationByRowIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  rowId: Int!
-}
-
-"""All input for the `deletePgmigration` mutation."""
-input DeletePgmigrationInput {
+"""All input for the `deletePgmigrationById` mutation."""
+input DeletePgmigrationByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -465,6 +455,16 @@ input DeletePgmigrationInput {
   The globally unique `ID` which will identify a single `Pgmigration` to be deleted.
   """
   id: ID!
+}
+
+"""All input for the `deletePgmigration` mutation."""
+input DeletePgmigrationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  rowId: Int!
 }
 
 """The output of our delete `Pgmigration` mutation."""
@@ -491,14 +491,18 @@ type DeletePgmigrationPayload {
   ): PgmigrationsEdge
 }
 
-"""All input for the `deleteSoundtrackByRowId` mutation."""
-input DeleteSoundtrackByRowIdInput {
+"""All input for the `deleteSoundtrackById` mutation."""
+input DeleteSoundtrackByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  rowId: Int!
+
+  """
+  The globally unique `ID` which will identify a single `Soundtrack` to be deleted.
+  """
+  id: ID!
 }
 
 """All input for the `deleteSoundtrackBySpotifyId` mutation."""
@@ -511,21 +515,8 @@ input DeleteSoundtrackBySpotifyIdInput {
   spotifyId: String!
 }
 
-"""
-All input for the `deleteSoundtrackComposerByComposerIdAndSoundtrackId` mutation.
-"""
-input DeleteSoundtrackComposerByComposerIdAndSoundtrackIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  composerId: Int!
-  soundtrackId: Int!
-}
-
-"""All input for the `deleteSoundtrackComposer` mutation."""
-input DeleteSoundtrackComposerInput {
+"""All input for the `deleteSoundtrackComposerById` mutation."""
+input DeleteSoundtrackComposerByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -536,6 +527,17 @@ input DeleteSoundtrackComposerInput {
   The globally unique `ID` which will identify a single `SoundtrackComposer` to be deleted.
   """
   id: ID!
+}
+
+"""All input for the `deleteSoundtrackComposer` mutation."""
+input DeleteSoundtrackComposerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  composerId: Int!
+  soundtrackId: Int!
 }
 
 """The output of our delete `SoundtrackComposer` mutation."""
@@ -558,12 +560,12 @@ type DeleteSoundtrackComposerPayload {
   """
   Reads a single `Composer` that is related to this `SoundtrackComposer`.
   """
-  composerByComposerId: Composer
+  composer: Composer
 
   """
   Reads a single `Soundtrack` that is related to this `SoundtrackComposer`.
   """
-  soundtrackBySoundtrackId: Soundtrack
+  soundtrack: Soundtrack
 
   """An edge for our `SoundtrackComposer`. May be used by Relay 1."""
   soundtrackComposerEdge(
@@ -579,11 +581,7 @@ input DeleteSoundtrackInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Soundtrack` to be deleted.
-  """
-  id: ID!
+  rowId: Int!
 }
 
 """The output of our delete `Soundtrack` mutation."""
@@ -610,31 +608,22 @@ type DeleteSoundtrackPayload {
   ): SoundtracksEdge
 }
 
-"""All input for the `deleteTrackByRowId` mutation."""
-input DeleteTrackByRowIdInput {
+"""All input for the `deleteTrackById` mutation."""
+input DeleteTrackByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-  rowId: Int!
+
+  """
+  The globally unique `ID` which will identify a single `Track` to be deleted.
+  """
+  id: ID!
 }
 
-"""
-All input for the `deleteTrackComposerByTrackIdAndComposerId` mutation.
-"""
-input DeleteTrackComposerByTrackIdAndComposerIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-  trackId: Int!
-  composerId: Int!
-}
-
-"""All input for the `deleteTrackComposer` mutation."""
-input DeleteTrackComposerInput {
+"""All input for the `deleteTrackComposerById` mutation."""
+input DeleteTrackComposerByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -645,6 +634,17 @@ input DeleteTrackComposerInput {
   The globally unique `ID` which will identify a single `TrackComposer` to be deleted.
   """
   id: ID!
+}
+
+"""All input for the `deleteTrackComposer` mutation."""
+input DeleteTrackComposerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+  trackId: Int!
+  composerId: Int!
 }
 
 """The output of our delete `TrackComposer` mutation."""
@@ -665,10 +665,10 @@ type DeleteTrackComposerPayload {
   query: Query
 
   """Reads a single `Track` that is related to this `TrackComposer`."""
-  trackByTrackId: Track
+  track: Track
 
   """Reads a single `Composer` that is related to this `TrackComposer`."""
-  composerByComposerId: Composer
+  composer: Composer
 
   """An edge for our `TrackComposer`. May be used by Relay 1."""
   trackComposerEdge(
@@ -684,11 +684,7 @@ input DeleteTrackInput {
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
-
-  """
-  The globally unique `ID` which will identify a single `Track` to be deleted.
-  """
-  id: ID!
+  rowId: Int!
 }
 
 """The output of our delete `Track` mutation."""
@@ -709,7 +705,7 @@ type DeleteTrackPayload {
   query: Query
 
   """Reads a single `Soundtrack` that is related to this `Track`."""
-  soundtrackBySoundtrackId: Soundtrack
+  soundtrack: Soundtrack
 
   """An edge for our `Track`. May be used by Relay 1."""
   trackEdge(
@@ -771,6 +767,14 @@ type Mutation {
   ): CreateTrackComposerPayload
 
   """Updates a single `Composer` using its globally unique id and a patch."""
+  updateComposerById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateComposerByIdInput!
+  ): UpdateComposerPayload
+
+  """Updates a single `Composer` using a unique key and a patch."""
   updateComposer(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -778,17 +782,17 @@ type Mutation {
     input: UpdateComposerInput!
   ): UpdateComposerPayload
 
-  """Updates a single `Composer` using a unique key and a patch."""
-  updateComposerByRowId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateComposerByRowIdInput!
-  ): UpdateComposerPayload
-
   """
   Updates a single `Pgmigration` using its globally unique id and a patch.
   """
+  updatePgmigrationById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdatePgmigrationByIdInput!
+  ): UpdatePgmigrationPayload
+
+  """Updates a single `Pgmigration` using a unique key and a patch."""
   updatePgmigration(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -796,30 +800,22 @@ type Mutation {
     input: UpdatePgmigrationInput!
   ): UpdatePgmigrationPayload
 
-  """Updates a single `Pgmigration` using a unique key and a patch."""
-  updatePgmigrationByRowId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdatePgmigrationByRowIdInput!
-  ): UpdatePgmigrationPayload
-
   """
   Updates a single `Soundtrack` using its globally unique id and a patch.
   """
+  updateSoundtrackById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSoundtrackByIdInput!
+  ): UpdateSoundtrackPayload
+
+  """Updates a single `Soundtrack` using a unique key and a patch."""
   updateSoundtrack(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
     input: UpdateSoundtrackInput!
-  ): UpdateSoundtrackPayload
-
-  """Updates a single `Soundtrack` using a unique key and a patch."""
-  updateSoundtrackByRowId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateSoundtrackByRowIdInput!
   ): UpdateSoundtrackPayload
 
   """Updates a single `Soundtrack` using a unique key and a patch."""
@@ -833,6 +829,14 @@ type Mutation {
   """
   Updates a single `SoundtrackComposer` using its globally unique id and a patch.
   """
+  updateSoundtrackComposerById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateSoundtrackComposerByIdInput!
+  ): UpdateSoundtrackComposerPayload
+
+  """Updates a single `SoundtrackComposer` using a unique key and a patch."""
   updateSoundtrackComposer(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -840,15 +844,15 @@ type Mutation {
     input: UpdateSoundtrackComposerInput!
   ): UpdateSoundtrackComposerPayload
 
-  """Updates a single `SoundtrackComposer` using a unique key and a patch."""
-  updateSoundtrackComposerByComposerIdAndSoundtrackId(
+  """Updates a single `Track` using its globally unique id and a patch."""
+  updateTrackById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateSoundtrackComposerByComposerIdAndSoundtrackIdInput!
-  ): UpdateSoundtrackComposerPayload
+    input: UpdateTrackByIdInput!
+  ): UpdateTrackPayload
 
-  """Updates a single `Track` using its globally unique id and a patch."""
+  """Updates a single `Track` using a unique key and a patch."""
   updateTrack(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -856,17 +860,17 @@ type Mutation {
     input: UpdateTrackInput!
   ): UpdateTrackPayload
 
-  """Updates a single `Track` using a unique key and a patch."""
-  updateTrackByRowId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: UpdateTrackByRowIdInput!
-  ): UpdateTrackPayload
-
   """
   Updates a single `TrackComposer` using its globally unique id and a patch.
   """
+  updateTrackComposerById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: UpdateTrackComposerByIdInput!
+  ): UpdateTrackComposerPayload
+
+  """Updates a single `TrackComposer` using a unique key and a patch."""
   updateTrackComposer(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -874,15 +878,15 @@ type Mutation {
     input: UpdateTrackComposerInput!
   ): UpdateTrackComposerPayload
 
-  """Updates a single `TrackComposer` using a unique key and a patch."""
-  updateTrackComposerByTrackIdAndComposerId(
+  """Deletes a single `Composer` using its globally unique id."""
+  deleteComposerById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: UpdateTrackComposerByTrackIdAndComposerIdInput!
-  ): UpdateTrackComposerPayload
+    input: DeleteComposerByIdInput!
+  ): DeleteComposerPayload
 
-  """Deletes a single `Composer` using its globally unique id."""
+  """Deletes a single `Composer` using a unique key."""
   deleteComposer(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -890,15 +894,15 @@ type Mutation {
     input: DeleteComposerInput!
   ): DeleteComposerPayload
 
-  """Deletes a single `Composer` using a unique key."""
-  deleteComposerByRowId(
+  """Deletes a single `Pgmigration` using its globally unique id."""
+  deletePgmigrationById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteComposerByRowIdInput!
-  ): DeleteComposerPayload
+    input: DeletePgmigrationByIdInput!
+  ): DeletePgmigrationPayload
 
-  """Deletes a single `Pgmigration` using its globally unique id."""
+  """Deletes a single `Pgmigration` using a unique key."""
   deletePgmigration(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -906,28 +910,20 @@ type Mutation {
     input: DeletePgmigrationInput!
   ): DeletePgmigrationPayload
 
-  """Deletes a single `Pgmigration` using a unique key."""
-  deletePgmigrationByRowId(
+  """Deletes a single `Soundtrack` using its globally unique id."""
+  deleteSoundtrackById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeletePgmigrationByRowIdInput!
-  ): DeletePgmigrationPayload
+    input: DeleteSoundtrackByIdInput!
+  ): DeleteSoundtrackPayload
 
-  """Deletes a single `Soundtrack` using its globally unique id."""
+  """Deletes a single `Soundtrack` using a unique key."""
   deleteSoundtrack(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
     input: DeleteSoundtrackInput!
-  ): DeleteSoundtrackPayload
-
-  """Deletes a single `Soundtrack` using a unique key."""
-  deleteSoundtrackByRowId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteSoundtrackByRowIdInput!
   ): DeleteSoundtrackPayload
 
   """Deletes a single `Soundtrack` using a unique key."""
@@ -939,6 +935,14 @@ type Mutation {
   ): DeleteSoundtrackPayload
 
   """Deletes a single `SoundtrackComposer` using its globally unique id."""
+  deleteSoundtrackComposerById(
+    """
+    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
+    """
+    input: DeleteSoundtrackComposerByIdInput!
+  ): DeleteSoundtrackComposerPayload
+
+  """Deletes a single `SoundtrackComposer` using a unique key."""
   deleteSoundtrackComposer(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -946,15 +950,15 @@ type Mutation {
     input: DeleteSoundtrackComposerInput!
   ): DeleteSoundtrackComposerPayload
 
-  """Deletes a single `SoundtrackComposer` using a unique key."""
-  deleteSoundtrackComposerByComposerIdAndSoundtrackId(
+  """Deletes a single `Track` using its globally unique id."""
+  deleteTrackById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteSoundtrackComposerByComposerIdAndSoundtrackIdInput!
-  ): DeleteSoundtrackComposerPayload
+    input: DeleteTrackByIdInput!
+  ): DeleteTrackPayload
 
-  """Deletes a single `Track` using its globally unique id."""
+  """Deletes a single `Track` using a unique key."""
   deleteTrack(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
@@ -962,28 +966,20 @@ type Mutation {
     input: DeleteTrackInput!
   ): DeleteTrackPayload
 
-  """Deletes a single `Track` using a unique key."""
-  deleteTrackByRowId(
+  """Deletes a single `TrackComposer` using its globally unique id."""
+  deleteTrackComposerById(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
-    input: DeleteTrackByRowIdInput!
-  ): DeleteTrackPayload
+    input: DeleteTrackComposerByIdInput!
+  ): DeleteTrackComposerPayload
 
-  """Deletes a single `TrackComposer` using its globally unique id."""
+  """Deletes a single `TrackComposer` using a unique key."""
   deleteTrackComposer(
     """
     The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
     """
     input: DeleteTrackComposerInput!
-  ): DeleteTrackComposerPayload
-
-  """Deletes a single `TrackComposer` using a unique key."""
-  deleteTrackComposerByTrackIdAndComposerId(
-    """
-    The exclusive input argument for this mutation. An object type, make sure to see documentation for this object’s fields.
-    """
-    input: DeleteTrackComposerByTrackIdAndComposerIdInput!
   ): DeleteTrackComposerPayload
 }
 
@@ -1110,7 +1106,7 @@ type Query implements Node {
   ): Node
 
   """Reads and enables pagination through a set of `Composer`."""
-  allComposers(
+  composers(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -1139,7 +1135,7 @@ type Query implements Node {
   ): ComposersConnection
 
   """Reads and enables pagination through a set of `Pgmigration`."""
-  allPgmigrations(
+  pgmigrations(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -1168,7 +1164,7 @@ type Query implements Node {
   ): PgmigrationsConnection
 
   """Reads and enables pagination through a set of `Soundtrack`."""
-  allSoundtracks(
+  soundtracks(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -1197,7 +1193,7 @@ type Query implements Node {
   ): SoundtracksConnection
 
   """Reads and enables pagination through a set of `SoundtrackComposer`."""
-  allSoundtrackComposers(
+  soundtrackComposers(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -1226,7 +1222,7 @@ type Query implements Node {
   ): SoundtrackComposersConnection
 
   """Reads and enables pagination through a set of `Track`."""
-  allTracks(
+  tracks(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -1255,7 +1251,7 @@ type Query implements Node {
   ): TracksConnection
 
   """Reads and enables pagination through a set of `TrackComposer`."""
-  allTrackComposers(
+  trackComposers(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -1282,13 +1278,13 @@ type Query implements Node {
     """
     condition: TrackComposerCondition
   ): TrackComposersConnection
-  composerByRowId(rowId: Int!): Composer
-  pgmigrationByRowId(rowId: Int!): Pgmigration
-  soundtrackByRowId(rowId: Int!): Soundtrack
+  composer(rowId: Int!): Composer
+  pgmigration(rowId: Int!): Pgmigration
+  soundtrack(rowId: Int!): Soundtrack
   soundtrackBySpotifyId(spotifyId: String!): Soundtrack
-  soundtrackComposerByComposerIdAndSoundtrackId(composerId: Int!, soundtrackId: Int!): SoundtrackComposer
-  trackByRowId(rowId: Int!): Track
-  trackComposerByTrackIdAndComposerId(trackId: Int!, composerId: Int!): TrackComposer
+  soundtrackComposer(composerId: Int!, soundtrackId: Int!): SoundtrackComposer
+  track(rowId: Int!): Track
+  trackComposer(trackId: Int!, composerId: Int!): TrackComposer
 
   """Reads and enables pagination through a set of `Soundtrack`."""
   search(
@@ -1314,13 +1310,13 @@ type Query implements Node {
   ): SoundtracksConnection!
 
   """Reads a single `Composer` using its globally unique `ID`."""
-  composer(
+  composerById(
     """The globally unique `ID` to be used in selecting a single `Composer`."""
     id: ID!
   ): Composer
 
   """Reads a single `Pgmigration` using its globally unique `ID`."""
-  pgmigration(
+  pgmigrationById(
     """
     The globally unique `ID` to be used in selecting a single `Pgmigration`.
     """
@@ -1328,7 +1324,7 @@ type Query implements Node {
   ): Pgmigration
 
   """Reads a single `Soundtrack` using its globally unique `ID`."""
-  soundtrack(
+  soundtrackById(
     """
     The globally unique `ID` to be used in selecting a single `Soundtrack`.
     """
@@ -1336,7 +1332,7 @@ type Query implements Node {
   ): Soundtrack
 
   """Reads a single `SoundtrackComposer` using its globally unique `ID`."""
-  soundtrackComposer(
+  soundtrackComposerById(
     """
     The globally unique `ID` to be used in selecting a single `SoundtrackComposer`.
     """
@@ -1344,13 +1340,13 @@ type Query implements Node {
   ): SoundtrackComposer
 
   """Reads a single `Track` using its globally unique `ID`."""
-  track(
+  trackById(
     """The globally unique `ID` to be used in selecting a single `Track`."""
     id: ID!
   ): Track
 
   """Reads a single `TrackComposer` using its globally unique `ID`."""
-  trackComposer(
+  trackComposerById(
     """
     The globally unique `ID` to be used in selecting a single `TrackComposer`.
     """
@@ -1373,7 +1369,7 @@ type Soundtrack implements Node {
   spotifyId: String
 
   """Reads and enables pagination through a set of `SoundtrackComposer`."""
-  soundtrackComposersBySoundtrackId(
+  soundtrackComposers(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -1402,7 +1398,7 @@ type Soundtrack implements Node {
   ): SoundtrackComposersConnection!
 
   """Reads and enables pagination through a set of `Track`."""
-  tracksBySoundtrackId(
+  tracks(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -1442,12 +1438,12 @@ type SoundtrackComposer implements Node {
   """
   Reads a single `Composer` that is related to this `SoundtrackComposer`.
   """
-  composerByComposerId: Composer
+  composer: Composer
 
   """
   Reads a single `Soundtrack` that is related to this `SoundtrackComposer`.
   """
-  soundtrackBySoundtrackId: Soundtrack
+  soundtrack: Soundtrack
 }
 
 """
@@ -1670,10 +1666,10 @@ type Track implements Node {
   updatedAt: Datetime!
 
   """Reads a single `Soundtrack` that is related to this `Track`."""
-  soundtrackBySoundtrackId: Soundtrack
+  soundtrack: Soundtrack
 
   """Reads and enables pagination through a set of `TrackComposer`."""
-  trackComposersByTrackId(
+  trackComposers(
     """Only read the first `n` values of the set."""
     first: Int
 
@@ -1711,10 +1707,10 @@ type TrackComposer implements Node {
   composerId: Int!
 
   """Reads a single `Track` that is related to this `TrackComposer`."""
-  trackByTrackId: Track
+  track: Track
 
   """Reads a single `Composer` that is related to this `TrackComposer`."""
-  composerByComposerId: Composer
+  composer: Composer
 }
 
 """
@@ -1919,23 +1915,8 @@ enum TracksOrderBy {
   TRACK_COMPOSERS_BY_TRACK_ID__COUNT_DESC
 }
 
-"""All input for the `updateComposerByRowId` mutation."""
-input UpdateComposerByRowIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `Composer` being updated.
-  """
-  composerPatch: ComposerPatch!
-  rowId: Int!
-}
-
-"""All input for the `updateComposer` mutation."""
-input UpdateComposerInput {
+"""All input for the `updateComposerById` mutation."""
+input UpdateComposerByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -1950,7 +1931,22 @@ input UpdateComposerInput {
   """
   An object where the defined keys will be set on the `Composer` being updated.
   """
-  composerPatch: ComposerPatch!
+  patch: ComposerPatch!
+}
+
+"""All input for the `updateComposer` mutation."""
+input UpdateComposerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Composer` being updated.
+  """
+  patch: ComposerPatch!
+  rowId: Int!
 }
 
 """The output of our update `Composer` mutation."""
@@ -1976,23 +1972,8 @@ type UpdateComposerPayload {
   ): ComposersEdge
 }
 
-"""All input for the `updatePgmigrationByRowId` mutation."""
-input UpdatePgmigrationByRowIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `Pgmigration` being updated.
-  """
-  pgmigrationPatch: PgmigrationPatch!
-  rowId: Int!
-}
-
-"""All input for the `updatePgmigration` mutation."""
-input UpdatePgmigrationInput {
+"""All input for the `updatePgmigrationById` mutation."""
+input UpdatePgmigrationByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2007,7 +1988,22 @@ input UpdatePgmigrationInput {
   """
   An object where the defined keys will be set on the `Pgmigration` being updated.
   """
-  pgmigrationPatch: PgmigrationPatch!
+  patch: PgmigrationPatch!
+}
+
+"""All input for the `updatePgmigration` mutation."""
+input UpdatePgmigrationInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `Pgmigration` being updated.
+  """
+  patch: PgmigrationPatch!
+  rowId: Int!
 }
 
 """The output of our update `Pgmigration` mutation."""
@@ -2033,8 +2029,8 @@ type UpdatePgmigrationPayload {
   ): PgmigrationsEdge
 }
 
-"""All input for the `updateSoundtrackByRowId` mutation."""
-input UpdateSoundtrackByRowIdInput {
+"""All input for the `updateSoundtrackById` mutation."""
+input UpdateSoundtrackByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2042,10 +2038,14 @@ input UpdateSoundtrackByRowIdInput {
   clientMutationId: String
 
   """
+  The globally unique `ID` which will identify a single `Soundtrack` to be updated.
+  """
+  id: ID!
+
+  """
   An object where the defined keys will be set on the `Soundtrack` being updated.
   """
-  soundtrackPatch: SoundtrackPatch!
-  rowId: Int!
+  patch: SoundtrackPatch!
 }
 
 """All input for the `updateSoundtrackBySpotifyId` mutation."""
@@ -2059,30 +2059,12 @@ input UpdateSoundtrackBySpotifyIdInput {
   """
   An object where the defined keys will be set on the `Soundtrack` being updated.
   """
-  soundtrackPatch: SoundtrackPatch!
+  patch: SoundtrackPatch!
   spotifyId: String!
 }
 
-"""
-All input for the `updateSoundtrackComposerByComposerIdAndSoundtrackId` mutation.
-"""
-input UpdateSoundtrackComposerByComposerIdAndSoundtrackIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `SoundtrackComposer` being updated.
-  """
-  soundtrackComposerPatch: SoundtrackComposerPatch!
-  composerId: Int!
-  soundtrackId: Int!
-}
-
-"""All input for the `updateSoundtrackComposer` mutation."""
-input UpdateSoundtrackComposerInput {
+"""All input for the `updateSoundtrackComposerById` mutation."""
+input UpdateSoundtrackComposerByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2097,7 +2079,23 @@ input UpdateSoundtrackComposerInput {
   """
   An object where the defined keys will be set on the `SoundtrackComposer` being updated.
   """
-  soundtrackComposerPatch: SoundtrackComposerPatch!
+  patch: SoundtrackComposerPatch!
+}
+
+"""All input for the `updateSoundtrackComposer` mutation."""
+input UpdateSoundtrackComposerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `SoundtrackComposer` being updated.
+  """
+  patch: SoundtrackComposerPatch!
+  composerId: Int!
+  soundtrackId: Int!
 }
 
 """The output of our update `SoundtrackComposer` mutation."""
@@ -2119,12 +2117,12 @@ type UpdateSoundtrackComposerPayload {
   """
   Reads a single `Composer` that is related to this `SoundtrackComposer`.
   """
-  composerByComposerId: Composer
+  composer: Composer
 
   """
   Reads a single `Soundtrack` that is related to this `SoundtrackComposer`.
   """
-  soundtrackBySoundtrackId: Soundtrack
+  soundtrack: Soundtrack
 
   """An edge for our `SoundtrackComposer`. May be used by Relay 1."""
   soundtrackComposerEdge(
@@ -2142,14 +2140,10 @@ input UpdateSoundtrackInput {
   clientMutationId: String
 
   """
-  The globally unique `ID` which will identify a single `Soundtrack` to be updated.
-  """
-  id: ID!
-
-  """
   An object where the defined keys will be set on the `Soundtrack` being updated.
   """
-  soundtrackPatch: SoundtrackPatch!
+  patch: SoundtrackPatch!
+  rowId: Int!
 }
 
 """The output of our update `Soundtrack` mutation."""
@@ -2175,41 +2169,27 @@ type UpdateSoundtrackPayload {
   ): SoundtracksEdge
 }
 
-"""All input for the `updateTrackByRowId` mutation."""
-input UpdateTrackByRowIdInput {
+"""All input for the `updateTrackById` mutation."""
+input UpdateTrackByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
   """
   clientMutationId: String
+
+  """
+  The globally unique `ID` which will identify a single `Track` to be updated.
+  """
+  id: ID!
 
   """
   An object where the defined keys will be set on the `Track` being updated.
   """
-  trackPatch: TrackPatch!
-  rowId: Int!
+  patch: TrackPatch!
 }
 
-"""
-All input for the `updateTrackComposerByTrackIdAndComposerId` mutation.
-"""
-input UpdateTrackComposerByTrackIdAndComposerIdInput {
-  """
-  An arbitrary string value with no semantic meaning. Will be included in the
-  payload verbatim. May be used to track mutations by the client.
-  """
-  clientMutationId: String
-
-  """
-  An object where the defined keys will be set on the `TrackComposer` being updated.
-  """
-  trackComposerPatch: TrackComposerPatch!
-  trackId: Int!
-  composerId: Int!
-}
-
-"""All input for the `updateTrackComposer` mutation."""
-input UpdateTrackComposerInput {
+"""All input for the `updateTrackComposerById` mutation."""
+input UpdateTrackComposerByIdInput {
   """
   An arbitrary string value with no semantic meaning. Will be included in the
   payload verbatim. May be used to track mutations by the client.
@@ -2224,7 +2204,23 @@ input UpdateTrackComposerInput {
   """
   An object where the defined keys will be set on the `TrackComposer` being updated.
   """
-  trackComposerPatch: TrackComposerPatch!
+  patch: TrackComposerPatch!
+}
+
+"""All input for the `updateTrackComposer` mutation."""
+input UpdateTrackComposerInput {
+  """
+  An arbitrary string value with no semantic meaning. Will be included in the
+  payload verbatim. May be used to track mutations by the client.
+  """
+  clientMutationId: String
+
+  """
+  An object where the defined keys will be set on the `TrackComposer` being updated.
+  """
+  patch: TrackComposerPatch!
+  trackId: Int!
+  composerId: Int!
 }
 
 """The output of our update `TrackComposer` mutation."""
@@ -2244,10 +2240,10 @@ type UpdateTrackComposerPayload {
   query: Query
 
   """Reads a single `Track` that is related to this `TrackComposer`."""
-  trackByTrackId: Track
+  track: Track
 
   """Reads a single `Composer` that is related to this `TrackComposer`."""
-  composerByComposerId: Composer
+  composer: Composer
 
   """An edge for our `TrackComposer`. May be used by Relay 1."""
   trackComposerEdge(
@@ -2265,14 +2261,10 @@ input UpdateTrackInput {
   clientMutationId: String
 
   """
-  The globally unique `ID` which will identify a single `Track` to be updated.
-  """
-  id: ID!
-
-  """
   An object where the defined keys will be set on the `Track` being updated.
   """
-  trackPatch: TrackPatch!
+  patch: TrackPatch!
+  rowId: Int!
 }
 
 """The output of our update `Track` mutation."""
@@ -2292,7 +2284,7 @@ type UpdateTrackPayload {
   query: Query
 
   """Reads a single `Soundtrack` that is related to this `Track`."""
-  soundtrackBySoundtrackId: Soundtrack
+  soundtrack: Soundtrack
 
   """An edge for our `Track`. May be used by Relay 1."""
   trackEdge(

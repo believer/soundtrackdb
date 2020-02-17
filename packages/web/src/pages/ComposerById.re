@@ -1,12 +1,12 @@
 module ComposerByIdQuery = [%relay.query
   {|
   query ComposerByIdQuery($id: ID!) {
-    composer(id: $id) {
+    composerById(id: $id) {
       fullName
-      soundtrackComposersByComposerId(orderBy: SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC) {
+      soundtrackComposers(orderBy: SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC) {
         edges {
           node {
-            soundtrackBySoundtrackId {
+            soundtrack {
               id
               title
               releaseYear
@@ -25,19 +25,29 @@ let make = (~id) => {
   let query = ComposerByIdQuery.use(~variables={id: id}, ());
 
   <div className="grid grid-template-960 my-20">
-    {switch (query.composer) {
-     | Some({fullName, soundtrackComposersByComposerId}) =>
+    {switch (query.composerById) {
+     | Some({fullName, soundtrackComposers}) =>
        <div className="grid-column-center">
+         <ul className="flex mb-8 breadcrumbs">
+           <li className="font-bold text-gray-600">
+             <Link.Internal path=Route.Index>
+               {React.string("Soundtracks")}
+             </Link.Internal>
+           </li>
+           <li className="text-gray-600">
+             {React.string(fullName->Belt.Option.getWithDefault(""))}
+           </li>
+         </ul>
          <h1 className="text-4xl text-gray-900 font-black">
            {React.string(fullName->Belt.Option.getWithDefault(""))}
          </h1>
          <div className="grid grid-template-soundtrack grid-gap-20 mt-8">
            <ul>
-             {soundtrackComposersByComposerId.edges
+             {soundtrackComposers.edges
               ->Belt.Array.map(({node}) => {
                   switch (node) {
-                  | Some({soundtrackBySoundtrackId}) =>
-                    switch (soundtrackBySoundtrackId) {
+                  | Some({soundtrack}) =>
+                    switch (soundtrack) {
                     | Some({id, title, releaseYear}) =>
                       <Link.Internal path={Route.Soundtrack(id)} key=id>
                         <li
@@ -60,9 +70,7 @@ let make = (~id) => {
                {React.string("Number of soundtracks")}
              </h2>
              <div className="text-gray-600 mb-4">
-               {soundtrackComposersByComposerId.totalCount
-                ->Belt.Int.toString
-                ->React.string}
+               {soundtrackComposers.totalCount->Belt.Int.toString->React.string}
              </div>
            </div>
          </div>

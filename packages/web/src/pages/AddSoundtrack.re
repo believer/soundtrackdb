@@ -1,7 +1,7 @@
 module AllComposers = [%relay.query
   {|
    query AddSoundtrackQuery {
-    allComposers(orderBy: FIRST_NAME_ASC) {
+    composers(orderBy: FIRST_NAME_ASC) {
       edges {
         node {
           id
@@ -362,7 +362,7 @@ let make = () => {
           </div>
         </div>
         <div className="grid grid-template-2-column grid-gap-4 mt-4">
-          {switch (composers.allComposers) {
+          {switch (composers.composers) {
            | Some({edges}) =>
              <Dropdown
                onChange={event => {
