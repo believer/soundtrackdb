@@ -1653,6 +1653,7 @@ enum SoundtracksOrderBy {
 enum SoundtrackType {
   GAME
   MOVIE
+  TV
 }
 
 type Track implements Node {

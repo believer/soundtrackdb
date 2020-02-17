@@ -410,6 +410,7 @@ let make = () => {
             options=Dropdown.Item.[
               make(~label="Game", ~value="GAME"),
               make(~label="Movie", ~value="MOVIE"),
+              make(~label="TV", ~value="TV"),
             ]
             value={
               form.state.soundtrackType

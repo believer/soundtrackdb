@@ -76,9 +76,9 @@ exports.up = pgm => {
   //( 'Shadow Puppet', 120, 6, 18),
   //( 'White Oleander', 200, 6, 19);
   //`);
-};
+}
 
 exports.down = pgm => {
   //pgm.sql(`DELETE FROM soundtrack WHERE id = 4 AND id = 5`);
   //pgm.sql(`DELETE FROM composer WHERE id = 4 AND id = 5`);
-};
+}

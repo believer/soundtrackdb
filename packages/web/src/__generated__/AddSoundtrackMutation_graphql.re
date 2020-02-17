@@ -1,6 +1,6 @@
 /* @generated */
 
-type enum_SoundtrackType = [ | `GAME | `MOVIE | `FUTURE_ADDED_VALUE__];
+type enum_SoundtrackType = [ | `GAME | `MOVIE | `TV | `FUTURE_ADDED_VALUE__];
 
 module Unions = {};
 

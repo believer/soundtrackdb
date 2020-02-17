@@ -274,14 +274,14 @@ module Enum_SoundtrackComposersOrderBy: {
 };
 
 module Enum_SoundtrackType: {
-  type t = [ | `GAME | `MOVIE | `FUTURE_ADDED_VALUE__];
+  type t = [ | `GAME | `MOVIE | `TV | `FUTURE_ADDED_VALUE__];
   type wrapped;
   let unwrap: wrapped => t;
   let wrap: t => wrapped;
   let toString: t => string;
   let fromString: string => t;
 } = {
-  type t = [ | `GAME | `MOVIE | `FUTURE_ADDED_VALUE__];
+  type t = [ | `GAME | `MOVIE | `TV | `FUTURE_ADDED_VALUE__];
   type wrapped;
 
   external __unwrap: wrapped => string = "%identity";
@@ -291,6 +291,7 @@ module Enum_SoundtrackType: {
     switch (wrapped |> __unwrap) {
     | "GAME" => `GAME
     | "MOVIE" => `MOVIE
+    | "TV" => `TV
     | _ => `FUTURE_ADDED_VALUE__
     };
 
@@ -299,6 +300,7 @@ module Enum_SoundtrackType: {
       switch (t) {
       | `GAME => "GAME"
       | `MOVIE => "MOVIE"
+      | `TV => "TV"
       | `FUTURE_ADDED_VALUE__ => ""
       }
     )

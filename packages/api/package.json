@@ -13,7 +13,8 @@
   "author": "believer <rickard.laurin@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "node-pg-migrate": "4.2.1"
+    "node-pg-migrate": "4.2.1",
+    "prettier": "1.19.1"
   },
   "dependencies": {
     "@graphile-contrib/pg-order-by-related": "^1.0.0-beta.6",

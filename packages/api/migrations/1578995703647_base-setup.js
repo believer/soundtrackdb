@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-exports.shorthands = undefined;
+exports.shorthands = undefined
 
 exports.up = pgm => {
   pgm.sql(`
@@ -58,7 +58,7 @@ ALTER TABLE "track" ADD FOREIGN KEY ("soundtrack_id") REFERENCES "soundtrack" ("
 ALTER TABLE "track_composer" ADD FOREIGN KEY ("track_id") REFERENCES "track" ("id");
 
 ALTER TABLE "track_composer" ADD FOREIGN KEY ("composer_id") REFERENCES "composer" ("id");
-  `);
+  `)
 
   pgm.sql(`
     create function composer_full_name(composer composer) returns text as $$
@@ -71,7 +71,7 @@ ALTER TABLE "track_composer" ADD FOREIGN KEY ("composer_id") REFERENCES "compose
       FROM soundtrack AS s 
       WHERE s.title ILIKE ('%' || query || '%') 
     $$ language sql stable;
-  `);
+  `)
 
   //pgm.sql(`
   //INSERT INTO composer (first_name, last_name) VALUES ('Thomas', 'Newman');
@@ -172,17 +172,17 @@ ALTER TABLE "track_composer" ADD FOREIGN KEY ("composer_id") REFERENCES "compose
   //('Lux Aeterna', 234, 3, 32),
   //('Coney Island Low', 134, 3, 33);
   //`);
-};
+}
 
 exports.down = pgm => {
-  pgm.dropFunction("search", ["text"]);
-  pgm.dropFunction("composer_full_name", ["composer"]);
+  pgm.dropFunction('search', ['text'])
+  pgm.dropFunction('composer_full_name', ['composer'])
 
-  pgm.dropTable("track_composer");
-  pgm.dropTable("track");
-  pgm.dropTable("soundtrack_composer");
-  pgm.dropTable("soundtrack");
-  pgm.dropTable("composer");
+  pgm.dropTable('track_composer')
+  pgm.dropTable('track')
+  pgm.dropTable('soundtrack_composer')
+  pgm.dropTable('soundtrack')
+  pgm.dropTable('composer')
 
-  pgm.dropType("soundtrack_type");
-};
+  pgm.dropType('soundtrack_type')
+}
