@@ -28,7 +28,7 @@
     "reason-react",
     "reason-relay",
     "bs-fetch",
-    "bs-css",
+    "bs-css-emotion",
     "re-classnames",
     "re-formality",
     "decco"
