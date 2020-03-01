@@ -19,7 +19,6 @@ app.use(
       enhanceGraphiql: true,
       extendedErrors: ['hint', 'detail', 'errcode'],
       graphiql: true,
-      ignoreIndexes: false,
       ignoreRBAC: false,
       showErrorStack: 'json',
       watchPg: true,
