@@ -9,7 +9,6 @@ module Text = {
         ~placeholder=?,
         ~type_="text",
         ~value,
-        ~readOnly=false,
       ) => {
     <div>
       <input

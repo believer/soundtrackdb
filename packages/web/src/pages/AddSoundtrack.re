@@ -495,6 +495,15 @@ let make = () => {
             {React.string("Add track")}
           </button>
         </div>
+        <div className="text-sm mt-4 text-gray-600 text-right">
+          {React.string("Total playtime: ")}
+          {form.state.tracks
+           ->Belt.List.reduce(0, (acc, (_id, track)) =>
+               acc + Duration.fromString(track.duration)
+             )
+           ->Duration.make
+           ->React.string}
+        </div>
         <div className="flex justify-end mt-4">
           <button className="px-4 py-2 bg-green-200" type_="submit">
             {React.string("Save")}
