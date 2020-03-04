@@ -51,16 +51,7 @@ module SoundtrackComposerMutation = [%relay.mutation
 |}
 ];
 
-module Track = {
-  type t = {
-    title: string,
-    duration: string,
-  };
-
-  let make = () => {title: "", duration: ""};
-};
-
-module AddSountrackForm = {
+module AddSoundtrackForm = {
   type field =
     | ReleaseDate
     | ImdbId
@@ -68,6 +59,7 @@ module AddSountrackForm = {
     | SoundtrackType
     | Title
     | AddTrack
+    | InsertTracks
     | RemoveTrack
     | Composer
     | UpdateTrackTitle
@@ -147,9 +139,19 @@ module AddSountrackForm = {
       | Some(_) => {
           ...state,
           tracks:
-            state.tracks->Belt.List.concat([(CUID.make(), Track.make())]),
+            state.tracks
+            ->Belt.List.concat([(CUID.make(), Track.makeEmpty())]),
         }
       | None => state
+      };
+    };
+  };
+
+  module InsertTracks = {
+    let update = (state, tracks) => {
+      {
+        ...state,
+        tracks: tracks->Belt.List.map(track => (CUID.make(), track)),
       };
     };
   };
@@ -169,7 +171,7 @@ module AddSountrackForm = {
   let validators = [];
 };
 
-module AddSountrackFormHook = Formality.Make(AddSountrackForm);
+module AddSoundtrackFormHook = Formality.Make(AddSoundtrackForm);
 
 module AddSoundtrackResponse = {
   [@decco.decode]
@@ -196,7 +198,7 @@ let make = () => {
   let composers = AllComposers.use(~variables=(), ());
 
   let form =
-    AddSountrackFormHook.useForm(
+    AddSoundtrackFormHook.useForm(
       ~initialState=
         AddSountrackForm.{
           composerId: 0,
@@ -205,7 +207,7 @@ let make = () => {
           spotifyId: "",
           releaseDate: "",
           soundtrackType: `MOVIE,
-          tracks: [(CUID.make(), Track.make())],
+          tracks: [(CUID.make(), Track.makeEmpty())],
         },
       ~onSubmit=(state, form) => {
         Js.log2("Submit", state);
@@ -296,7 +298,10 @@ let make = () => {
             error={Title->(form.result)}
             label="Title"
             name="soundtrack-title"
-            onChange={handleChange(Title, AddSountrackForm.TitleField.update)}
+            onChange={handleChange(
+              Title,
+              AddSoundtrackForm.TitleField.update,
+            )}
             placeholder="Title"
             value={form.state.title}
           />
@@ -307,7 +312,7 @@ let make = () => {
               name="soundtrack-imdbid"
               onChange={handleChange(
                 ImdbId,
-                AddSountrackForm.ImdbIdField.update,
+                AddSoundtrackForm.ImdbIdField.update,
               )}
               placeholder="IMDb ID"
               value={form.state.imdbId}
@@ -328,7 +333,7 @@ let make = () => {
               name="soundtrack-release-date"
               onChange={handleChange(
                 ReleaseDate,
-                AddSountrackForm.ReleaseDateField.update,
+                AddSoundtrackForm.ReleaseDateField.update,
               )}
               placeholder="Release date"
               value={form.state.releaseDate}
@@ -348,7 +353,7 @@ let make = () => {
               name="soundtrack-spotifyid"
               onChange={handleChange(
                 SpotifyId,
-                AddSountrackForm.SpotifyIdField.update,
+                AddSoundtrackForm.SpotifyIdField.update,
               )}
               placeholder="Spotify ID"
               value={form.state.spotifyId}
@@ -368,7 +373,7 @@ let make = () => {
                onChange={event => {
                  form.change(
                    Composer,
-                   AddSountrackForm.ComposerField.update(
+                   AddSoundtrackForm.ComposerField.update(
                      form.state,
                      event->ReactEvent.Form.target##value->int_of_string,
                    ),
@@ -399,7 +404,7 @@ let make = () => {
             onChange={event => {
               form.change(
                 SoundtrackType,
-                AddSountrackForm.SoundtrackTypeField.update(
+                AddSoundtrackForm.SoundtrackTypeField.update(
                   form.state,
                   event->ReactEvent.Form.target##value
                   ->Js.String2.toUpperCase
@@ -436,7 +441,7 @@ let make = () => {
 
                        form.change(
                          UpdateTrackTitle,
-                         AddSountrackForm.UpdateTrackTitleField.update(
+                         AddSoundtrackForm.UpdateTrackTitleField.update(
                            form.state,
                            (id, value),
                          ),
@@ -456,7 +461,7 @@ let make = () => {
 
                        form.change(
                          UpdateTrackTitle,
-                         AddSountrackForm.UpdateTrackDurationField.update(
+                         AddSoundtrackForm.UpdateTrackDurationField.update(
                            form.state,
                            (id, value),
                          ),
@@ -472,7 +477,7 @@ let make = () => {
                    onClick={_ =>
                      form.change(
                        RemoveTrack,
-                       AddSountrackForm.RemoveTrack.update(form.state, id),
+                       AddSoundtrackForm.RemoveTrack.update(form.state, id),
                      )
                    }>
                    {React.string("Remove track")}
@@ -481,19 +486,6 @@ let make = () => {
              })
            ->Belt.List.toArray
            ->React.array}
-        </div>
-        <div className="mt-2">
-          <button
-            className="w-full bg-gray-100 p-2"
-            type_="button"
-            onClick={_ =>
-              form.change(
-                AddTrack,
-                AddSountrackForm.AddTrack.update(form.state),
-              )
-            }>
-            {React.string("Add track")}
-          </button>
         </div>
         <div className="text-sm mt-4 text-gray-600 text-right">
           {React.string("Total playtime: ")}
@@ -504,6 +496,29 @@ let make = () => {
            ->Duration.make
            ->React.string}
         </div>
+        <div className="mt-2">
+          <button
+            className="w-full bg-gray-100 p-2"
+            type_="button"
+            onClick={_ =>
+              form.change(
+                AddTrack,
+                AddSoundtrackForm.AddTrack.update(form.state),
+              )
+            }>
+            {React.string("Add track")}
+          </button>
+        </div>
+        <CSV
+          hasTracks={Belt.List.length(form.state.tracks) > 1}
+          onChange={tracks =>
+            form.change(
+              InsertTracks,
+              AddSoundtrackForm.InsertTracks.update(form.state, tracks),
+            )
+          }
+          value={form.state.tracks}
+        />
         <div className="flex justify-end mt-4">
           <button className="px-4 py-2 bg-green-200" type_="submit">
             {React.string("Save")}
