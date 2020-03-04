@@ -200,8 +200,20 @@ let make = () => {
   let form =
     AddSoundtrackFormHook.useForm(
       ~initialState=
-        AddSountrackForm.{
-          composerId: 0,
+        AddSoundtrackForm.{
+          composerId:
+            switch (composers.composers) {
+            | Some({edges}) =>
+              switch (edges->Belt.Array.get(0)) {
+              | Some({node}) =>
+                switch (node) {
+                | Some({rowId}) => rowId
+                | None => 0
+                }
+              | None => 0
+              }
+            | None => 0
+            },
           title: "",
           imdbId: "",
           spotifyId: "",
