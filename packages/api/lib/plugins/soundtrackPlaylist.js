@@ -38,8 +38,6 @@ const SoundtrackPlaylistPlugin = makeExtendSchemaPlugin(() => {
 
             .match(/tt\d+/)
 
-          console.log(imdbId[0])
-
           const releaseDate = $('#titlebox p')
             .filter(function() {
               return $(this)
