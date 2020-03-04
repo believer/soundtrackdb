@@ -1,3 +1,20 @@
+# [2.1.0](https://github.com/believer/soundtrackdb/compare/v2.0.0...v2.1.0) (2020-03-04)
+
+
+### Bug Fixes
+
+* **api:** hide migrations from postgraphile ([0ba3562](https://github.com/believer/soundtrackdb/commit/0ba3562ff689a5e65988467a89951319e13e117d))
+* **web:** add meta viewport ([d8204f9](https://github.com/believer/soundtrackdb/commit/d8204f937d288214511880a78260f4209fc25d03))
+* **web:** select first composer in dropdown ([5b3d6a8](https://github.com/believer/soundtrackdb/commit/5b3d6a8579cb7641c5041065d9c365d20f7d1004))
+
+
+### Features
+
+* **api:** add stats queries ([07be2cd](https://github.com/believer/soundtrackdb/commit/07be2cd2ad180070bdb7d6abfdd0cbd6c4d8c6f4))
+* **web:** add csv parse for adding playlist ([591e2e0](https://github.com/believer/soundtrackdb/commit/591e2e021b9a9d76c169d8238f0789396a78dca0))
+* add soundtrack.net scraper ([003ef96](https://github.com/believer/soundtrackdb/commit/003ef965336160f2366410a1e533b10022096398))
+* add total play time to add interface ([57b898e](https://github.com/believer/soundtrackdb/commit/57b898eae17cea8d2e2a0610794df5a193af9fe2))
+
 # [2.0.0](https://github.com/believer/soundtrackdb/compare/v1.5.0...v2.0.0) (2020-02-17)
 
 
