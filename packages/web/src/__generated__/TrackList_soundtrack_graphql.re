@@ -27,16 +27,16 @@ module Types = {
 open Types;
 
 type fragment = {
-  imdbId: option(string),
-  spotifyId: option(string),
-  releaseYear: string,
   tracks,
+  getFragmentRefs:
+    unit =>
+    {. "__$fragment_ref__SoundtrackMeta_data": SoundtrackMeta_data_graphql.t},
 };
 
 module Internal = {
   type fragmentRaw;
   let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"imdbId":{"n":""},"spotifyId":{"n":""},"tracks_edges_node":{"n":""},"tracks_edges_node_trackComposers_edges_node":{"n":""},"tracks_edges_node_trackComposers_edges_node_composer":{"n":""},"tracks_edges_node_trackComposers_edges_node_composer_fullName":{"n":""}}} |}
+    {| {"__root":{"tracks_edges_node":{"n":""},"tracks_edges_node_trackComposers_edges_node":{"n":""},"tracks_edges_node_trackComposers_edges_node_composer":{"n":""},"tracks_edges_node_trackComposers_edges_node_composer_fullName":{"n":""},"":{"f":""}}} |}
   ];
   let fragmentConverterMap = ();
   let convertFragment = v =>
@@ -74,27 +74,6 @@ return {
   "metadata": null,
   "argumentDefinitions": [],
   "selections": [
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "imdbId",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "spotifyId",
-      "args": null,
-      "storageKey": null
-    },
-    {
-      "kind": "ScalarField",
-      "alias": null,
-      "name": "releaseYear",
-      "args": null,
-      "storageKey": null
-    },
     {
       "kind": "LinkedField",
       "alias": null,
@@ -214,6 +193,11 @@ return {
           ]
         }
       ]
+    },
+    {
+      "kind": "FragmentSpread",
+      "name": "SoundtrackMeta_data",
+      "args": null
     }
   ]
 };

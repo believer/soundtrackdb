@@ -1,6 +1,11 @@
 module.exports = {
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        imdb: '#F5DE50',
+        spotify: '#1ED761',
+      },
+    },
   },
   variants: {
     backgroundColor: [

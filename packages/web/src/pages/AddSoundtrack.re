@@ -237,7 +237,7 @@ let make = () => {
                 createdAt: None,
                 rowId: None,
                 updatedAt: None,
-                spotifyId: SpotifyId.make(state.spotifyId),
+                spotifyId: Spotify.Id.make(state.spotifyId),
               },
               clientMutationId: None,
             },
@@ -371,7 +371,7 @@ let make = () => {
               value={form.state.spotifyId}
             />
             <div className="text-xs text-gray-500 mt-2 text-right">
-              {switch (SpotifyId.make(form.state.spotifyId)) {
+              {switch (Spotify.Id.make(form.state.spotifyId)) {
                | Some(id) => React.string(id)
                | None => React.null
                }}

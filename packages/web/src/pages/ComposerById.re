@@ -66,12 +66,9 @@ let make = (~id) => {
               ->React.array}
            </ul>
            <div>
-             <h2 className="font-bold text-gray-800 mb-1">
-               {React.string("Number of soundtracks")}
-             </h2>
-             <div className="text-gray-600 mb-4">
+             <MetaBlock title="Number of soundtracks">
                {soundtrackComposers.totalCount->Belt.Int.toString->React.string}
-             </div>
+             </MetaBlock>
            </div>
          </div>
        </div>

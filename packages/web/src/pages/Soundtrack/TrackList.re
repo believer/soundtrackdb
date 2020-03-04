@@ -1,9 +1,7 @@
 module Fragment = [%relay.fragment
   {|
   fragment TrackList_soundtrack on Soundtrack {
-    imdbId
-    spotifyId
-    releaseYear
+    ...SoundtrackMeta_data
     tracks(orderBy: TRACK_NUMBER_ASC) {
       totalCount
       edges {
@@ -87,52 +85,19 @@ let make = (~query as queryRef) => {
          })
        ->React.array}
     </ul>
-    <div>
-      <h2 className="font-bold text-gray-800 mb-1">
-        {React.string("Release date")}
-      </h2>
-      <div className="text-gray-600 mb-4">
-        <DateTime
-          date={trackList.releaseYear}
-          format=DateTime.Format.FullDate
-        />
-      </div>
-      <h2 className="font-bold text-gray-800 mb-1">
-        {React.string("Number of tracks")}
-      </h2>
-      <div className="text-gray-600 mb-4">
-        {trackList.tracks.totalCount->Belt.Int.toString->React.string}
-      </div>
-      <h2 className="font-bold text-gray-800 mb-1">
-        {React.string("Playtime")}
-      </h2>
-      <div className="text-gray-600 mb-12">
-        {trackList.tracks.edges
-         ->Belt.Array.reduce(0, (acc, track) => {
-             switch (track.node) {
-             | Some({duration}) => acc + duration
-             | None => acc
-             }
-           })
-         ->Duration.make
-         ->React.string}
-      </div>
-      {switch (trackList.imdbId) {
-       | Some(id) =>
-         <Link.External
-           className="mr-2" href={"https://www.imdb.com/title/" ++ id}>
-           {React.string("IMDb")}
-         </Link.External>
-       | None => React.null
-       }}
-      {switch (trackList.spotifyId) {
-       | Some(id) =>
-         <Link.External
-           className="mr-2" href={"https://open.spotify.com/album/" ++ id}>
-           {React.string("Spotify")}
-         </Link.External>
-       | None => React.null
-       }}
-    </div>
+    <SoundtrackMeta
+      query={trackList.getFragmentRefs()}
+      totalTracks={trackList.tracks.totalCount}
+      totalDuration={
+        trackList.tracks.edges
+        ->Belt.Array.reduce(0, (acc, track) => {
+            switch (track.node) {
+            | Some({duration}) => acc + duration
+            | None => acc
+            }
+          })
+        ->Duration.make
+      }
+    />
   </div>;
 };
