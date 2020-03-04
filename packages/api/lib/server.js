@@ -1,5 +1,6 @@
 const express = require('express')
 const { postgraphile } = require('postgraphile')
+const { StatsPlugin } = require('./plugins/stats')
 
 const app = express()
 
@@ -12,6 +13,7 @@ app.use(
       appendPlugins: [
         require('@graphile-contrib/pg-simplify-inflector'),
         require('@graphile-contrib/pg-order-by-related'),
+        StatsPlugin,
       ],
       classicIds: true,
       enableCors: true,
