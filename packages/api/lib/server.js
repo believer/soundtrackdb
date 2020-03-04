@@ -1,6 +1,7 @@
 const express = require('express')
 const { postgraphile } = require('postgraphile')
 const { StatsPlugin } = require('./plugins/stats')
+const { SoundtrackPlaylistPlugin } = require('./plugins/soundtrackPlaylist')
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use(
         require('@graphile-contrib/pg-simplify-inflector'),
         require('@graphile-contrib/pg-order-by-related'),
         StatsPlugin,
+        SoundtrackPlaylistPlugin,
       ],
       classicIds: true,
       enableCors: true,

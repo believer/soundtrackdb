@@ -3,7 +3,10 @@
 module Unions = {};
 
 module Types = {
-  type composer = {fullName: option(string)};
+  type composer = {
+    id: string,
+    fullName: option(string),
+  };
   type node = {composer: option(composer)};
   type edges = {node: option(node)};
   type trackComposers = {
@@ -66,6 +69,13 @@ var v0 = {
   "name": "totalCount",
   "args": null,
   "storageKey": null
+},
+v1 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "id",
+  "args": null,
+  "storageKey": null
 };
 return {
   "kind": "Fragment",
@@ -108,13 +118,7 @@ return {
               "concreteType": "Track",
               "plural": false,
               "selections": [
-                {
-                  "kind": "ScalarField",
-                  "alias": null,
-                  "name": "id",
-                  "args": null,
-                  "storageKey": null
-                },
+                (v1/*: any*/),
                 {
                   "kind": "ScalarField",
                   "alias": null,
@@ -173,6 +177,7 @@ return {
                               "concreteType": "Composer",
                               "plural": false,
                               "selections": [
+                                (v1/*: any*/),
                                 {
                                   "kind": "ScalarField",
                                   "alias": null,

@@ -13,8 +13,8 @@ module Text = {
     <div>
       <input
         className="w-full py-3 text-base bg-transparent border-0 border-b
-        border-silver focus:border-eminence transition-border transition"
-        id=name
+       transition-border transition"
+        name
         onChange
         ?placeholder
         type_

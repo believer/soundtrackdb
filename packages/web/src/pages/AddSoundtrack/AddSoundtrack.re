@@ -60,6 +60,7 @@ module AddSoundtrackForm = {
     | Title
     | AddTrack
     | InsertTracks
+    | InsertSoundtrackData
     | RemoveTrack
     | Composer
     | UpdateTrackTitle
@@ -156,6 +157,26 @@ module AddSoundtrackForm = {
     };
   };
 
+  module InsertSoundtrackData = {
+    let update =
+        (state, data: AddFromURL.AddFromURLResponse.soundtrackPlaylist) => {
+      {
+        ...state,
+        title: data.title,
+        releaseDate: data.releaseDate,
+        imdbId:
+          switch (data.imdbId) {
+          | Some(id) => id
+          | None => ""
+          },
+        tracks:
+          data.playlist
+          ->CSV.Parse.make
+          ->Belt.List.map(track => (CUID.make(), track)),
+      };
+    };
+  };
+
   module RemoveTrack = {
     let update = (state, id) => {
       switch (Belt.List.length(state.tracks)) {
@@ -222,7 +243,6 @@ let make = () => {
           tracks: [(CUID.make(), Track.makeEmpty())],
         },
       ~onSubmit=(state, form) => {
-        Js.log2("Submit", state);
         form.notifyOnSuccess(None);
 
         AddSoundtrackMutation.commitMutation(
@@ -231,7 +251,7 @@ let make = () => {
             input: {
               soundtrack: {
                 title: state.title,
-                imdbId: ImdbId.make(state.imdbId),
+                imdbId: IMDb.Id.make(state.imdbId),
                 soundtrackType: state.soundtrackType,
                 releaseYear: DateTime.Parse.make(state.releaseDate),
                 createdAt: None,
@@ -330,9 +350,22 @@ let make = () => {
               value={form.state.imdbId}
             />
             <div className="text-xs text-gray-500 mt-2 text-right">
-              {switch (ImdbId.make(form.state.imdbId)) {
-               | Some(id) => React.string(id)
+              {switch (IMDb.Id.make(form.state.imdbId)) {
+               | Some("")
                | None => React.null
+               | Some(id) =>
+                 <a
+                   href={IMDb.Link.make(id)}
+                   target="_blank"
+                   rel="noopener
+                 noreferrer">
+                   {React.string("IMDb")}
+                 </a>
+               }}
+              {switch (IMDb.Id.make(form.state.imdbId)) {
+               | Some("")
+               | None => React.null
+               | Some(id) => React.string(" - " ++ id)
                }}
             </div>
           </div>
@@ -521,16 +554,30 @@ let make = () => {
             {React.string("Add track")}
           </button>
         </div>
-        <CSV
-          hasTracks={Belt.List.length(form.state.tracks) > 1}
-          onChange={tracks =>
-            form.change(
-              InsertTracks,
-              AddSoundtrackForm.InsertTracks.update(form.state, tracks),
-            )
-          }
-          value={form.state.tracks}
-        />
+        <div
+          className="grid grid-template-2-column grid-gap-4 items-center mt-8">
+          <AddFromURL
+            updateData={data => {
+              form.change(
+                InsertSoundtrackData,
+                AddSoundtrackForm.InsertSoundtrackData.update(
+                  form.state,
+                  data,
+                ),
+              )
+            }}
+          />
+          <CSV
+            hasTracks={Belt.List.length(form.state.tracks) > 1}
+            onChange={tracks =>
+              form.change(
+                InsertTracks,
+                AddSoundtrackForm.InsertTracks.update(form.state, tracks),
+              )
+            }
+            value={form.state.tracks}
+          />
+        </div>
         <div className="flex justify-end mt-4">
           <button className="px-4 py-2 bg-green-200" type_="submit">
             {React.string("Save")}

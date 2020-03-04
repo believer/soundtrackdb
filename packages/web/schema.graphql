@@ -1,3 +1,9 @@
+type Categories {
+  movie: Int!
+  game: Int!
+  tv: Int!
+}
+
 type Composer implements Node {
   """
   A globally unique identifier. Can be used in various places throughout the system to identify this single value.
@@ -155,6 +161,11 @@ enum ComposersOrderBy {
   SOUNDTRACK_COMPOSERS_BY_COMPOSER_ID__COUNT_DESC
   TRACK_COMPOSERS_BY_COMPOSER_ID__COUNT_ASC
   TRACK_COMPOSERS_BY_COMPOSER_ID__COUNT_DESC
+}
+
+type ComposerStat {
+  count: Int!
+  fullName: String!
 }
 
 """All input for the create `Composer` mutation."""
@@ -981,6 +992,9 @@ type Mutation {
     """
     input: DeleteTrackComposerInput!
   ): DeleteTrackComposerPayload
+
+  """Gets a playlist from Soundtrack.net"""
+  soundtrackPlaylist(url: String!): SoundtrackPlaylist!
 }
 
 """An object with a globally unique `ID`."""
@@ -1352,6 +1366,7 @@ type Query implements Node {
     """
     id: ID!
   ): TrackComposer
+  stats: Stats!
 }
 
 type Soundtrack implements Node {
@@ -1593,6 +1608,13 @@ input SoundtrackPatch {
   spotifyId: String
 }
 
+type SoundtrackPlaylist {
+  title: String!
+  imdbId: String
+  releaseDate: String!
+  playlist: String!
+}
+
 """A connection to a list of `Soundtrack` values."""
 type SoundtracksConnection {
   """A list of `Soundtrack` objects."""
@@ -1650,6 +1672,13 @@ enum SoundtrackType {
   GAME
   MOVIE
   TV
+}
+
+type Stats {
+  categories: Categories!
+  composers: [ComposerStat!]!
+  totalDuration: Float!
+  years: [YearStat!]!
 }
 
 type Track implements Node {
@@ -2291,5 +2320,10 @@ type UpdateTrackPayload {
     """The method to use when ordering `Track`."""
     orderBy: [TracksOrderBy!] = [PRIMARY_KEY_ASC]
   ): TracksEdge
+}
+
+type YearStat {
+  count: Int!
+  year: String!
 }
 

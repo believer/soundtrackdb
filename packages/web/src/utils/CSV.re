@@ -42,7 +42,7 @@ module Parse = {
 let make = (~onChange, ~hasTracks, ~value) => {
   let (displayTextarea, toggleTextarea) = Toggle.useToggle();
 
-  <div className="mt-8">
+  <div>
     <button
       className="w-full bg-gray-100 p-2"
       type_="button"

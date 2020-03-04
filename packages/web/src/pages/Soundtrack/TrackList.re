@@ -15,6 +15,7 @@ module Fragment = [%relay.fragment
             edges {
               node {
                 composer {
+                  id
                   fullName
                 }
               }
@@ -56,24 +57,25 @@ let make = (~query as queryRef) => {
                  {switch (trackComposers.totalCount) {
                   | 0 => React.null
                   | _ =>
-                    let allComposers =
-                      trackComposers.edges
-                      ->Belt.Array.map(composer => {
-                          switch (composer.node) {
-                          | Some({composer}) =>
-                            switch (composer) {
-                            | Some({fullName}) =>
-                              fullName->Belt.Option.getWithDefault("")
-                            | None => ""
-                            }
-                          | None => ""
+                    trackComposers.edges
+                    ->Belt.Array.map(composer => {
+                        switch (composer.node) {
+                        | Some({composer}) =>
+                          switch (composer) {
+                          | Some({fullName, id}) =>
+                            <Link.Internal
+                              path={Route.Composer(id)}
+                              className="text-gray-500 ml-4 text-sm">
+                              {React.string(
+                                 fullName->Belt.Option.getWithDefault(""),
+                               )}
+                            </Link.Internal>
+                          | None => React.null
                           }
-                        })
-                      ->Js.Array2.joinWith(", ");
-
-                    <span className="text-gray-500 ml-4 text-sm">
-                      {React.string(allComposers)}
-                    </span>;
+                        | None => React.null
+                        }
+                      })
+                    ->React.array
                   }}
                </div>
                <div className="text-right text-sm text-gray-500">
