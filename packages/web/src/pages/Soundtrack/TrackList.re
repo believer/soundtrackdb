@@ -64,6 +64,7 @@ let make = (~query as queryRef) => {
                           switch (composer) {
                           | Some({fullName, id}) =>
                             <Link.Internal
+                              key=id
                               path={Route.Composer(id)}
                               className="text-gray-500 ml-4 text-sm">
                               {React.string(
