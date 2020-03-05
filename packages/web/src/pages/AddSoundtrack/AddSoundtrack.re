@@ -546,7 +546,7 @@ let make = () => {
                    />
                  </div>
                  <button
-                   className="bg-gray-100 p-2"
+                   className="bg-gray-100 p-2 text-gray-600"
                    type_="button"
                    onClick={_ =>
                      form.change(
@@ -554,25 +554,36 @@ let make = () => {
                        AddSoundtrackForm.RemoveTrack.update(form.state, id),
                      )
                    }>
-                   {React.string("Remove track")}
+                   <svg
+                     xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 20 20"
+                     className="fill-current h-4 w-4">
+                     <path
+                       d="M6 2l2-2h4l2 2h4v2H2V2h4zM3 6h14l-1 14H4L3 6zm5 2v10h1V8H8zm3 0v10h1V8h-1z"
+                     />
+                   </svg>
                  </button>
                </div>
              })
            ->Belt.List.toArray
            ->React.array}
         </div>
-        <div className="text-sm mt-4 text-gray-600 text-right">
-          {React.string("Total playtime: ")}
-          {form.state.tracks
+        {switch (
+           form.state.tracks
            ->Belt.List.reduce(0, (acc, (_id, track)) =>
                acc + Duration.fromString(track.duration)
              )
-           ->Duration.make
-           ->React.string}
-        </div>
-        <div className="mt-2">
+         ) {
+         | 0 => React.null
+         | duration =>
+           <div className="text-sm mt-4 text-gray-600 text-right">
+             {React.string("Total playtime: ")}
+             {duration->Duration.make->React.string}
+           </div>
+         }}
+        <div className="mt-2 justify-end flex">
           <button
-            className="w-full bg-gray-100 p-2"
+            className="bg-gray-100 p-2 text-gray-600"
             type_="button"
             onClick={_ =>
               form.change(
@@ -580,7 +591,14 @@ let make = () => {
                 AddSoundtrackForm.AddTrack.update(form.state),
               )
             }>
-            {React.string("Add track")}
+            <svg
+              className="fill-current h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20">
+              <path
+                d="M11 9h4v2h-4v4H9v-4H5V9h4V5h2v4zm-1 11a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"
+              />
+            </svg>
           </button>
         </div>
         <div
