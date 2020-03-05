@@ -31,7 +31,8 @@
     "bs-css-emotion",
     "re-classnames",
     "re-formality",
-    "decco"
+    "decco",
+    "@ahrefs/bs-recharts"
   ],
   "bs-dev-dependencies": ["@glennsl/bs-jest"],
   "warnings": {

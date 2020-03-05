@@ -82,6 +82,7 @@ const StatsPlugin = makeExtendSchemaPlugin(() => {
               INNER JOIN composer AS c ON c.id = sc.composer_id
             GROUP BY
                sc.composer_id, c.first_name, c.last_name
+            HAVING COUNT(*) > 1
             ORDER BY count DESC;
           `)
 
