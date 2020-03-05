@@ -14,7 +14,7 @@ module SoundtrackByIdQuery = [%relay.query
 let make = (~id) => {
   let query = SoundtrackByIdQuery.use(~variables={id: id}, ());
 
-  <div className="grid grid-template-960 my-20">
+  <div className="grid grid-template-1140 my-20">
     {switch (query.soundtrackById) {
      | Some({title} as node) =>
        <div className="grid-column-center">

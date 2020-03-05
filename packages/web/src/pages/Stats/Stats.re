@@ -15,7 +15,7 @@ module StatsQuery = [%relay.query
 let make = () => {
   let query = StatsQuery.use(~variables=(), ());
 
-  <div className="grid grid-template-960 my-20">
+  <div className="grid grid-template-1140 my-20">
     <div className="grid-column-center">
       <StatsBigNumbers query={query.getFragmentRefs()} />
       <StatsCategories query={query.stats.getFragmentRefs()} />

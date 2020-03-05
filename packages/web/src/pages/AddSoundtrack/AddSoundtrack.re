@@ -339,7 +339,7 @@ let make = () => {
     );
   };
 
-  <div className="grid grid-template-960 mt-12">
+  <div className="grid grid-template-1140 mt-12">
     <div className="grid-column-center">
       <form
         className="mb-6" onSubmit={form.submit->Formality.Dom.preventDefault}>
