@@ -1,29 +1,36 @@
 const { makeExtendSchemaPlugin, gql } = require('graphile-utils')
-const axios = require('axios')
+const got = require('got')
 const cheerio = require('cheerio')
+
+const cleanTitle = title =>
+  title
+    .toLowerCase()
+    .replace(' - original score', '')
+    .replace(' - original motion picture score')
 
 const getSpotifyId = async (title, composer) => {
   const {
-    data: { tracks: [spotify] = [] },
-  } = await axios.get(
+    body: { tracks: [spotify] = [] },
+  } = await got(
     `https://wejay.willcodefor.beer/search?q=album:${encodeURI(
-      title
-    )}%20artist:${encodeURI(composer)}`
+      cleanTitle(title)
+    )}%20artist:${encodeURI(composer)}`,
+    { responseType: 'json' }
   )
 
   return spotify ? spotify.albumId : null
 }
 
 const getIMDbId = async title => {
-  const { data: imdbData } = await axios.get(
-    `https://www.imdb.com/find?q=${encodeURI(title)}`
+  const { body: imdbData } = await got(
+    `https://www.imdb.com/find?q=${encodeURI(cleanTitle(title))}`
   )
   const $ = cheerio.load(imdbData)
 
-  const id = $('.result_text a')
+  const matchedTitle = $('.result_text a')
     .first()
     .attr('href')
-    .match(/tt\d+/)
+  const id = matchedTitle ? matchedTitle.match(/tt\d+/) : []
 
   return id.length ? id[0] : null
 }
@@ -103,8 +110,8 @@ const SoundtrackPlaylistPlugin = makeExtendSchemaPlugin(() => {
     resolvers: {
       Mutation: {
         soundtrackPlaylist: async (_, { url }) => {
-          const { data } = await axios.get(url)
-          const $ = cheerio.load(data)
+          const { body } = await got(url)
+          const $ = cheerio.load(body)
 
           const title = $('#titlebox h1').text()
           const imdbId = await getIMDbId(title)
