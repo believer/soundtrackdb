@@ -58,10 +58,19 @@ const getPlaylist = $ => {
     .join('\n')
 }
 
+const getComposer = $ => {
+  return $('#cbox_3 a[href^="/person"]')
+    .map(function() {
+      return $(this).text()
+    })
+    .get()
+}
+
 const SoundtrackPlaylistPlugin = makeExtendSchemaPlugin(() => {
   return {
     typeDefs: gql`
       type SoundtrackPlaylist {
+        composer: [String!]!
         title: String!
         imdbId: String
         spotifyId: String
@@ -87,8 +96,10 @@ const SoundtrackPlaylistPlugin = makeExtendSchemaPlugin(() => {
           const imdbId = await getIMDbId(title)
           const releaseDate = await getReleaseDate($)
           const playlist = await getPlaylist($)
+          const composer = await getComposer($)
 
           return {
+            composer,
             imdbId,
             playlist,
             releaseDate,
