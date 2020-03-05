@@ -4,9 +4,11 @@ module Unions = {};
 
 module Types = {
   type soundtrackPlaylist = {
+    composers: array(string),
     imdbId: option(string),
     playlist: string,
     releaseDate: string,
+    spotifyId: option(string),
     title: string,
   };
 };
@@ -19,7 +21,7 @@ type variables = {url: string};
 module Internal = {
   type wrapResponseRaw;
   let wrapResponseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"soundtrackPlaylist_imdbId":{"n":""}}} |}
+    {| {"__root":{"soundtrackPlaylist_imdbId":{"n":""},"soundtrackPlaylist_spotifyId":{"n":""}}} |}
   ];
   let wrapResponseConverterMap = ();
   let convertWrapResponse = v =>
@@ -32,7 +34,7 @@ module Internal = {
 
   type responseRaw;
   let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"soundtrackPlaylist_imdbId":{"n":""}}} |}
+    {| {"__root":{"soundtrackPlaylist_imdbId":{"n":""},"soundtrackPlaylist_spotifyId":{"n":""}}} |}
   ];
   let responseConverterMap = ();
   let convertResponse = v =>
@@ -89,6 +91,13 @@ v1 = [
       {
         "kind": "ScalarField",
         "alias": null,
+        "name": "composers",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
         "name": "imdbId",
         "args": null,
         "storageKey": null
@@ -104,6 +113,13 @@ v1 = [
         "kind": "ScalarField",
         "alias": null,
         "name": "releaseDate",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "spotifyId",
         "args": null,
         "storageKey": null
       },
@@ -137,7 +153,7 @@ return {
     "operationKind": "mutation",
     "name": "AddFromURLMutation",
     "id": null,
-    "text": "mutation AddFromURLMutation(\n  $url: String!\n) {\n  soundtrackPlaylist(url: $url) {\n    imdbId\n    playlist\n    releaseDate\n    title\n  }\n}\n",
+    "text": "mutation AddFromURLMutation(\n  $url: String!\n) {\n  soundtrackPlaylist(url: $url) {\n    composers\n    imdbId\n    playlist\n    releaseDate\n    spotifyId\n    title\n  }\n}\n",
     "metadata": {}
   }
 };

@@ -159,15 +159,29 @@ module AddSoundtrackForm = {
 
   module InsertSoundtrackData = {
     let update =
-        (state, data: AddFromURL.AddFromURLResponse.soundtrackPlaylist) => {
+        (
+          state,
+          data: AddFromURL.AddFromURLResponse.soundtrackPlaylist,
+          matchedComposer,
+        ) => {
       {
         ...state,
         title: data.title,
         releaseDate: data.releaseDate,
+        composerId:
+          switch (matchedComposer) {
+          | Some((_, id)) => id
+          | None => state.composerId
+          },
+        spotifyId:
+          switch (data.spotifyId) {
+          | Some(id) => id
+          | None => state.spotifyId
+          },
         imdbId:
           switch (data.imdbId) {
           | Some(id) => id
-          | None => ""
+          | None => state.imdbId
           },
         tracks:
           data.playlist
@@ -557,14 +571,45 @@ let make = () => {
         <div
           className="grid grid-template-2-column grid-gap-4 items-center mt-8">
           <AddFromURL
-            updateData={data => {
+            updateData={(
+              data: AddFromURL.AddFromURLResponse.soundtrackPlaylist,
+            ) => {
+              let composers =
+                switch (composers.composers) {
+                | Some({edges}) =>
+                  edges
+                  ->Belt.Array.map(composer => {
+                      switch (composer.node) {
+                      | Some({fullName, rowId}) =>
+                        Some((
+                          fullName->Belt.Option.getWithDefault(""),
+                          rowId,
+                        ))
+                      | None => None
+                      }
+                    })
+                  ->Belt.Array.keepMap(t => t)
+                | None => [||]
+                };
+
+              let matchedComposer =
+                data.composers
+                ->Belt.Array.map(name => {
+                    composers->Js.Array2.find(((fullName, _)) =>
+                      fullName === name
+                    )
+                  })
+                ->Belt.Array.keepMap(c => c)
+                ->Belt.Array.get(0);
+
               form.change(
                 InsertSoundtrackData,
                 AddSoundtrackForm.InsertSoundtrackData.update(
                   form.state,
                   data,
+                  matchedComposer,
                 ),
-              )
+              );
             }}
           />
           <CSV

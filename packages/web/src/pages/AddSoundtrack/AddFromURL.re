@@ -2,9 +2,11 @@ module AddFromURLMutation = [%relay.mutation
   {|
   mutation AddFromURLMutation($url: String!) {
     soundtrackPlaylist(url: $url) {
+      composers
       imdbId
       playlist
       releaseDate
+      spotifyId
       title
     }
   }
@@ -14,7 +16,9 @@ module AddFromURLMutation = [%relay.mutation
 module AddFromURLResponse = {
   [@decco.decode]
   type soundtrackPlaylist = {
+    composers: array(string),
     imdbId: option(string),
+    spotifyId: option(string),
     playlist: string,
     releaseDate: string,
     title: string,
