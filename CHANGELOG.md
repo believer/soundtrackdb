@@ -1,3 +1,24 @@
+# [2.2.0](https://github.com/believer/soundtrackdb/compare/v2.1.0...v2.2.0) (2020-03-05)
+
+
+### Bug Fixes
+
+* **api:** add composer name to spotify search ([1b5f47a](https://github.com/believer/soundtrackdb/commit/1b5f47a8d6d9244a087e33de3a6c8dbd17bc7443))
+* **web:** bar chart tooltip behind bar ([31b4da1](https://github.com/believer/soundtrackdb/commit/31b4da12788b2a4a11d80f3c55aa9387f267ac8d))
+
+
+### Features
+
+* **api:** add composer lookup ([093f8ea](https://github.com/believer/soundtrackdb/commit/093f8eac230361faea3b1dcaa2289ff487258944))
+* **api:** add soundtrack type ([80fd84c](https://github.com/believer/soundtrackdb/commit/80fd84c9667a907fbe5c3472a56bb30952af7000))
+* **api:** add spotify album id lookup ([f44beaa](https://github.com/believer/soundtrackdb/commit/f44beaa1e3062766e2ac713e5ca788d19fe81965))
+* **web:** add auto-fill of soundtrack type ([ed2dc57](https://github.com/believer/soundtrackdb/commit/ed2dc570fa161b42cdf3dfc5747b0ac53cbe314a))
+* **web:** add latest added soundtracks ([38e5e78](https://github.com/believer/soundtrackdb/commit/38e5e785b4370734dd6758825f67ef520e256070))
+* **web:** add navigation ([0350ca0](https://github.com/believer/soundtrackdb/commit/0350ca0c89dc3e5e5e75836c15e9de55a09b163e))
+* **web:** add simple soundtrack search ([e2eb515](https://github.com/believer/soundtrackdb/commit/e2eb5153cf859486c9a12f278faddefb7fd0f487))
+* **web:** add spotify id and composer auto fill from link ([8871a25](https://github.com/believer/soundtrackdb/commit/8871a2523dd6390706fb7a0902f7d7af7bda6de6))
+* **web:** add stats ([9d8d8d2](https://github.com/believer/soundtrackdb/commit/9d8d8d2e6b7522a4748a456bb8d9cddc681c86d1))
+
 # [2.1.0](https://github.com/believer/soundtrackdb/compare/v2.0.0...v2.1.0) (2020-03-04)
 
 
