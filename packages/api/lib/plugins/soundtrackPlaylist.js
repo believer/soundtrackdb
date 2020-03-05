@@ -66,6 +66,18 @@ const getComposers = $ => {
     .get()
 }
 
+const getSoundtrackType = $ => {
+  const href = $('#cbox_2 a').attr('href')
+
+  if (href.includes('movie')) {
+    return 'movie'
+  } else if (href.includes('videogame')) {
+    return 'game'
+  } else if (href.includes('tv')) {
+    return 'tv'
+  }
+}
+
 const SoundtrackPlaylistPlugin = makeExtendSchemaPlugin(() => {
   return {
     typeDefs: gql`
@@ -73,6 +85,7 @@ const SoundtrackPlaylistPlugin = makeExtendSchemaPlugin(() => {
         composers: [String!]!
         title: String!
         imdbId: String
+        soundtrackType: SoundtrackType
         spotifyId: String
         releaseDate: String!
         playlist: String!
@@ -97,12 +110,14 @@ const SoundtrackPlaylistPlugin = makeExtendSchemaPlugin(() => {
           const releaseDate = await getReleaseDate($)
           const playlist = await getPlaylist($)
           const composers = await getComposers($)
+          const soundtrackType = await getSoundtrackType($)
 
           return {
             composers,
             imdbId,
             playlist,
             releaseDate,
+            soundtrackType,
             spotifyId,
             title,
           }
