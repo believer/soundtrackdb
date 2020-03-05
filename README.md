@@ -9,7 +9,8 @@ A database of soundtracks for movies and games.
 ### Frontend
 
 ```sh
-$ cd packages/web $ npm run start # Start BuckleScript compiler
+$ cd packages/web
+$ yarn start # Start BuckleScript compiler
 $ yarn relay:watch # In another terminal, start Relay compiler
 $ yarn server # In another terminal, start Webpack
 ```
