@@ -35,7 +35,7 @@ let make = (~query as queryRef) => {
                    {React.string(title)}
                  </div>
                  <div> <Composer query={node.getFragmentRefs()} /> </div>
-                 <div className="text-sm text-gray-600">
+                 <div className="text-sm text-gray-600 font-variant-tabular">
                    <DateTime date=releaseYear />
                  </div>
                </div>

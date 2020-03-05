@@ -82,3 +82,9 @@ html {
 
   content: '/';
 }
+
+/* Font Variant */
+.font-variant-tabular {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04rem;
+}

@@ -79,7 +79,9 @@ let make = (~query as queryRef) => {
                     ->React.array
                   }}
                </div>
-               <div className="text-right text-sm text-gray-500">
+               <div
+                 className="text-right text-sm text-gray-500
+               font-variant-tabular">
                  {React.string(Duration.make(duration))}
                </div>
              </li>

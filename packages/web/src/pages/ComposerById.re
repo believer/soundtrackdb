@@ -53,7 +53,9 @@ let make = (~id) => {
                         <li
                           className="py-3 border-b border-gray-300 flex items-center justify-between">
                           {React.string(title)}
-                          <div className="text-right text-sm text-gray-500">
+                          <div
+                            className="text-right text-sm text-gray-500
+                            font-variant-tabular">
                             <DateTime date=releaseYear />
                           </div>
                         </li>
