@@ -2,11 +2,13 @@ const { makeExtendSchemaPlugin, gql } = require('graphile-utils')
 const axios = require('axios')
 const cheerio = require('cheerio')
 
-const getSpotifyId = async title => {
+const getSpotifyId = async (title, composer) => {
   const {
     data: { tracks: [spotify] = [] },
   } = await axios.get(
-    `https://wejay.willcodefor.beer/search?q=album:${encodeURI(title)}`
+    `https://wejay.willcodefor.beer/search?q=album:${encodeURI(
+      title
+    )}%20artist:${encodeURI(composer)}`
   )
 
   return spotify ? spotify.albumId : null
@@ -105,12 +107,12 @@ const SoundtrackPlaylistPlugin = makeExtendSchemaPlugin(() => {
           const $ = cheerio.load(data)
 
           const title = $('#titlebox h1').text()
-          const spotifyId = await getSpotifyId(title)
           const imdbId = await getIMDbId(title)
           const releaseDate = await getReleaseDate($)
           const playlist = await getPlaylist($)
           const composers = await getComposers($)
           const soundtrackType = await getSoundtrackType($)
+          const spotifyId = await getSpotifyId(title, composers[0])
 
           return {
             composers,
