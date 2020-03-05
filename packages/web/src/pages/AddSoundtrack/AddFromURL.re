@@ -6,6 +6,7 @@ module AddFromURLMutation = [%relay.mutation
       imdbId
       playlist
       releaseDate
+      soundtrackType
       spotifyId
       title
     }
@@ -21,6 +22,7 @@ module AddFromURLResponse = {
     spotifyId: option(string),
     playlist: string,
     releaseDate: string,
+    soundtrackType: option(string),
     title: string,
   };
 

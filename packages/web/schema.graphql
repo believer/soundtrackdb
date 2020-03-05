@@ -1369,6 +1369,7 @@ type SoundtrackPlaylist {
   composers: [String!]!
   title: String!
   imdbId: String
+  soundtrackType: SoundtrackType
   spotifyId: String
   releaseDate: String!
   playlist: String!

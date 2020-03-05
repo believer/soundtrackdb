@@ -165,9 +165,13 @@ module AddSoundtrackForm = {
           matchedComposer,
         ) => {
       {
-        ...state,
         title: data.title,
         releaseDate: data.releaseDate,
+        soundtrackType:
+          switch (data.soundtrackType) {
+          | Some(stype) => SchemaAssets.Enum_SoundtrackType.fromString(stype)
+          | None => state.soundtrackType
+          },
         composerId:
           switch (matchedComposer) {
           | Some((_, id)) => id
@@ -371,8 +375,7 @@ let make = () => {
                  <a
                    href={IMDb.Link.make(id)}
                    target="_blank"
-                   rel="noopener
-                 noreferrer">
+                   rel="noopener noreferrer">
                    {React.string("IMDb")}
                  </a>
                }}
@@ -419,8 +422,20 @@ let make = () => {
             />
             <div className="text-xs text-gray-500 mt-2 text-right">
               {switch (Spotify.Id.make(form.state.spotifyId)) {
-               | Some(id) => React.string(id)
+               | Some("")
                | None => React.null
+               | Some(id) =>
+                 <a
+                   href={Spotify.Link.make(id)}
+                   target="_blank"
+                   rel="noopener noreferrer">
+                   {React.string("Spotify")}
+                 </a>
+               }}
+              {switch (Spotify.Id.make(form.state.spotifyId)) {
+               | Some("")
+               | None => React.null
+               | Some(id) => React.string(" - " ++ id)
                }}
             </div>
           </div>

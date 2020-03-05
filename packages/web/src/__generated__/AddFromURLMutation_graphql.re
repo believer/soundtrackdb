@@ -1,5 +1,7 @@
 /* @generated */
 
+type enum_SoundtrackType = [ | `GAME | `MOVIE | `TV | `FUTURE_ADDED_VALUE__];
+
 module Unions = {};
 
 module Types = {
@@ -8,6 +10,7 @@ module Types = {
     imdbId: option(string),
     playlist: string,
     releaseDate: string,
+    soundtrackType: option(enum_SoundtrackType),
     spotifyId: option(string),
     title: string,
   };
@@ -21,9 +24,11 @@ type variables = {url: string};
 module Internal = {
   type wrapResponseRaw;
   let wrapResponseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"soundtrackPlaylist_imdbId":{"n":""},"soundtrackPlaylist_spotifyId":{"n":""}}} |}
+    {| {"__root":{"soundtrackPlaylist_imdbId":{"n":""},"soundtrackPlaylist_soundtrackType":{"n":"","e":"enum_SoundtrackType"},"soundtrackPlaylist_spotifyId":{"n":""}}} |}
   ];
-  let wrapResponseConverterMap = ();
+  let wrapResponseConverterMap = {
+    "enum_SoundtrackType": SchemaAssets.Enum_SoundtrackType.wrap,
+  };
   let convertWrapResponse = v =>
     v
     ->ReasonRelay._convertObj(
@@ -34,9 +39,11 @@ module Internal = {
 
   type responseRaw;
   let responseConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"soundtrackPlaylist_imdbId":{"n":""},"soundtrackPlaylist_spotifyId":{"n":""}}} |}
+    {| {"__root":{"soundtrackPlaylist_imdbId":{"n":""},"soundtrackPlaylist_soundtrackType":{"n":"","e":"enum_SoundtrackType"},"soundtrackPlaylist_spotifyId":{"n":""}}} |}
   ];
-  let responseConverterMap = ();
+  let responseConverterMap = {
+    "enum_SoundtrackType": SchemaAssets.Enum_SoundtrackType.unwrap,
+  };
   let convertResponse = v =>
     v
     ->ReasonRelay._convertObj(
@@ -119,6 +126,13 @@ v1 = [
       {
         "kind": "ScalarField",
         "alias": null,
+        "name": "soundtrackType",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
         "name": "spotifyId",
         "args": null,
         "storageKey": null
@@ -153,7 +167,7 @@ return {
     "operationKind": "mutation",
     "name": "AddFromURLMutation",
     "id": null,
-    "text": "mutation AddFromURLMutation(\n  $url: String!\n) {\n  soundtrackPlaylist(url: $url) {\n    composers\n    imdbId\n    playlist\n    releaseDate\n    spotifyId\n    title\n  }\n}\n",
+    "text": "mutation AddFromURLMutation(\n  $url: String!\n) {\n  soundtrackPlaylist(url: $url) {\n    composers\n    imdbId\n    playlist\n    releaseDate\n    soundtrackType\n    spotifyId\n    title\n  }\n}\n",
     "metadata": {}
   }
 };
