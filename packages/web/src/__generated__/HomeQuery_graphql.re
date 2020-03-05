@@ -7,7 +7,11 @@ module Types = {};
 type response = {
   getFragmentRefs:
     unit =>
-    {. "__$fragment_ref__Soundtracks_query": Soundtracks_query_graphql.t},
+    {
+      .
+      "__$fragment_ref__Soundtracks_query": Soundtracks_query_graphql.t,
+      "__$fragment_ref__LatestSoundtracks_soundtracks": LatestSoundtracks_soundtracks_graphql.t,
+    },
 };
 type variables = unit;
 
@@ -50,6 +54,66 @@ var v0 = {
   "name": "id",
   "args": null,
   "storageKey": null
+},
+v1 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "title",
+  "args": null,
+  "storageKey": null
+},
+v2 = {
+  "kind": "LinkedField",
+  "alias": null,
+  "name": "soundtrackComposers",
+  "storageKey": null,
+  "args": null,
+  "concreteType": "SoundtrackComposersConnection",
+  "plural": false,
+  "selections": [
+    {
+      "kind": "LinkedField",
+      "alias": null,
+      "name": "edges",
+      "storageKey": null,
+      "args": null,
+      "concreteType": "SoundtrackComposersEdge",
+      "plural": true,
+      "selections": [
+        {
+          "kind": "LinkedField",
+          "alias": null,
+          "name": "node",
+          "storageKey": null,
+          "args": null,
+          "concreteType": "SoundtrackComposer",
+          "plural": false,
+          "selections": [
+            {
+              "kind": "LinkedField",
+              "alias": null,
+              "name": "composer",
+              "storageKey": null,
+              "args": null,
+              "concreteType": "Composer",
+              "plural": false,
+              "selections": [
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "name": "fullName",
+                  "args": null,
+                  "storageKey": null
+                },
+                (v0/*: any*/)
+              ]
+            },
+            (v0/*: any*/)
+          ]
+        }
+      ]
+    }
+  ]
 };
 return {
   "kind": "Request",
@@ -63,6 +127,11 @@ return {
       {
         "kind": "FragmentSpread",
         "name": "Soundtracks_query",
+        "args": null
+      },
+      {
+        "kind": "FragmentSpread",
+        "name": "LatestSoundtracks_soundtracks",
         "args": null
       }
     ]
@@ -106,13 +175,7 @@ return {
                 "plural": false,
                 "selections": [
                   (v0/*: any*/),
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "title",
-                    "args": null,
-                    "storageKey": null
-                  },
+                  (v1/*: any*/),
                   {
                     "kind": "ScalarField",
                     "alias": null,
@@ -120,59 +183,61 @@ return {
                     "args": null,
                     "storageKey": null
                   },
+                  (v2/*: any*/)
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "LinkedField",
+        "alias": "latestSoundtracks",
+        "name": "soundtracks",
+        "storageKey": "soundtracks(first:10,orderBy:\"CREATED_AT_DESC\")",
+        "args": [
+          {
+            "kind": "Literal",
+            "name": "first",
+            "value": 10
+          },
+          {
+            "kind": "Literal",
+            "name": "orderBy",
+            "value": "CREATED_AT_DESC"
+          }
+        ],
+        "concreteType": "SoundtracksConnection",
+        "plural": false,
+        "selections": [
+          {
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "edges",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "SoundtracksEdge",
+            "plural": true,
+            "selections": [
+              {
+                "kind": "LinkedField",
+                "alias": null,
+                "name": "node",
+                "storageKey": null,
+                "args": null,
+                "concreteType": "Soundtrack",
+                "plural": false,
+                "selections": [
                   {
-                    "kind": "LinkedField",
+                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "soundtrackComposers",
-                    "storageKey": null,
+                    "name": "createdAt",
                     "args": null,
-                    "concreteType": "SoundtrackComposersConnection",
-                    "plural": false,
-                    "selections": [
-                      {
-                        "kind": "LinkedField",
-                        "alias": null,
-                        "name": "edges",
-                        "storageKey": null,
-                        "args": null,
-                        "concreteType": "SoundtrackComposersEdge",
-                        "plural": true,
-                        "selections": [
-                          {
-                            "kind": "LinkedField",
-                            "alias": null,
-                            "name": "node",
-                            "storageKey": null,
-                            "args": null,
-                            "concreteType": "SoundtrackComposer",
-                            "plural": false,
-                            "selections": [
-                              {
-                                "kind": "LinkedField",
-                                "alias": null,
-                                "name": "composer",
-                                "storageKey": null,
-                                "args": null,
-                                "concreteType": "Composer",
-                                "plural": false,
-                                "selections": [
-                                  {
-                                    "kind": "ScalarField",
-                                    "alias": null,
-                                    "name": "fullName",
-                                    "args": null,
-                                    "storageKey": null
-                                  },
-                                  (v0/*: any*/)
-                                ]
-                              },
-                              (v0/*: any*/)
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
+                    "storageKey": null
+                  },
+                  (v0/*: any*/),
+                  (v1/*: any*/),
+                  (v2/*: any*/)
                 ]
               }
             ]
@@ -185,7 +250,7 @@ return {
     "operationKind": "query",
     "name": "HomeQuery",
     "id": null,
-    "text": "query HomeQuery {\n  ...Soundtracks_query\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposers {\n    edges {\n      node {\n        composer {\n          fullName\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment Soundtracks_query on Query {\n  soundtracks(orderBy: TITLE_ASC) {\n    edges {\n      node {\n        id\n        title\n        releaseYear\n        ...Composer_soundtrack\n      }\n    }\n  }\n}\n",
+    "text": "query HomeQuery {\n  ...Soundtracks_query\n  ...LatestSoundtracks_soundtracks\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposers {\n    edges {\n      node {\n        composer {\n          fullName\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment LatestSoundtracks_soundtracks on Query {\n  latestSoundtracks: soundtracks(orderBy: CREATED_AT_DESC, first: 10) {\n    edges {\n      node {\n        createdAt\n        id\n        title\n        ...Composer_soundtrack\n      }\n    }\n  }\n}\n\nfragment Soundtracks_query on Query {\n  soundtracks(orderBy: TITLE_ASC) {\n    edges {\n      node {\n        id\n        title\n        releaseYear\n        ...Composer_soundtrack\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };
