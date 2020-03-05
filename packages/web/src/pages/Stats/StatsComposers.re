@@ -46,8 +46,8 @@ let make = (~query as queryRef) => {
           interval={Num(0)}
         />
         <YAxis dataKey="count" interval={Num(0)} />
+        <Tooltip cursor={"fill": "#F7FAFC"} />
         <Bar dataKey="count" fill="#718096" />
-        <Tooltip />
       </BarChart>
     </ResponsiveContainer>
   </div>;
