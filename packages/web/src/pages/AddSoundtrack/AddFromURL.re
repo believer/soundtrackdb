@@ -45,7 +45,10 @@ let make = (~updateData) => {
       className="border-b w-full mr-8 py-3"
       type_="text"
       placeholder="Soundtrack.net URL"
-      onChange={event => {setUrl(_ => event->ReactEvent.Form.target##value)}}
+      onChange={event => {
+        let value = event->ReactEvent.Form.target##value;
+        setUrl(_ => value);
+      }}
       value=url
     />
     <button
