@@ -43,7 +43,8 @@ module NavLink = {
     let url = ReasonReactRouter.useUrl();
     let href = Route.toString(path);
     let isActive = isActiveLink(url.path, href);
-    let className = Cn.make([className, "bg-gray-900"->Cn.ifTrue(isActive)]);
+    let className =
+      Cn.make([className, "bg-gray-200 text-gray-800"->Cn.ifTrue(isActive)]);
 
     <a
       ariaSelected=isActive

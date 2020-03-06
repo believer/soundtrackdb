@@ -21,7 +21,7 @@ let make = (~query as queryRef) => {
         margin={"top": 20, "right": 30, "bottom": 20, "left": 0}
         data={data.years}>
         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-        <XAxis dataKey="year" />
+        <XAxis dataKey="year" tick=StatsComposers.CustomLabel.make />
         <YAxis dataKey="count" interval={Num(0)} />
         <Line
           name="Soundtracks per year"

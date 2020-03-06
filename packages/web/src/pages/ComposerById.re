@@ -38,9 +38,9 @@ let make = (~id) => {
              {React.string(fullName->Belt.Option.getWithDefault(""))}
            </li>
          </ul>
-         <h1 className="text-4xl text-gray-900 font-black">
+         <Typography.H1>
            {React.string(fullName->Belt.Option.getWithDefault(""))}
-         </h1>
+         </Typography.H1>
          <div className="grid grid-template-soundtrack grid-gap-20 mt-8">
            <ul>
              {soundtrackComposers.edges

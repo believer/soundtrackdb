@@ -40,9 +40,9 @@ module AddFromURLResponse = {
 let make = (~updateData) => {
   let (url, setUrl) = React.useState(() => "");
 
-  <div className="flex items-center">
+  <div className="flex items-center rounded-full border-2 border-gray-200">
     <input
-      className="border-b w-full mr-8 py-3"
+      className="w-full py-2 rounded-full px-6 outline-none"
       type_="text"
       placeholder="Soundtrack.net URL"
       onChange={event => {
@@ -52,7 +52,8 @@ let make = (~updateData) => {
       value=url
     />
     <button
-      className="px-4 py-2 bg-blue-200"
+      className="p-3 px-4 text-sm bg-blue-500 text-white rounded-full
+      focus:outline-none"
       type_="button"
       onClick={_ => {
         Js.Promise.(

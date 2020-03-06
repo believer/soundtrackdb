@@ -350,8 +350,9 @@ let make = () => {
     <div className="grid-column-center">
       <form
         className="mb-6" onSubmit={form.submit->Formality.Dom.preventDefault}>
-        <div className="grid grid-template-2-column grid-gap-4">
+        <div className="mb-12 w-3/5">
           <FormFields.Text
+            className="text-4xl font-black text-gray-900"
             error={Title->(form.result)}
             label="Title"
             name="soundtrack-title"
@@ -362,311 +363,280 @@ let make = () => {
             placeholder="Title"
             value={form.state.title}
           />
-          <div>
-            <FormFields.Text
-              error={ImdbId->(form.result)}
-              label="IMDb ID"
-              name="soundtrack-imdbid"
-              onChange={handleChange(
-                ImdbId,
-                AddSoundtrackForm.ImdbIdField.update,
-              )}
-              placeholder="IMDb ID"
-              value={form.state.imdbId}
-            />
-            <div className="text-xs text-gray-500 mt-2 text-right">
-              {switch (IMDb.Id.make(form.state.imdbId)) {
-               | Some("")
-               | None => React.null
-               | Some(id) =>
-                 <a
-                   href={IMDb.Link.make(id)}
-                   target="_blank"
-                   rel="noopener noreferrer">
-                   {React.string("IMDb")}
-                 </a>
-               }}
-              {switch (IMDb.Id.make(form.state.imdbId)) {
-               | Some("")
-               | None => React.null
-               | Some(id) => React.string(" - " ++ id)
-               }}
-            </div>
-          </div>
         </div>
-        <div className="grid grid-template-2-column grid-gap-4">
+        <div className="grid grid-template-soundtrack grid-gap-20">
           <div>
-            <FormFields.Text
-              error={ReleaseDate->(form.result)}
-              label="Release date"
-              name="soundtrack-release-date"
-              onChange={handleChange(
-                ReleaseDate,
-                AddSoundtrackForm.ReleaseDateField.update,
-              )}
-              placeholder="Release date"
-              value={form.state.releaseDate}
-            />
-            {switch (form.state.releaseDate) {
-             | "" => React.null
-             | _ =>
-               <div className="text-xs text-gray-500 mt-2 text-right">
-                 {React.string(DateTime.Parse.make(form.state.releaseDate))}
-               </div>
-             }}
-          </div>
-          <div>
-            <FormFields.Text
-              error={SpotifyId->(form.result)}
-              label="Spotify ID"
-              name="soundtrack-spotifyid"
-              onChange={handleChange(
-                SpotifyId,
-                AddSoundtrackForm.SpotifyIdField.update,
-              )}
-              placeholder="Spotify ID"
-              value={form.state.spotifyId}
-            />
-            <div className="text-xs text-gray-500 mt-2 text-right">
-              {switch (Spotify.Id.make(form.state.spotifyId)) {
-               | Some("")
-               | None => React.null
-               | Some(id) =>
-                 <a
-                   href={Spotify.Link.make(id)}
-                   target="_blank"
-                   rel="noopener noreferrer">
-                   {React.string("Spotify")}
-                 </a>
-               }}
-              {switch (Spotify.Id.make(form.state.spotifyId)) {
-               | Some("")
-               | None => React.null
-               | Some(id) => React.string(" - " ++ id)
-               }}
-            </div>
-          </div>
-        </div>
-        <div className="grid grid-template-2-column grid-gap-4 mt-4">
-          {switch (composers.composers) {
-           | Some({edges}) =>
-             <Dropdown
-               onChange={event => {
-                 form.change(
-                   Composer,
-                   AddSoundtrackForm.ComposerField.update(
-                     form.state,
-                     event->ReactEvent.Form.target##value->int_of_string,
-                   ),
-                 )
-               }}
-               options={
-                 edges
-                 ->Belt.Array.map(composer => {
-                     switch (composer.node) {
-                     | Some({fullName, rowId}) =>
-                       Some(
-                         Dropdown.Item.make(
-                           ~label=fullName->Belt.Option.getWithDefault(""),
-                           ~value=rowId->Belt.Int.toString,
-                         ),
-                       )
-                     | None => None
-                     }
-                   })
-                 ->Belt.Array.keepMap(t => t)
-                 ->Belt.List.fromArray
-               }
-               value={Belt.Int.toString(form.state.composerId)}
-             />
-           | None => React.null
-           }}
-          <Dropdown
-            onChange={event => {
-              form.change(
-                SoundtrackType,
-                AddSoundtrackForm.SoundtrackTypeField.update(
-                  form.state,
-                  event->ReactEvent.Form.target##value
-                  ->Js.String2.toUpperCase
-                  ->SchemaAssets.Enum_SoundtrackType.fromString,
-                ),
-              )
-            }}
-            options=Dropdown.Item.[
-              make(~label="Game", ~value="GAME"),
-              make(~label="Movie", ~value="MOVIE"),
-              make(~label="TV", ~value="TV"),
-            ]
-            value={
-              form.state.soundtrackType
-              ->SchemaAssets.Enum_SoundtrackType.toString
-            }
-          />
-        </div>
-        <div className="mt-4">
-          <h2> {React.string("Tracklist")} </h2>
-          {form.state.tracks
-           ->Belt.List.mapWithIndex((i, (id, track)) => {
-               <div className="flex items-center" key={CUID.toString(id)}>
-                 <div className="mr-4">
-                   {(i + 1)->Belt.Int.toString->React.string}
-                 </div>
-                 <div className="flex-1 mr-4">
-                   <FormFields.Text
-                     error={UpdateTrackTitle->(form.result)}
-                     label="Title"
-                     name="soundtrack-track-title"
-                     onChange={event => {
-                       let value = event->ReactEvent.Form.target##value;
+            {form.state.tracks
+             ->Belt.List.mapWithIndex((i, (id, track)) => {
+                 <div className="flex items-center" key={CUID.toString(id)}>
+                   <div className="mr-4 text-gray-600">
+                     {(i + 1)->Belt.Int.toString->React.string}
+                   </div>
+                   <div className="flex-1 mr-4">
+                     <FormFields.Text
+                       error={UpdateTrackTitle->(form.result)}
+                       label="Title"
+                       name="soundtrack-track-title"
+                       onChange={event => {
+                         let value = event->ReactEvent.Form.target##value;
 
-                       form.change(
-                         UpdateTrackTitle,
-                         AddSoundtrackForm.UpdateTrackTitleField.update(
-                           form.state,
-                           (id, value),
-                         ),
-                       );
-                     }}
-                     placeholder="Title"
-                     value={track.title}
-                   />
-                 </div>
-                 <div className="mr-4">
-                   <FormFields.Text
-                     error={UpdateTrackDuration->(form.result)}
-                     label="Duration"
-                     name="soundtrack-track-duration"
-                     onChange={event => {
-                       let value = event->ReactEvent.Form.target##value;
-
-                       form.change(
-                         UpdateTrackTitle,
-                         AddSoundtrackForm.UpdateTrackDurationField.update(
-                           form.state,
-                           (id, value),
-                         ),
-                       );
-                     }}
-                     placeholder="Duration"
-                     value={track.duration}
-                   />
-                 </div>
-                 <button
-                   className="bg-gray-100 p-2 text-gray-600"
-                   type_="button"
-                   onClick={_ =>
-                     form.change(
-                       RemoveTrack,
-                       AddSoundtrackForm.RemoveTrack.update(form.state, id),
-                     )
-                   }>
-                   <svg
-                     xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 20 20"
-                     className="fill-current h-4 w-4">
-                     <path
-                       d="M6 2l2-2h4l2 2h4v2H2V2h4zM3 6h14l-1 14H4L3 6zm5 2v10h1V8H8zm3 0v10h1V8h-1z"
+                         form.change(
+                           UpdateTrackTitle,
+                           AddSoundtrackForm.UpdateTrackTitleField.update(
+                             form.state,
+                             (id, value),
+                           ),
+                         );
+                       }}
+                       placeholder="Title"
+                       value={track.title}
                      />
-                   </svg>
-                 </button>
-               </div>
-             })
-           ->Belt.List.toArray
-           ->React.array}
-        </div>
-        {switch (
-           form.state.tracks
-           ->Belt.List.reduce(0, (acc, (_id, track)) =>
-               acc + Duration.fromString(track.duration)
-             )
-         ) {
-         | 0 => React.null
-         | duration =>
-           <div className="text-sm mt-4 text-gray-600 text-right">
-             {React.string("Total playtime: ")}
-             {duration->Duration.make->React.string}
-           </div>
-         }}
-        <div className="mt-2 justify-end flex">
-          <button
-            className="bg-gray-100 p-2 text-gray-600"
-            type_="button"
-            onClick={_ =>
-              form.change(
-                AddTrack,
-                AddSoundtrackForm.AddTrack.update(form.state),
-              )
-            }>
-            <svg
-              className="fill-current h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20">
-              <path
-                d="M11 9h4v2h-4v4H9v-4H5V9h4V5h2v4zm-1 11a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"
-              />
-            </svg>
-          </button>
-        </div>
-        <div
-          className="grid grid-template-2-column grid-gap-4 items-center mt-8">
-          <AddFromURL
-            updateData={(
-              data: AddFromURL.AddFromURLResponse.soundtrackPlaylist,
-            ) => {
-              let composers =
-                switch (composers.composers) {
-                | Some({edges}) =>
-                  edges
-                  ->Belt.Array.map(composer => {
-                      switch (composer.node) {
-                      | Some({fullName, rowId}) =>
-                        Some((
-                          fullName->Belt.Option.getWithDefault(""),
-                          rowId,
-                        ))
-                      | None => None
-                      }
-                    })
-                  ->Belt.Array.keepMap(t => t)
-                | None => [||]
-                };
+                   </div>
+                   <div className="mr-4 w-20">
+                     <FormFields.Text
+                       error={UpdateTrackDuration->(form.result)}
+                       label="Duration"
+                       name="soundtrack-track-duration"
+                       onChange={event => {
+                         let value = event->ReactEvent.Form.target##value;
 
-              let matchedComposer =
-                data.composers
-                ->Belt.Array.map(name => {
-                    composers->Js.Array2.find(((fullName, _)) =>
-                      fullName === name
+                         form.change(
+                           UpdateTrackTitle,
+                           AddSoundtrackForm.UpdateTrackDurationField.update(
+                             form.state,
+                             (id, value),
+                           ),
+                         );
+                       }}
+                       placeholder="Duration"
+                       value={track.duration}
+                     />
+                   </div>
+                   <button
+                     type_="button"
+                     onClick={_ =>
+                       form.change(
+                         RemoveTrack,
+                         AddSoundtrackForm.RemoveTrack.update(form.state, id),
+                       )
+                     }>
+                     <Icon.Trash />
+                   </button>
+                 </div>
+               })
+             ->Belt.List.toArray
+             ->React.array}
+            <div>
+              {switch (
+                 form.state.tracks
+                 ->Belt.List.reduce(0, (acc, (_id, track)) =>
+                     acc + Duration.fromString(track.duration)
+                   )
+               ) {
+               | 0 => React.null
+               | duration =>
+                 <div className="text-sm mt-4 text-gray-600 text-right">
+                   {React.string("Total playtime: ")}
+                   {duration->Duration.make->React.string}
+                 </div>
+               }}
+              <div className="mt-8 justify-end flex">
+                <Button.Secondary
+                  leading={<Icon.Add />}
+                  onClick={_ =>
+                    form.change(
+                      AddTrack,
+                      AddSoundtrackForm.AddTrack.update(form.state),
                     )
-                  })
-                ->Belt.Array.keepMap(c => c)
-                ->Belt.Array.get(0);
+                  }>
+                  {React.string("Add track")}
+                </Button.Secondary>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="mb-4">
+              <FormFields.Text
+                error={ImdbId->(form.result)}
+                helper={
+                  switch (IMDb.Id.make(form.state.imdbId)) {
+                  | Some("")
+                  | None => React.null
+                  | Some(id) =>
+                    <a
+                      href={IMDb.Link.make(id)}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      {React.string("IMDb - " ++ id)}
+                    </a>
+                  }
+                }
+                label="IMDb ID"
+                name="soundtrack-imdbid"
+                onChange={handleChange(
+                  ImdbId,
+                  AddSoundtrackForm.ImdbIdField.update,
+                )}
+                placeholder="IMDb ID"
+                value={form.state.imdbId}
+              />
+            </div>
+            <div className="mb-4">
+              <FormFields.Text
+                error={SpotifyId->(form.result)}
+                helper={
+                  switch (Spotify.Id.make(form.state.spotifyId)) {
+                  | Some("")
+                  | None => React.null
+                  | Some(id) =>
+                    <a
+                      href={Spotify.Link.make(id)}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      {React.string("Spotify - " ++ id)}
+                    </a>
+                  }
+                }
+                label="Spotify ID"
+                name="soundtrack-spotifyid"
+                onChange={handleChange(
+                  SpotifyId,
+                  AddSoundtrackForm.SpotifyIdField.update,
+                )}
+                placeholder="Spotify ID"
+                value={form.state.spotifyId}
+              />
+            </div>
+            <div className="mb-8">
+              <FormFields.Text
+                error={ReleaseDate->(form.result)}
+                helper={
+                  switch (form.state.releaseDate) {
+                  | "" => React.null
+                  | _ =>
+                    React.string(DateTime.Parse.make(form.state.releaseDate))
+                  }
+                }
+                label="Release date"
+                name="soundtrack-release-date"
+                onChange={handleChange(
+                  ReleaseDate,
+                  AddSoundtrackForm.ReleaseDateField.update,
+                )}
+                placeholder="Release date"
+                value={form.state.releaseDate}
+              />
+            </div>
+            <div className="mb-4">
+              {switch (composers.composers) {
+               | Some({edges}) =>
+                 <Dropdown
+                   onChange={event => {
+                     form.change(
+                       Composer,
+                       AddSoundtrackForm.ComposerField.update(
+                         form.state,
+                         event->ReactEvent.Form.target##value->int_of_string,
+                       ),
+                     )
+                   }}
+                   options={
+                     edges
+                     ->Belt.Array.map(composer => {
+                         switch (composer.node) {
+                         | Some({fullName, rowId}) =>
+                           Some(
+                             Dropdown.Item.make(
+                               ~label=
+                                 fullName->Belt.Option.getWithDefault(""),
+                               ~value=rowId->Belt.Int.toString,
+                             ),
+                           )
+                         | None => None
+                         }
+                       })
+                     ->Belt.Array.keepMap(t => t)
+                     ->Belt.List.fromArray
+                   }
+                   value={Belt.Int.toString(form.state.composerId)}
+                 />
+               | None => React.null
+               }}
+            </div>
+            <div className="mb-8">
+              <Dropdown
+                onChange={event => {
+                  form.change(
+                    SoundtrackType,
+                    AddSoundtrackForm.SoundtrackTypeField.update(
+                      form.state,
+                      event->ReactEvent.Form.target##value
+                      ->Js.String2.toUpperCase
+                      ->SchemaAssets.Enum_SoundtrackType.fromString,
+                    ),
+                  )
+                }}
+                options=Dropdown.Item.[
+                  make(~label="Game", ~value="GAME"),
+                  make(~label="Movie", ~value="MOVIE"),
+                  make(~label="TV", ~value="TV"),
+                ]
+                value={
+                  form.state.soundtrackType
+                  ->SchemaAssets.Enum_SoundtrackType.toString
+                }
+              />
+            </div>
+            <div className="mb-10">
+              <AddFromURL
+                updateData={(
+                  data: AddFromURL.AddFromURLResponse.soundtrackPlaylist,
+                ) => {
+                  let composers =
+                    switch (composers.composers) {
+                    | Some({edges}) =>
+                      edges
+                      ->Belt.Array.map(composer => {
+                          switch (composer.node) {
+                          | Some({fullName, rowId}) =>
+                            Some((
+                              fullName->Belt.Option.getWithDefault(""),
+                              rowId,
+                            ))
+                          | None => None
+                          }
+                        })
+                      ->Belt.Array.keepMap(t => t)
+                    | None => [||]
+                    };
 
-              form.change(
-                InsertSoundtrackData,
-                AddSoundtrackForm.InsertSoundtrackData.update(
-                  form.state,
-                  data,
-                  matchedComposer,
-                ),
-              );
-            }}
-          />
-          <CSV
-            hasTracks={Belt.List.length(form.state.tracks) > 1}
-            onChange={tracks =>
-              form.change(
-                InsertTracks,
-                AddSoundtrackForm.InsertTracks.update(form.state, tracks),
-              )
-            }
-            value={form.state.tracks}
-          />
-        </div>
-        <div className="flex justify-end mt-4">
-          <button className="px-4 py-2 bg-green-200" type_="submit">
-            {React.string("Save")}
-          </button>
+                  let matchedComposer =
+                    data.composers
+                    ->Belt.Array.map(name => {
+                        composers->Js.Array2.find(((fullName, _)) =>
+                          fullName === name
+                        )
+                      })
+                    ->Belt.Array.keepMap(c => c)
+                    ->Belt.Array.get(0);
+
+                  form.change(
+                    InsertSoundtrackData,
+                    AddSoundtrackForm.InsertSoundtrackData.update(
+                      form.state,
+                      data,
+                      matchedComposer,
+                    ),
+                  );
+                }}
+              />
+            </div>
+            <div className="flex justify-end">
+              <Button.Primary type_="submit">
+                {React.string("Save")}
+              </Button.Primary>
+            </div>
+          </div>
         </div>
       </form>
     </div>

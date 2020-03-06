@@ -27,9 +27,7 @@ let make = (~id) => {
            </li>
            <li className="text-gray-600"> {React.string(title)} </li>
          </ul>
-         <h1 className="text-4xl text-gray-900 font-black">
-           {React.string(title)}
-         </h1>
+         <Typography.H1> {React.string(title)} </Typography.H1>
          <Composer query={node.getFragmentRefs()} />
          <TrackList query={node.getFragmentRefs()} />
        </div>

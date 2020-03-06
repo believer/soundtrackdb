@@ -50,22 +50,25 @@ let make = (~query as queryRef) => {
   });
 
   <>
-    <input
-      className="w-full bg-gray-100 p-4 pl-12 mb-8"
-      type_="text"
-      placeholder="Search soundtracks"
-      value={state.query}
-      style={ReactDOMRe.Style.make(
-        ~backgroundImage="url(/assets/icons/search.svg)",
-        ~backgroundRepeat="no-repeat",
-        ~backgroundSize="20px 20px",
-        ~backgroundPosition="16px center",
-        (),
-      )}
-      onChange={event =>
-        dispatch(SetSearch(event->ReactEvent.Form.target##value))
-      }
-    />
+    <div className="rounded-full border-2 border-gray-200 mb-8">
+      <input
+        className="w-full bg-gray-100 py-2 px-8 pl-12 focus:bg-white rounded-full border-2
+        border-gray-100 focus:outline-none focus:border-blue-300"
+        type_="text"
+        placeholder="Search soundtracks"
+        value={state.query}
+        style={ReactDOMRe.Style.make(
+          ~backgroundImage="url(/assets/icons/search.svg)",
+          ~backgroundRepeat="no-repeat",
+          ~backgroundSize="20px 20px",
+          ~backgroundPosition="16px center",
+          (),
+        )}
+        onChange={event =>
+          dispatch(SetSearch(event->ReactEvent.Form.target##value))
+        }
+      />
+    </div>
     {state.soundtracks
      ->Belt.Array.keep(({node}) => {
          Js.String2.(

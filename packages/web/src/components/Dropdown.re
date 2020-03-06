@@ -28,8 +28,8 @@ module Item: {
 let make = (~options: list(Item.t), ~onChange, ~value) => {
   <div className="relative">
     <select
-      className="block appearance-none w-full bg-white border
-               border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow
+      className="block appearance-none w-full bg-white border text-gray-700
+               border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded
                leading-tight focus:outline-none focus:shadow-outline"
       onChange
       value>
@@ -44,11 +44,19 @@ let make = (~options: list(Item.t), ~onChange, ~value) => {
     <div
       className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
       <svg
-        className="fill-current h-4 w-4"
+        className="w-5 h-5"
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20">
+        viewBox="0 0 64 64"
+        ariaLabelledby="title"
+        ariaDescribedby="desc">
         <path
-          d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+          fill="none"
+          stroke="#1A202C"
+          strokeMiterlimit="10"
+          strokeWidth="2"
+          d="M20 26l11.994 14L44 26"
+          strokeLinejoin="round"
+          strokeLinecap="round"
         />
       </svg>
     </div>
