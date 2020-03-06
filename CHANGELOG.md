@@ -1,3 +1,27 @@
+# [3.0.0](https://github.com/believer/soundtrackdb/compare/v2.2.0...v3.0.0) (2020-03-06)
+
+
+### Bug Fixes
+
+* **web:** handle re-entry of input value for url ([280779c](https://github.com/believer/soundtrackdb/commit/280779c7369279c66c2632dbdff11bea6eed95d1))
+* remove score from title lookup ([30f9973](https://github.com/believer/soundtrackdb/commit/30f9973972c8ab56aedff855b2918b833c3d3d88))
+* replace release_year from stats queries ([ecf9748](https://github.com/believer/soundtrackdb/commit/ecf97482fb5e8f450774399e23bf16669e6427b6))
+
+
+### Features
+
+* add long duration parse ([84a8b97](https://github.com/believer/soundtrackdb/commit/84a8b971300795b73014f4cf785497e82543867b))
+* add soundtracks by year page ([15491d7](https://github.com/believer/soundtrackdb/commit/15491d7b5748c56f57e9edf4d7a4eb9a518ad13e))
+* redesign add soundtrack page ([836555f](https://github.com/believer/soundtrackdb/commit/836555f819099090af4531708a74a2de6f791017))
+* rename release_year column to release_date ([72df6f0](https://github.com/believer/soundtrackdb/commit/72df6f03cfeee33fcd85ac47a45db22367b44ca9))
+
+
+### BREAKING CHANGES
+
+* Any queries or mutations on the `soundtrack` table
+using `releaseYear` will need to change to `releaseDate`. A new column
+`year` has been added with only the year part of the release date.
+
 # [2.2.0](https://github.com/believer/soundtrackdb/compare/v2.1.0...v2.2.0) (2020-03-05)
 
 
