@@ -271,10 +271,17 @@ let make = () => {
                 title: state.title,
                 imdbId: IMDb.Id.make(state.imdbId),
                 soundtrackType: state.soundtrackType,
-                releaseYear: DateTime.Parse.make(state.releaseDate),
+                releaseDate: DateTime.Parse.make(state.releaseDate),
                 createdAt: None,
                 rowId: None,
                 updatedAt: None,
+                year:
+                  Some(
+                    state.releaseDate
+                    |> Js.Date.fromString
+                    |> Js.Date.getFullYear
+                    |> Belt.Float.toString,
+                  ),
                 spotifyId: Spotify.Id.make(state.spotifyId),
               },
               clientMutationId: None,

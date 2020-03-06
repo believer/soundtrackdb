@@ -1135,10 +1135,11 @@ type Soundtrack implements Node {
   title: String!
   imdbId: String
   soundtrackType: SoundtrackType!
-  releaseYear: Datetime!
+  releaseDate: Datetime!
   createdAt: Datetime!
   updatedAt: Datetime!
   spotifyId: String
+  year: String
 
   """Reads and enables pagination through a set of `SoundtrackComposer`."""
   soundtrackComposers(
@@ -1299,14 +1300,16 @@ enum SoundtrackComposersOrderBy {
   SOUNDTRACK_BY_SOUNDTRACK_ID__IMDB_ID_DESC
   SOUNDTRACK_BY_SOUNDTRACK_ID__SOUNDTRACK_TYPE_ASC
   SOUNDTRACK_BY_SOUNDTRACK_ID__SOUNDTRACK_TYPE_DESC
-  SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_ASC
-  SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC
+  SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_DATE_ASC
+  SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_DATE_DESC
   SOUNDTRACK_BY_SOUNDTRACK_ID__CREATED_AT_ASC
   SOUNDTRACK_BY_SOUNDTRACK_ID__CREATED_AT_DESC
   SOUNDTRACK_BY_SOUNDTRACK_ID__UPDATED_AT_ASC
   SOUNDTRACK_BY_SOUNDTRACK_ID__UPDATED_AT_DESC
   SOUNDTRACK_BY_SOUNDTRACK_ID__SPOTIFY_ID_ASC
   SOUNDTRACK_BY_SOUNDTRACK_ID__SPOTIFY_ID_DESC
+  SOUNDTRACK_BY_SOUNDTRACK_ID__YEAR_ASC
+  SOUNDTRACK_BY_SOUNDTRACK_ID__YEAR_DESC
 }
 
 """
@@ -1326,8 +1329,8 @@ input SoundtrackCondition {
   """Checks for equality with the object’s `soundtrackType` field."""
   soundtrackType: SoundtrackType
 
-  """Checks for equality with the object’s `releaseYear` field."""
-  releaseYear: Datetime
+  """Checks for equality with the object’s `releaseDate` field."""
+  releaseDate: Datetime
 
   """Checks for equality with the object’s `createdAt` field."""
   createdAt: Datetime
@@ -1337,6 +1340,9 @@ input SoundtrackCondition {
 
   """Checks for equality with the object’s `spotifyId` field."""
   spotifyId: String
+
+  """Checks for equality with the object’s `year` field."""
+  year: String
 }
 
 """An input for mutations affecting `Soundtrack`"""
@@ -1345,10 +1351,11 @@ input SoundtrackInput {
   title: String!
   imdbId: String
   soundtrackType: SoundtrackType!
-  releaseYear: Datetime!
+  releaseDate: Datetime!
   createdAt: Datetime
   updatedAt: Datetime
   spotifyId: String
+  year: String
 }
 
 """
@@ -1359,10 +1366,11 @@ input SoundtrackPatch {
   title: String
   imdbId: String
   soundtrackType: SoundtrackType
-  releaseYear: Datetime
+  releaseDate: Datetime
   createdAt: Datetime
   updatedAt: Datetime
   spotifyId: String
+  year: String
 }
 
 type SoundtrackPlaylist {
@@ -1412,14 +1420,16 @@ enum SoundtracksOrderBy {
   IMDB_ID_DESC
   SOUNDTRACK_TYPE_ASC
   SOUNDTRACK_TYPE_DESC
-  RELEASE_YEAR_ASC
-  RELEASE_YEAR_DESC
+  RELEASE_DATE_ASC
+  RELEASE_DATE_DESC
   CREATED_AT_ASC
   CREATED_AT_DESC
   UPDATED_AT_ASC
   UPDATED_AT_DESC
   SPOTIFY_ID_ASC
   SPOTIFY_ID_DESC
+  YEAR_ASC
+  YEAR_DESC
   PRIMARY_KEY_ASC
   PRIMARY_KEY_DESC
   SOUNDTRACK_COMPOSERS_BY_SOUNDTRACK_ID__COUNT_ASC
@@ -1692,14 +1702,16 @@ enum TracksOrderBy {
   SOUNDTRACK_BY_SOUNDTRACK_ID__IMDB_ID_DESC
   SOUNDTRACK_BY_SOUNDTRACK_ID__SOUNDTRACK_TYPE_ASC
   SOUNDTRACK_BY_SOUNDTRACK_ID__SOUNDTRACK_TYPE_DESC
-  SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_ASC
-  SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC
+  SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_DATE_ASC
+  SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_DATE_DESC
   SOUNDTRACK_BY_SOUNDTRACK_ID__CREATED_AT_ASC
   SOUNDTRACK_BY_SOUNDTRACK_ID__CREATED_AT_DESC
   SOUNDTRACK_BY_SOUNDTRACK_ID__UPDATED_AT_ASC
   SOUNDTRACK_BY_SOUNDTRACK_ID__UPDATED_AT_DESC
   SOUNDTRACK_BY_SOUNDTRACK_ID__SPOTIFY_ID_ASC
   SOUNDTRACK_BY_SOUNDTRACK_ID__SPOTIFY_ID_DESC
+  SOUNDTRACK_BY_SOUNDTRACK_ID__YEAR_ASC
+  SOUNDTRACK_BY_SOUNDTRACK_ID__YEAR_DESC
   TRACK_COMPOSERS_BY_TRACK_ID__COUNT_ASC
   TRACK_COMPOSERS_BY_TRACK_ID__COUNT_DESC
 }

@@ -10,10 +10,11 @@ module Types = {
     title: string,
     imdbId: option(string),
     soundtrackType: enum_SoundtrackType,
-    releaseYear: string,
+    releaseDate: string,
     createdAt: option(string),
     updatedAt: option(string),
     spotifyId: option(string),
+    year: option(string),
   };
   type createSoundtrackInput = {
     clientMutationId: option(string),
@@ -59,7 +60,7 @@ module Internal = {
       );
 
   let variablesConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"input":{"r":"CreateSoundtrackInput"}},"SoundtrackInput":{"rowId":{"n":""},"imdbId":{"n":""},"soundtrackType":{"e":"enum_SoundtrackType"},"createdAt":{"n":""},"updatedAt":{"n":""},"spotifyId":{"n":""}},"CreateSoundtrackInput":{"clientMutationId":{"n":""},"soundtrack":{"r":"SoundtrackInput"}}} |}
+    {| {"__root":{"input":{"r":"CreateSoundtrackInput"}},"SoundtrackInput":{"rowId":{"n":""},"imdbId":{"n":""},"soundtrackType":{"e":"enum_SoundtrackType"},"createdAt":{"n":""},"updatedAt":{"n":""},"spotifyId":{"n":""},"year":{"n":""}},"CreateSoundtrackInput":{"clientMutationId":{"n":""},"soundtrack":{"r":"SoundtrackInput"}}} |}
   ];
   let variablesConverterMap = {
     "enum_SoundtrackType": SchemaAssets.Enum_SoundtrackType.wrap,

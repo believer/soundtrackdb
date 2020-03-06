@@ -7,7 +7,7 @@ module Types = {};
 type fragment = {
   imdbId: option(string),
   spotifyId: option(string),
-  releaseYear: string,
+  releaseDate: string,
 };
 
 module Internal = {
@@ -60,7 +60,7 @@ let node: operationType = [%bs.raw
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "releaseYear",
+      "name": "releaseDate",
       "args": null,
       "storageKey": null
     }

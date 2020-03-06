@@ -3,7 +3,7 @@ module SoundtrackMetaFragment = [%relay.fragment
   fragment SoundtrackMeta_data on Soundtrack {
     imdbId
     spotifyId
-    releaseYear
+    releaseDate
   }
 |}
 ];
@@ -14,7 +14,7 @@ let make = (~query as queryRef, ~totalTracks, ~totalDuration) => {
 
   <div>
     <MetaBlock title="Release date">
-      <DateTime date={meta.releaseYear} format=DateTime.Format.FullDate />
+      <DateTime date={meta.releaseDate} format=DateTime.Format.FullDate />
     </MetaBlock>
     <MetaBlock title="Number of tracks">
       {totalTracks->Belt.Int.toString->React.string}

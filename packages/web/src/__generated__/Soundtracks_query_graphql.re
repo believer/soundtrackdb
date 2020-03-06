@@ -6,7 +6,7 @@ module Types = {
   type node = {
     id: string,
     title: string,
-    releaseYear: string,
+    releaseDate: string,
     getFragmentRefs:
       unit =>
       {
@@ -105,7 +105,7 @@ let node: operationType = [%bs.raw
                 {
                   "kind": "ScalarField",
                   "alias": null,
-                  "name": "releaseYear",
+                  "name": "releaseDate",
                   "args": null,
                   "storageKey": null
                 },

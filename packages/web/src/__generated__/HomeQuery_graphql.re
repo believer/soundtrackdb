@@ -179,7 +179,7 @@ return {
                   {
                     "kind": "ScalarField",
                     "alias": null,
-                    "name": "releaseYear",
+                    "name": "releaseDate",
                     "args": null,
                     "storageKey": null
                   },
@@ -250,7 +250,7 @@ return {
     "operationKind": "query",
     "name": "HomeQuery",
     "id": null,
-    "text": "query HomeQuery {\n  ...Soundtracks_query\n  ...LatestSoundtracks_soundtracks\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposers {\n    edges {\n      node {\n        composer {\n          fullName\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment LatestSoundtracks_soundtracks on Query {\n  latestSoundtracks: soundtracks(orderBy: CREATED_AT_DESC, first: 10) {\n    edges {\n      node {\n        createdAt\n        id\n        title\n        ...Composer_soundtrack\n      }\n    }\n  }\n}\n\nfragment Soundtracks_query on Query {\n  soundtracks(orderBy: TITLE_ASC) {\n    edges {\n      node {\n        id\n        title\n        releaseYear\n        ...Composer_soundtrack\n      }\n    }\n  }\n}\n",
+    "text": "query HomeQuery {\n  ...Soundtracks_query\n  ...LatestSoundtracks_soundtracks\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposers {\n    edges {\n      node {\n        composer {\n          fullName\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment LatestSoundtracks_soundtracks on Query {\n  latestSoundtracks: soundtracks(orderBy: CREATED_AT_DESC, first: 10) {\n    edges {\n      node {\n        createdAt\n        id\n        title\n        ...Composer_soundtrack\n      }\n    }\n  }\n}\n\nfragment Soundtracks_query on Query {\n  soundtracks(orderBy: TITLE_ASC) {\n    edges {\n      node {\n        id\n        title\n        releaseDate\n        ...Composer_soundtrack\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

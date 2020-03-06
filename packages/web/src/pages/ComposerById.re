@@ -3,13 +3,13 @@ module ComposerByIdQuery = [%relay.query
   query ComposerByIdQuery($id: ID!) {
     composerById(id: $id) {
       fullName
-      soundtrackComposers(orderBy: SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC) {
+      soundtrackComposers(orderBy: SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_DATE_DESC) {
         edges {
           node {
             soundtrack {
               id
               title
-              releaseYear
+              releaseDate
             }
           }
         }
@@ -48,7 +48,7 @@ let make = (~id) => {
                   switch (node) {
                   | Some({soundtrack}) =>
                     switch (soundtrack) {
-                    | Some({id, title, releaseYear}) =>
+                    | Some({id, title, releaseDate}) =>
                       <Link.Internal path={Route.Soundtrack(id)} key=id>
                         <li
                           className="py-3 border-b border-gray-300 flex items-center justify-between">
@@ -56,7 +56,7 @@ let make = (~id) => {
                           <div
                             className="text-right text-sm text-gray-500
                             font-variant-tabular">
-                            <DateTime date=releaseYear />
+                            <DateTime date=releaseDate />
                           </div>
                         </li>
                       </Link.Internal>

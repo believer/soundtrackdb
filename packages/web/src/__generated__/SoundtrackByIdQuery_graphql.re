@@ -210,7 +210,7 @@ return {
           {
             "kind": "ScalarField",
             "alias": null,
-            "name": "releaseYear",
+            "name": "releaseDate",
             "args": null,
             "storageKey": null
           },
@@ -327,7 +327,7 @@ return {
     "operationKind": "query",
     "name": "SoundtrackByIdQuery",
     "id": null,
-    "text": "query SoundtrackByIdQuery(\n  $id: ID!\n) {\n  soundtrackById(id: $id) {\n    title\n    ...Composer_soundtrack\n    ...TrackList_soundtrack\n    id\n  }\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposers {\n    edges {\n      node {\n        composer {\n          fullName\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment SoundtrackMeta_data on Soundtrack {\n  imdbId\n  spotifyId\n  releaseYear\n}\n\nfragment TrackList_soundtrack on Soundtrack {\n  ...SoundtrackMeta_data\n  tracks(orderBy: TRACK_NUMBER_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        title\n        duration\n        trackNumber\n        trackComposers {\n          totalCount\n          edges {\n            node {\n              composer {\n                id\n                fullName\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+    "text": "query SoundtrackByIdQuery(\n  $id: ID!\n) {\n  soundtrackById(id: $id) {\n    title\n    ...Composer_soundtrack\n    ...TrackList_soundtrack\n    id\n  }\n}\n\nfragment Composer_soundtrack on Soundtrack {\n  soundtrackComposers {\n    edges {\n      node {\n        composer {\n          fullName\n          id\n        }\n        id\n      }\n    }\n  }\n}\n\nfragment SoundtrackMeta_data on Soundtrack {\n  imdbId\n  spotifyId\n  releaseDate\n}\n\nfragment TrackList_soundtrack on Soundtrack {\n  ...SoundtrackMeta_data\n  tracks(orderBy: TRACK_NUMBER_ASC) {\n    totalCount\n    edges {\n      node {\n        id\n        title\n        duration\n        trackNumber\n        trackComposers {\n          totalCount\n          edges {\n            node {\n              composer {\n                id\n                fullName\n              }\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
     "metadata": {}
   }
 };

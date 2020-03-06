@@ -6,7 +6,7 @@ module Types = {
   type soundtrack = {
     id: string,
     title: string,
-    releaseYear: string,
+    releaseDate: string,
   };
   type node = {soundtrack: option(soundtrack)};
   type edges = {node: option(node)};
@@ -86,7 +86,7 @@ v3 = [
   {
     "kind": "Literal",
     "name": "orderBy",
-    "value": "SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC"
+    "value": "SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_DATE_DESC"
   }
 ],
 v4 = {
@@ -116,7 +116,7 @@ v5 = {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "releaseYear",
+      "name": "releaseDate",
       "args": null,
       "storageKey": null
     }
@@ -152,7 +152,7 @@ return {
             "kind": "LinkedField",
             "alias": null,
             "name": "soundtrackComposers",
-            "storageKey": "soundtrackComposers(orderBy:\"SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC\")",
+            "storageKey": "soundtrackComposers(orderBy:\"SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_DATE_DESC\")",
             "args": (v3/*: any*/),
             "concreteType": "SoundtrackComposersConnection",
             "plural": false,
@@ -206,7 +206,7 @@ return {
             "kind": "LinkedField",
             "alias": null,
             "name": "soundtrackComposers",
-            "storageKey": "soundtrackComposers(orderBy:\"SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC\")",
+            "storageKey": "soundtrackComposers(orderBy:\"SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_DATE_DESC\")",
             "args": (v3/*: any*/),
             "concreteType": "SoundtrackComposersConnection",
             "plural": false,
@@ -247,7 +247,7 @@ return {
     "operationKind": "query",
     "name": "ComposerByIdQuery",
     "id": null,
-    "text": "query ComposerByIdQuery(\n  $id: ID!\n) {\n  composerById(id: $id) {\n    fullName\n    soundtrackComposers(orderBy: SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_YEAR_DESC) {\n      edges {\n        node {\n          soundtrack {\n            id\n            title\n            releaseYear\n          }\n          id\n        }\n      }\n      totalCount\n    }\n    id\n  }\n}\n",
+    "text": "query ComposerByIdQuery(\n  $id: ID!\n) {\n  composerById(id: $id) {\n    fullName\n    soundtrackComposers(orderBy: SOUNDTRACK_BY_SOUNDTRACK_ID__RELEASE_DATE_DESC) {\n      edges {\n        node {\n          soundtrack {\n            id\n            title\n            releaseDate\n          }\n          id\n        }\n      }\n      totalCount\n    }\n    id\n  }\n}\n",
     "metadata": {}
   }
 };
