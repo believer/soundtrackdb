@@ -2,6 +2,7 @@ module SoundtrackByIdQuery = [%relay.query
   {|
   query SoundtrackByIdQuery($id: ID!) {
     soundtrackById(id: $id) {
+      id
       title
       ...Composer_soundtrack
       ...TrackList_soundtrack

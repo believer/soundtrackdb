@@ -11,6 +11,7 @@ let make = () => {
      | Some(Soundtrack(id)) => <SoundtrackById id />
      | Some(AddSoundtrack) => <AddSoundtrack />
      | Some(Stats) => <Stats />
+     | Some(Year(year)) => <YearByYear year />
      | None => <div> {React.string("404")} </div>
      }}
   </div>;

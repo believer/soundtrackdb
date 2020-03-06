@@ -7,6 +7,7 @@ module Types = {
     id: string,
     title: string,
     releaseDate: string,
+    year: option(string),
     getFragmentRefs:
       unit =>
       {
@@ -25,7 +26,7 @@ type fragment = {soundtracks: option(soundtracks)};
 module Internal = {
   type fragmentRaw;
   let fragmentConverter: Js.Dict.t(Js.Dict.t(Js.Dict.t(string))) = [%raw
-    {| {"__root":{"soundtracks":{"n":""},"soundtracks_edges_node":{"n":"","f":""}}} |}
+    {| {"__root":{"soundtracks":{"n":""},"soundtracks_edges_node":{"n":"","f":""},"soundtracks_edges_node_year":{"n":""}}} |}
   ];
   let fragmentConverterMap = ();
   let convertFragment = v =>
@@ -106,6 +107,13 @@ let node: operationType = [%bs.raw
                   "kind": "ScalarField",
                   "alias": null,
                   "name": "releaseDate",
+                  "args": null,
+                  "storageKey": null
+                },
+                {
+                  "kind": "ScalarField",
+                  "alias": null,
+                  "name": "year",
                   "args": null,
                   "storageKey": null
                 },
