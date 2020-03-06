@@ -25,10 +25,10 @@ let make = (~query as queryRef) => {
       <div className="text-xs text-gray-600">
         {React.string("Total duration")}
       </div>
-      <div className="font-bold text-6xl">
+      <div className="font-bold text-4xl">
         {data.stats.totalDuration
          ->Belt.Int.fromFloat
-         ->Duration.make
+         ->Duration.Long.make
          ->React.string}
       </div>
     </div>
