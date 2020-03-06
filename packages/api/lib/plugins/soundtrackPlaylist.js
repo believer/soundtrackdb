@@ -4,16 +4,15 @@ const cheerio = require('cheerio')
 
 const cleanTitle = title =>
   title
-    .toLowerCase()
-    .replace(' - original score', '')
-    .replace(' - original motion picture score')
+    .replace(' - Original Score', '')
+    .replace(' - Original Motion Picture Score', '')
 
 const getSpotifyId = async (title, composer) => {
   const {
     body: { tracks: [spotify] = [] },
   } = await got(
     `https://wejay.willcodefor.beer/search?q=album:${encodeURI(
-      cleanTitle(title)
+      title
     )}%20artist:${encodeURI(composer)}`,
     { responseType: 'json' }
   )
@@ -23,7 +22,7 @@ const getSpotifyId = async (title, composer) => {
 
 const getIMDbId = async title => {
   const { body: imdbData } = await got(
-    `https://www.imdb.com/find?q=${encodeURI(cleanTitle(title))}`
+    `https://www.imdb.com/find?q=${encodeURI(title)}`
   )
   const $ = cheerio.load(imdbData)
 
@@ -113,7 +112,7 @@ const SoundtrackPlaylistPlugin = makeExtendSchemaPlugin(() => {
           const { body } = await got(url)
           const $ = cheerio.load(body)
 
-          const title = $('#titlebox h1').text()
+          const title = cleanTitle($('#titlebox h1').text())
           const imdbId = await getIMDbId(title)
           const releaseDate = await getReleaseDate($)
           const playlist = await getPlaylist($)
