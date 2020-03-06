@@ -95,12 +95,11 @@ const StatsPlugin = makeExtendSchemaPlugin(() => {
         years: async (_query, args, { pgClient }) => {
           const { rows } = await pgClient.query(`
             SELECT
-              EXTRACT(YEAR FROM release_year) AS "year",
+              year,
               COUNT(*)
             FROM soundtrack
-            GROUP BY
-              EXTRACT(YEAR FROM release_year)
-            ORDER BY YEAR;
+            GROUP BY year
+            ORDER BY year;
           `)
 
           return rows
