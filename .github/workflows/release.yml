@@ -16,7 +16,7 @@ jobs:
 
     - name: Run tests and linting
       run: |
-        yarn global add lerna
+        npm i -g lerna
         yarn
         lerna bootstrap
         lerna run build
