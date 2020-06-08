@@ -25,7 +25,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        npm i -g lerna
+        yarn global add lerna
         lerna bootstrap
       env:
         CI: true
@@ -38,6 +38,6 @@ jobs:
 
     - name: Run tests
       run: |
-        npm test
+        yarn test
       env:
         CI: true

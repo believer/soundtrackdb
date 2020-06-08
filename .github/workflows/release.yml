@@ -16,11 +16,11 @@ jobs:
 
     - name: Run tests and linting
       run: |
-        npm i -g lerna
-        npm ci
+        yarn global add lerna
+        yarn
         lerna bootstrap
         lerna run build
-        npm test
+        yarn test
       env:
         CI: true
 
