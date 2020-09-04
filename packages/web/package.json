@@ -14,7 +14,7 @@
     "generate": "npx get-graphql-schema http://localhost:5000/graphql > schema.graphql"
   },
   "resolutions": {
-    "react": "0.0.0-experimental-f6b8d31a7",
+    "react": "0.14.0",
     "react-dom": "0.0.0-experimental-f6b8d31a7"
   },
   "keywords": [
@@ -31,7 +31,7 @@
     "graphql": "14.6.0",
     "re-classnames": "^4.1.0",
     "re-formality": "^3.2.0",
-    "react": "0.0.0-experimental-f6b8d31a7",
+    "react": "0.14.0",
     "react-dom": "0.0.0-experimental-f6b8d31a7",
     "react-relay": "0.0.0-experimental-5f1cb628",
     "reason-react": "0.7.0",
